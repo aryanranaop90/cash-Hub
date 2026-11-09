@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>CASH HUB | Earn, Complete, Promote & Redeem</title>
 
-  <!-- PWA & Mobile Meta -->
+  <!-- PWA & Web Meta -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="theme-color" content="#121a2d" />
@@ -1075,9 +1075,7 @@
       cursor: pointer;
     }
 
-    /* ============================================================
-       TOP-NOTCH UNIFIED WALLET DESIGN
-       ============================================================ */
+    /* WALLET DESIGN */
     .wallet-hero-card {
       background: var(--wallet-card-bg);
       border-radius: 26px;
@@ -1291,7 +1289,7 @@
       margin-top: 1px;
     }
 
-    /* iOS BOTTOM TAB BAR */
+    /* BOTTOM TAB BAR */
     nav.bottom-nav {
       position: fixed;
       bottom: calc(14px + env(safe-area-inset-bottom));
@@ -1637,7 +1635,7 @@
           <small id="mathSubLabel" style="font-size:0.65rem; color:var(--cyan-dark); font-weight:700;">1-50 Coins</small>
         </div>
 
-        <!-- WATCH AD LINK WITH RELIABLE DIRECT EXTERNAL CHROME ACTION_VIEW TRIGGER -->
+        <!-- WATCH AD BUTTON -->
         <div class="game-action-btn" id="btnWatchAdAction" onclick="handleWatchAdClick(event)">
           <div class="game-action-icon" style="color:var(--danger); background:#fee2e2;">
             <i class="fa-solid fa-circle-play"></i>
@@ -1956,7 +1954,7 @@
     </section>
   </main>
 
-  <!-- iOS BOTTOM TAB BAR -->
+  <!-- BOTTOM TAB BAR -->
   <nav class="bottom-nav">
     <div class="nav-tab active" onclick="playAudio('tap'); switchNav('home')">
       <i class="fa-solid fa-house"></i>
@@ -1988,7 +1986,7 @@
         <span style="font-size:1.5rem; cursor:pointer;" onclick="closeModal('qrCodeModal')">&times;</span>
       </div>
       <p style="font-size:0.8rem; color:var(--text-dim); margin-bottom:16px;">
-        Show this QR code to friends. When scanned, it opens the app with your invite code pre-applied!
+        Show this QR code to friends. When scanned, it opens the website with your invite code pre-applied!
       </p>
       <div style="padding:14px; background:#ffffff; border-radius:18px; border:1px solid var(--card-border-cyan); display:inline-block; margin-bottom:16px;">
         <img id="qrCodeImg" src="" alt="Referral QR Code" style="width:200px; height:200px; display:block;" />
@@ -2099,9 +2097,9 @@
         <span style="font-size: 1.5rem; cursor: pointer;" onclick="closeModal('privacyPolicyModal')">&times;</span>
       </div>
       <div style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; display: flex; flex-direction: column; gap: 12px;">
-        <p><strong>1. Redemption Processing:</strong> Payout requests are verified by security protocols and processed within standard cycles.</p>
-        <p><strong>2. Fair Engagement:</strong> Using emulators, bots, or proxies results in account suspension.</p>
-        <p><strong>3. Official App:</strong> Hosted officially at https://taskhub-brown.vercel.app.</p>
+        <p><strong>1. Redemption Processing:</strong> Payout requests are verified by automated security protocols and processed within standard cycles.</p>
+        <p><strong>2. Fair Engagement:</strong> Using emulators, bots, or proxies results in permanent account suspension.</p>
+        <p><strong>3. Official Web Application:</strong> Hosted officially at https://taskhub-brown.vercel.app.</p>
       </div>
       <button class="btn-cyan" style="margin-top:16px;" onclick="closeModal('privacyPolicyModal')">Close Policy</button>
     </div>
@@ -2209,7 +2207,7 @@
     </div>
   </div>
 
-  <!-- TASK ACTION DETAIL MODAL (WITH ACCURATE APP BADGE) -->
+  <!-- TASK ACTION DETAIL MODAL -->
   <div class="modal-overlay" id="taskDetailModal">
     <div class="modal-content">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
@@ -2233,7 +2231,7 @@
       </div>
 
       <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.4; margin-bottom: 18px;" id="modalTaskInstructions">
-        Click below to open the destination directly. Stay for 5 seconds to claim your reward.
+        Click below to visit the destination. Stay on the site for 5 seconds to claim your reward.
       </p>
 
       <button class="btn-cyan" id="btnModalTaskAction" onclick="handleTaskActionClick(event)">
@@ -2386,6 +2384,8 @@
     let activeReferralsList = [];
     let isAudioFxEnabled = true;
     let isProcessingTask = false;
+    let activeTaskStartTime = 0;
+    let activeTaskInterval = null;
 
     // Cooldown timers
     let lastSpinTime = 0;
@@ -2511,7 +2511,7 @@
       } catch (e) {}
     };
 
-    // --- REFINED PROTOCOL & DEEP LINK LAUNCHER ---
+    // --- CLEAN WEB URL NORMALIZER ---
     function extractAndValidateUrl(taskOrUrl) {
       if (!taskOrUrl) return '';
       let raw = '';
@@ -2535,91 +2535,18 @@
       return clean;
     }
 
-    function resolvePlatformLaunchUri(cleanUrl, platformName) {
-      if (!cleanUrl) return OFFICIAL_HOST;
-      const p = (platformName || '').toLowerCase();
-      const urlLower = cleanUrl.toLowerCase();
-
-      try {
-        const parsed = new URL(cleanUrl);
-        const scheme = parsed.protocol.replace(':', '') || 'https';
-        let hostAndPath = parsed.host + (parsed.pathname || '/');
-        if (parsed.search) hostAndPath += parsed.search;
-        if (parsed.hash) hostAndPath += parsed.hash;
-
-        // 1. YouTube Deep Linking (Opens Native YouTube App)
-        if (p === 'youtube' || urlLower.includes('youtube.com') || urlLower.includes('youtu.be')) {
-          return `intent://${hostAndPath}#Intent;scheme=${scheme};package=com.google.android.youtube;S.browser_fallback_url=${encodeURIComponent(cleanUrl)};end;`;
-        }
-
-        // 2. Telegram Deep Linking (Opens Native Telegram App)
-        if (p === 'telegram' || urlLower.includes('t.me') || urlLower.includes('telegram.me')) {
-          return `intent://${hostAndPath}#Intent;scheme=${scheme};package=org.telegram.messenger;S.browser_fallback_url=${encodeURIComponent(cleanUrl)};end;`;
-        }
-
-        // 3. Instagram Deep Linking (Opens Native Instagram App)
-        if (p === 'instagram' || urlLower.includes('instagram.com')) {
-          return `intent://${hostAndPath}#Intent;scheme=${scheme};package=com.instagram.android;S.browser_fallback_url=${encodeURIComponent(cleanUrl)};end;`;
-        }
-
-        // 4. TikTok Deep Linking (Opens Native TikTok App)
-        if (p === 'tiktok' || urlLower.includes('tiktok.com')) {
-          return `intent://${hostAndPath}#Intent;scheme=${scheme};package=com.zhiliaoapp.musically;S.browser_fallback_url=${encodeURIComponent(cleanUrl)};end;`;
-        }
-
-        // 5. X / Twitter Deep Linking (Opens Native X App)
-        if (p === 'x' || p === 'twitter' || urlLower.includes('twitter.com') || urlLower.includes('x.com')) {
-          return `intent://${hostAndPath}#Intent;scheme=${scheme};package=com.twitter.android;S.browser_fallback_url=${encodeURIComponent(cleanUrl)};end;`;
-        }
-
-        // 6. Facebook Deep Linking (Opens Native Facebook App)
-        if (p === 'facebook' || urlLower.includes('facebook.com') || urlLower.includes('fb.watch')) {
-          return `intent://${hostAndPath}#Intent;scheme=${scheme};package=com.facebook.katana;S.browser_fallback_url=${encodeURIComponent(cleanUrl)};end;`;
-        }
-
-        // 7. Direct Link Ad / Web Campaign -> Opens in External Google Chrome Browser!
-        return `intent://${hostAndPath}#Intent;scheme=${scheme};action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.android.chrome;S.browser_fallback_url=${encodeURIComponent(cleanUrl)};end;`;
-      } catch (e) {
-        return cleanUrl;
-      }
-    }
-
-    window.openSmartDestination = function(rawUrl, platformName) {
+    // Opens link in external new tab, keeping current site unrefreshed and intact
+    window.openWebDestination = function(rawUrl) {
       const cleanUrl = extractAndValidateUrl(rawUrl);
       if (!cleanUrl) {
-        displayToast('Campaign link is invalid or unavailable.');
+        displayToast('Link is invalid or unavailable.');
         return false;
       }
-
-      // Check native Android bridges (if running in an APK wrapper)
-      const bridges = [window.Android, window.AndroidInterface, window.JSInterface, window.WebAppInterface];
-      for (const b of bridges) {
-        if (b) {
-          if (typeof b.openExternalBrowser === 'function') { b.openExternalBrowser(cleanUrl); return true; }
-          if (typeof b.openBrowser === 'function') { b.openBrowser(cleanUrl); return true; }
-          if (typeof b.openInChrome === 'function') { b.openInChrome(cleanUrl); return true; }
-          if (typeof b.openExternal === 'function') { b.openExternal(cleanUrl); return true; }
-          if (typeof b.launchBrowser === 'function') { b.launchBrowser(cleanUrl); return true; }
-        }
-      }
-
-      const isAndroid = /Android/i.test(navigator.userAgent);
-      if (isAndroid) {
-        const intentUri = resolvePlatformLaunchUri(cleanUrl, platformName);
-        try {
-          window.location.href = intentUri;
-        } catch (e) {
-          window.open(cleanUrl, '_blank');
-        }
-        return true;
-      }
-
-      // Website / Desktop / iOS Fallback
       window.open(cleanUrl, '_blank', 'noopener,noreferrer');
       return true;
     };
 
-    // Synchronous handler for "Watch Ad" click event
+    // Synchronous handler for "Watch Ad"
     window.handleWatchAdClick = function(event) {
       playAudio('tap');
       if (isProcessingTask) return;
@@ -2630,15 +2557,15 @@
 
       const rawAdUrl = extractAndValidateUrl(appSettings.directLinkAdUrl || appSettings.adminShareLink || OFFICIAL_HOST);
       if (!rawAdUrl) {
-        displayToast('Ad URL is currently updating. Try again shortly.');
+        displayToast('Ad link is currently being updated. Try again shortly.');
         return;
       }
 
       isProcessingTask = true;
-      displayToast('Opening ad in Chrome browser...');
-      
-      openSmartDestination(rawAdUrl, 'ad');
+      displayToast('Opening sponsored ad in new tab...');
+      openWebDestination(rawAdUrl);
 
+      // 5-second reward verification countdown
       setTimeout(async () => {
         const reward = 10;
         await creditUserCoins(reward, 'Rewarded Video Ad');
@@ -2648,7 +2575,7 @@
       }, 5000);
     };
 
-    // Synchronous handler for task detail "Start Mission" click event
+    // Synchronous handler for task modal "Start Mission"
     window.handleTaskActionClick = function(event) {
       playAudio('tap');
       if (isProcessingTask || !currentAuthUser || !activeTaskPayload) return;
@@ -2659,19 +2586,124 @@
         return;
       }
 
-      const platform = activeTaskPayload.platform || (activeTaskPayload.type === 'click' ? 'ad' : '');
-
-      openSmartDestination(targetUrl, platform);
-
+      // Open destination in external tab - current tab does NOT refresh
+      openWebDestination(targetUrl);
       closeModal('taskDetailModal');
       startMissionVerification(activeTaskPayload.id, activeTaskPayload);
+    };
+
+    // Background verification handler with visibility/focus support
+    async function startMissionVerification(taskId, task) {
+      isProcessingTask = true;
+      activeTaskStartTime = Date.now();
+
+      const tracker = document.getElementById('taskFloatingTracker');
+      const counter = document.getElementById('floatCountdownNum');
+      let countdown = 5;
+      counter.innerText = '5s';
+      tracker.style.display = 'flex';
+
+      if (activeTaskInterval) clearInterval(activeTaskInterval);
+
+      activeTaskInterval = setInterval(async () => {
+        countdown--;
+        counter.innerText = `${countdown}s`;
+
+        if (countdown <= 0) {
+          clearInterval(activeTaskInterval);
+          activeTaskInterval = null;
+          await completeMissionAward(taskId, task);
+        }
+      }, 1000);
+    }
+
+    async function completeMissionAward(taskId, task) {
+      const tracker = document.getElementById('taskFloatingTracker');
+      if (tracker) tracker.style.display = 'none';
+
+      const historyRef = ref(db, `user_completed_tasks/${currentAuthUser.uid}/${taskId}`);
+      const snap = await get(historyRef);
+      if (snap.exists()) {
+        isProcessingTask = false;
+        return;
+      }
+
+      const campaignRef = ref(db, `platform_campaigns/${taskId}`);
+      await runTransaction(campaignRef, (current) => {
+        if (!current) return current;
+        const updatedClicks = (current.clicksReceived || 0) + 1;
+        const maxClicks = parseInt(current.clicksTarget || 0, 10);
+        if (maxClicks > 0 && updatedClicks >= maxClicks) {
+          current.status = 'completed';
+        }
+        current.clicksReceived = updatedClicks;
+        return current;
+      });
+
+      const reward = parseInt(task.rewardCoins || 10, 10);
+      await set(historyRef, {
+        completedAt: Date.now(),
+        reward: reward
+      });
+
+      const walletRef = ref(db, `wallets/${currentAuthUser.uid}`);
+      await runTransaction(walletRef, (curr) => {
+        if (!curr) return { coins: reward, tasksDone: 1, updatedAt: Date.now() };
+        return {
+          ...curr,
+          coins: parseInt(curr.coins || 0, 10) + reward,
+          tasksDone: parseInt(curr.tasksDone || 0, 10) + 1,
+          updatedAt: Date.now()
+        };
+      });
+
+      await push(ref(db, 'coin_transactions'), {
+        uid: currentAuthUser.uid,
+        amount: reward,
+        type: 'credit',
+        source: task.title || 'Mission Reward',
+        timestamp: Date.now()
+      });
+
+      // Animate and remove card smoothly without reloading the page
+      const completedCard = document.getElementById(`task_card_${taskId}`);
+      if (completedCard) {
+        completedCard.classList.add('task-completed-anim');
+        setTimeout(() => completedCard.remove(), 350);
+      }
+
+      playAudio('coin');
+      displayToast(`Verified! +${reward} Coins credited and mission cleared.`);
+      isProcessingTask = false;
+    }
+
+    // Tab return check: When user clicks back or switches tabs, instantly awards points if 5s passed
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && isProcessingTask && activeTaskPayload) {
+        const elapsed = (Date.now() - activeTaskStartTime) / 1000;
+        if (elapsed >= 5 && activeTaskInterval) {
+          clearInterval(activeTaskInterval);
+          activeTaskInterval = null;
+          completeMissionAward(activeTaskPayload.id, activeTaskPayload);
+        }
+      }
+    });
+
+    window.cancelMissionTracker = function() {
+      if (activeTaskInterval) {
+        clearInterval(activeTaskInterval);
+        activeTaskInterval = null;
+      }
+      isProcessingTask = false;
+      document.getElementById('taskFloatingTracker').style.display = 'none';
+      displayToast('Mission tracking cancelled.');
     };
 
     // Popup announcement click handler
     window.triggerPopupAction = function(event) {
       closePopupBanner();
       if (currentPopupTarget) {
-        openSmartDestination(currentPopupTarget, 'ad');
+        openWebDestination(currentPopupTarget);
       }
     };
 
@@ -2705,6 +2737,7 @@
       startCooldownMonitoring();
     });
 
+    // Capture referral code from URL parameters (?ref=CODE or ?r=CODE)
     function captureReferralCode() {
       const urlParams = new URLSearchParams(window.location.search);
       const refCode = urlParams.get('ref') || urlParams.get('r');
@@ -3460,7 +3493,7 @@
                 <div class="task-icon-box ${pConfig.brandClass}">${iconElement}</div>
                 <div class="task-info">
                   <div class="task-title">${t.title || t.channelName}</div>
-                  <div class="task-desc">${t.description || (category === 'follow' ? 'Follow official channel in app' : 'Open destination for 5s & earn')}</div>
+                  <div class="task-desc">${t.description || 'Visit link for 5s & earn'}</div>
                   <div class="task-progress-mini"><i class="fa-solid fa-users"></i> ${spotsLeft} spots remaining</div>
                 </div>
                 <div class="task-reward-box">
@@ -3656,114 +3689,10 @@
       iconBox.className = `task-icon-box ${pConfig.brandClass}`;
       iconBox.innerHTML = pConfig.icon;
 
-      const isSocialApp = ['youtube', 'instagram', 'telegram', 'tiktok', 'x', 'facebook', 'discord'].includes((task.platform || '').toLowerCase());
-      document.getElementById('btnModalTaskActionText').innerText = isSocialApp ? `Open in ${pConfig.name} App` : 'Open in Chrome';
-
-      document.getElementById('modalTaskInstructions').innerText = task.instructions || (
-        isSocialApp
-          ? `Click below to launch the official ${pConfig.name} application. Stay for 5 seconds to claim your coins.`
-          : `Click below to visit the sponsored link in your phone's external browser. Stay for 5 seconds to receive your coins.`
-      );
+      document.getElementById('btnModalTaskActionText').innerText = 'Start Mission';
+      document.getElementById('modalTaskInstructions').innerText = task.instructions || 'Click below to visit the destination link. Stay on the site for 5 seconds to claim your coins.';
 
       openModal('taskDetailModal');
-    };
-
-    let activeTaskInterval = null;
-
-    async function startMissionVerification(taskId, task) {
-      const historyRef = ref(db, `user_completed_tasks/${currentAuthUser.uid}/${taskId}`);
-      const snap = await get(historyRef);
-      if (snap.exists()) {
-        displayToast('You have already completed this mission!');
-        return;
-      }
-
-      const campaignRef = ref(db, `platform_campaigns/${taskId}`);
-      const campSnap = await get(campaignRef);
-      if (campSnap.exists()) {
-        const cData = campSnap.val();
-        const maxClicks = parseInt(cData.clicksTarget || 0, 10);
-        const currClicks = parseInt(cData.clicksReceived || 0, 10);
-        if (maxClicks > 0 && currClicks >= maxClicks) {
-          displayToast('Quota reached! This mission is completed.');
-          return;
-        }
-      }
-
-      // Launch Floating 5-Second Verification Tracker
-      const tracker = document.getElementById('taskFloatingTracker');
-      const counter = document.getElementById('floatCountdownNum');
-      let countdown = 5;
-      counter.innerText = '5s';
-      tracker.style.display = 'flex';
-
-      if (activeTaskInterval) clearInterval(activeTaskInterval);
-
-      activeTaskInterval = setInterval(async () => {
-        countdown--;
-        counter.innerText = `${countdown}s`;
-
-        if (countdown <= 0) {
-          clearInterval(activeTaskInterval);
-          activeTaskInterval = null;
-          tracker.style.display = 'none';
-
-          await runTransaction(campaignRef, (current) => {
-            if (!current) return current;
-            const updatedClicks = (current.clicksReceived || 0) + 1;
-            const maxClicks = parseInt(current.clicksTarget || 0, 10);
-
-            if (maxClicks > 0 && updatedClicks >= maxClicks) {
-              current.status = 'completed';
-            }
-            current.clicksReceived = updatedClicks;
-            return current;
-          });
-
-          const reward = parseInt(task.rewardCoins || 10, 10);
-          await set(historyRef, {
-            completedAt: Date.now(),
-            reward: reward
-          });
-
-          const walletRef = ref(db, `wallets/${currentAuthUser.uid}`);
-          await runTransaction(walletRef, (curr) => {
-            if (!curr) return { coins: reward, tasksDone: 1, updatedAt: Date.now() };
-            return {
-              ...curr,
-              coins: parseInt(curr.coins || 0, 10) + reward,
-              tasksDone: parseInt(curr.tasksDone || 0, 10) + 1,
-              updatedAt: Date.now()
-            };
-          });
-
-          await push(ref(db, 'coin_transactions'), {
-            uid: currentAuthUser.uid,
-            amount: reward,
-            type: 'credit',
-            source: task.title || 'Mission Reward',
-            timestamp: Date.now()
-          });
-
-          const completedCard = document.getElementById(`task_card_${taskId}`);
-          if (completedCard) {
-            completedCard.classList.add('task-completed-anim');
-            setTimeout(() => completedCard.remove(), 350);
-          }
-
-          playAudio('coin');
-          displayToast(`Verified! +${reward} Coins credited and mission cleared.`);
-        }
-      }, 1000);
-    }
-
-    window.cancelMissionTracker = function() {
-      if (activeTaskInterval) {
-        clearInterval(activeTaskInterval);
-        activeTaskInterval = null;
-      }
-      document.getElementById('taskFloatingTracker').style.display = 'none';
-      displayToast('Mission tracking cancelled.');
     };
 
     window.filterTaskCategory = function(cat, pillEl) {
@@ -4161,7 +4090,7 @@
         if (navigator.share) {
           navigator.share({
             title: appSettings.appName || 'Cash Hub Official',
-            text: `Download & explore ${appSettings.appName || 'Cash Hub'}:`,
+            text: `Explore ${appSettings.appName || 'Cash Hub'}:`,
             url: officialLink
           }).catch(() => {});
         } else {
