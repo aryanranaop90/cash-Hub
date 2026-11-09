@@ -23,17 +23,14 @@
       --card-white: #ffffff;
       --card-border: #e2e8f0;
       --card-border-cyan: #bae6fd;
-
       --cyan-primary: #00b4d8;
       --cyan-hover: #0096c7;
       --cyan-dark: #0077b6;
       --cyan-soft: #e0f7fa;
       --cyan-gradient: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
       --cyan-glow: rgba(0, 180, 216, 0.25);
-
       --blue-accent: #2563eb;
       --blue-gradient: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
-
       --wallet-card-bg: linear-gradient(145deg, #172036 0%, #0f1523 100%);
       --text-dark: #0f172a;
       --text-dim: #475569;
@@ -42,7 +39,6 @@
       --gold-soft: #fef3c7;
       --danger: #ef4444;
       --success: #10b981;
-
       --radius-sm: 10px;
       --radius-md: 16px;
       --radius-lg: 24px;
@@ -51,7 +47,6 @@
       --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
       --transition: cubic-bezier(0.16, 1, 0.3, 1);
     }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -59,7 +54,6 @@
       -webkit-tap-highlight-color: transparent;
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-
     body {
       background: var(--bg-base);
       color: var(--text-dark);
@@ -68,7 +62,6 @@
       padding-bottom: calc(90px + env(safe-area-inset-bottom));
       user-select: none;
     }
-
     .app-card {
       background: var(--card-white);
       border: 1px solid var(--card-border);
@@ -82,8 +75,6 @@
       border-color: var(--card-border-cyan);
       box-shadow: var(--shadow-md);
     }
-
-    /* TOP HEADER */
     header.ios-nav {
       position: sticky;
       top: 0;
@@ -98,12 +89,7 @@
       justify-content: space-between;
       box-shadow: 0 2px 12px rgba(0, 180, 216, 0.04);
     }
-    .header-balance-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .header-app-brand {
+    .header-balance-wrap, .header-app-brand, .header-right-actions {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -147,16 +133,7 @@
       50% { transform: scale(1.2); color: var(--gold); }
       100% { transform: scale(1); color: var(--text-dark); }
     }
-    .header-fiat-val {
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--cyan-dark);
-    }
-    .header-right-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .header-fiat-val { font-size: 0.76rem; font-weight: 700; color: var(--cyan-dark); }
     .btn-header-payout {
       background: var(--cyan-gradient);
       color: #ffffff;
@@ -187,12 +164,7 @@
       font-size: 0.95rem;
       overflow: hidden;
     }
-    .btn-profile-badge img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
+    .btn-profile-badge img { width: 100%; height: 100%; object-fit: cover; }
     main {
       position: relative;
       z-index: 1;
@@ -200,31 +172,30 @@
       max-width: 580px;
       margin: 0 auto;
     }
-    .view-panel {
-      display: none;
-      animation: fadeIn 0.24s var(--transition);
-    }
-    .view-panel.active-view {
-      display: block;
-    }
+    .view-panel { display: none; animation: fadeIn 0.24s var(--transition); }
+    .view-panel.active-view { display: block; }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    /* 7-DAY LOGIN STREAK */
-    .streak-container { padding: 18px 16px; }
-    .streak-header {
+    /* AD SLOTS */
+    .ad-banner-slot {
+      margin: 10px 0 16px 0;
+      border-radius: 16px;
+      overflow: hidden;
+      min-height: 50px;
+      background: rgba(0, 180, 216, 0.03);
+      border: 1px dashed var(--card-border-cyan);
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      justify-content: center;
+      text-align: center;
     }
-    .streak-title {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--text-dark);
-    }
+    .ad-banner-slot:empty { display: none; }
+    /* STREAK */
+    .streak-container { padding: 18px 16px; }
+    .streak-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .streak-title { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); }
     .streak-badge-pill {
       font-size: 0.72rem;
       font-weight: 800;
@@ -244,10 +215,7 @@
       scrollbar-color: var(--card-border-cyan) transparent;
     }
     .streak-row-scroll::-webkit-scrollbar { height: 5px; }
-    .streak-row-scroll::-webkit-scrollbar-thumb {
-      background: var(--card-border-cyan);
-      border-radius: 10px;
-    }
+    .streak-row-scroll::-webkit-scrollbar-thumb { background: var(--card-border-cyan); border-radius: 10px; }
     .streak-day-card {
       flex: 0 0 84px;
       background: var(--bg-subtle);
@@ -267,20 +235,12 @@
       box-shadow: 0 4px 14px rgba(16, 185, 129, 0.2);
       transform: translateY(-2px);
     }
-    .streak-day-card.claimed {
-      opacity: 0.5;
-      background: #f1f5f9;
-      border-color: #cbd5e1;
-    }
+    .streak-day-card.claimed { opacity: 0.5; background: #f1f5f9; border-color: #cbd5e1; }
     .streak-day-card.day-7-jackpot {
       border-color: var(--gold);
       background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
     }
-    .streak-day-title {
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: var(--text-dim);
-    }
+    .streak-day-title { font-size: 0.72rem; font-weight: 800; color: var(--text-dim); }
     .streak-coin-badge {
       width: 32px;
       height: 32px;
@@ -293,12 +253,7 @@
       place-items: center;
       border: 1px solid rgba(245, 158, 11, 0.35);
     }
-    .streak-reward-val {
-      font-size: 0.85rem;
-      font-weight: 800;
-      color: var(--text-dark);
-    }
-
+    .streak-reward-val { font-size: 0.85rem; font-weight: 800; color: var(--text-dark); }
     .btn-cyan {
       width: 100%;
       background: var(--cyan-gradient);
@@ -318,13 +273,7 @@
       text-decoration: none;
     }
     .btn-cyan:active { transform: scale(0.97); }
-    .btn-cyan:disabled {
-      background: #cbd5e1;
-      box-shadow: none;
-      cursor: not-allowed;
-      transform: none;
-    }
-
+    .btn-cyan:disabled { background: #cbd5e1; box-shadow: none; cursor: not-allowed; transform: none; }
     .hero-earn-duo-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -357,16 +306,8 @@
       font-size: 1.3rem;
       color: #fff;
     }
-    .hero-title-text {
-      font-size: 1rem;
-      font-weight: 800;
-      letter-spacing: -0.3px;
-    }
-    .hero-sub-text {
-      font-size: 0.72rem;
-      opacity: 0.9;
-      line-height: 1.2;
-    }
+    .hero-title-text { font-size: 1rem; font-weight: 800; letter-spacing: -0.3px; }
+    .hero-sub-text { font-size: 0.72rem; opacity: 0.9; line-height: 1.2; }
     .hero-reward-pill {
       margin-top: 4px;
       background: rgba(0, 0, 0, 0.2);
@@ -378,8 +319,6 @@
       align-items: center;
       gap: 4px;
     }
-
-    /* GAME GRID WITH TIMERS */
     .game-actions-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -422,12 +361,7 @@
       border-radius: var(--pill);
       display: none;
     }
-    .game-action-label {
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: var(--text-dark);
-    }
-
+    .game-action-label { font-size: 0.72rem; font-weight: 800; color: var(--text-dark); }
     .promocode-card {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       color: #fff;
@@ -435,11 +369,7 @@
       padding: 18px;
       margin-bottom: 18px;
     }
-    .promocode-input-wrap {
-      display: flex;
-      gap: 8px;
-      margin-top: 10px;
-    }
+    .promocode-input-wrap { display: flex; gap: 8px; margin-top: 10px; }
     .promocode-input {
       flex: 1;
       padding: 12px 16px;
@@ -463,7 +393,6 @@
       cursor: pointer;
       font-size: 0.85rem;
     }
-
     .task-cat-tabs {
       display: flex;
       gap: 8px;
@@ -491,8 +420,6 @@
       border-color: var(--cyan-primary);
       box-shadow: 0 4px 12px var(--cyan-glow);
     }
-
-    /* PLATFORM BRAND BADGES */
     .task-row {
       padding: 14px 16px;
       display: flex;
@@ -537,11 +464,7 @@
     .task-icon-box.brand-facebook { background: #eff6ff; color: #2563eb; border-color: #bfdbfe; }
     .task-icon-box.brand-discord { background: #eef2ff; color: #6366f1; border-color: #c7d2fe; }
     .task-icon-box.brand-ad { background: #fef3c7; color: #d97706; border-color: #fde68a; }
-
-    .task-info {
-      flex: 1;
-      min-width: 0;
-    }
+    .task-info { flex: 1; min-width: 0; }
     .task-title {
       font-size: 0.94rem;
       font-weight: 800;
@@ -558,12 +481,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .task-progress-mini {
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--cyan-dark);
-      margin-top: 3px;
-    }
+    .task-progress-mini { font-size: 0.7rem; font-weight: 700; color: var(--cyan-dark); margin-top: 3px; }
     .task-reward-box { text-align: right; }
     .task-reward-tag {
       font-weight: 800;
@@ -584,8 +502,7 @@
       font-weight: 800;
       border: none;
     }
-
-    /* FLOATING 5-SECOND MISSION TRACKER */
+    /* FLOATING VERIFICATION TRACKER */
     #taskFloatingTracker {
       position: fixed;
       bottom: 96px;
@@ -620,19 +537,9 @@
       from { transform: scale(0.8); opacity: 0.6; }
       to { transform: scale(1.2); opacity: 1; }
     }
-
-    /* ENHANCED REFERRAL HUB */
-    .referral-header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-    .referral-header-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--text-dark);
-    }
+    /* REFERRAL HUB */
+    .referral-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .referral-header-title { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); }
     .btn-referral-history {
       width: 40px;
       height: 40px;
@@ -655,12 +562,7 @@
       overflow: hidden;
       margin-bottom: 16px;
     }
-    .refer-hero-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
+    .refer-hero-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
     .badge-per-friend {
       background: rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.3);
@@ -694,19 +596,8 @@
       color: var(--text-dark);
       margin-bottom: 14px;
     }
-    .code-inner-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      display: block;
-      margin-bottom: 4px;
-    }
-    .code-inner-val {
-      font-size: 1.55rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-      color: var(--cyan-dark);
-    }
+    .code-inner-label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px; }
+    .code-inner-val { font-size: 1.55rem; font-weight: 800; letter-spacing: 2px; color: var(--cyan-dark); }
     .btn-copy-code {
       background: var(--cyan-soft);
       border: 1px solid var(--card-border-cyan);
@@ -720,11 +611,7 @@
       gap: 6px;
       cursor: pointer;
     }
-    .refer-actions-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+    .refer-actions-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .btn-refer-action {
       background: rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.3);
@@ -739,14 +626,7 @@
       gap: 6px;
       cursor: pointer;
     }
-
-    /* QUICK SOCIAL SHARE BAR */
-    .social-share-quick-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 16px;
-    }
+    .social-share-quick-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
     .social-quick-btn {
       padding: 12px 6px;
       border-radius: 16px;
@@ -771,8 +651,6 @@
       font-size: 1.15rem;
       color: #fff;
     }
-
-    /* OFFICIAL APP SHARE CARD */
     .official-share-card {
       background: var(--card-white);
       border: 1.5px dashed var(--card-border-cyan);
@@ -783,11 +661,7 @@
       flex-direction: column;
       gap: 12px;
     }
-    .official-share-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .official-share-header { display: flex; align-items: center; gap: 12px; }
     .official-share-icon {
       width: 44px;
       height: 44px;
@@ -799,11 +673,7 @@
       font-size: 1.25rem;
       flex-shrink: 0;
     }
-    .official-share-btn-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+    .official-share-btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .btn-sub-share {
       padding: 10px;
       border-radius: var(--pill);
@@ -818,8 +688,7 @@
       background: var(--bg-subtle);
       color: var(--text-dark);
     }
-
-    /* REFERRAL LEADERBOARD CARD */
+    /* LEADERBOARD */
     .leaderboard-card {
       background: var(--card-white);
       border: 1px solid var(--card-border);
@@ -828,12 +697,7 @@
       margin-bottom: 16px;
       box-shadow: var(--shadow-sm);
     }
-    .leaderboard-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
+    .leaderboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
     .leaderboard-title {
       font-size: 1.05rem;
       font-weight: 800;
@@ -842,11 +706,7 @@
       align-items: center;
       gap: 8px;
     }
-    .leaderboard-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .leaderboard-list { display: flex; flex-direction: column; gap: 10px; }
     .leaderboard-row {
       display: flex;
       align-items: center;
@@ -858,11 +718,7 @@
       transition: all 0.2s ease;
     }
     .leaderboard-row:hover { border-color: var(--card-border-cyan); }
-    .leaderboard-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .leaderboard-left { display: flex; align-items: center; gap: 12px; }
     .leaderboard-rank {
       width: 28px;
       height: 28px;
@@ -877,16 +733,8 @@
     .rank-2 { background: #e2e8f0; color: #334155; }
     .rank-3 { background: #fed7aa; color: #9a3412; }
     .rank-default { background: #f1f5f9; color: #64748b; }
-    .leaderboard-user {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-dark);
-    }
-    .leaderboard-refs {
-      font-size: 0.75rem;
-      font-weight: 800;
-      color: var(--cyan-dark);
-    }
+    .leaderboard-user { font-size: 0.85rem; font-weight: 700; color: var(--text-dark); }
+    .leaderboard-refs { font-size: 0.75rem; font-weight: 800; color: var(--cyan-dark); }
     .leaderboard-reward-tag {
       font-size: 0.72rem;
       font-weight: 800;
@@ -895,8 +743,7 @@
       padding: 3px 8px;
       border-radius: var(--pill);
     }
-
-    /* REFERRAL TIERS MILESTONES CARD */
+    /* TIERS */
     .tier-bonus-card {
       background: var(--card-white);
       border: 1px solid var(--card-border);
@@ -905,12 +752,7 @@
       margin-bottom: 16px;
       box-shadow: var(--shadow-sm);
     }
-    .tier-header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
+    .tier-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .badge-tier-count {
       background: var(--cyan-soft);
       color: var(--cyan-dark);
@@ -934,20 +776,8 @@
       width: 0%;
       transition: width 0.3s ease;
     }
-    .tier-progress-label {
-      text-align: right;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-
-    .refer-metrics-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 16px;
-    }
+    .tier-progress-label { text-align: right; font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 14px; }
+    .refer-metrics-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
     .metric-card-box {
       background: var(--card-white);
       border-radius: 20px;
@@ -968,19 +798,8 @@
       background: var(--cyan-soft);
       color: var(--cyan-dark);
     }
-    .metric-data-wrap small {
-      display: block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--text-dim);
-      line-height: 1.2;
-    }
-    .metric-data-wrap strong {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: var(--text-dark);
-    }
-
+    .metric-data-wrap small { display: block; font-size: 0.72rem; font-weight: 600; color: var(--text-dim); line-height: 1.2; }
+    .metric-data-wrap strong { font-size: 1.4rem; font-weight: 800; color: var(--text-dark); }
     .claim-code-card {
       background: var(--card-white);
       border-radius: 20px;
@@ -989,17 +808,8 @@
       margin-bottom: 16px;
       box-shadow: var(--shadow-sm);
     }
-    .claim-code-card h4 {
-      font-size: 1rem;
-      font-weight: 800;
-      color: var(--cyan-dark);
-      margin-bottom: 4px;
-    }
-    .claim-code-card p {
-      font-size: 0.78rem;
-      color: var(--text-dim);
-      margin-bottom: 14px;
-    }
+    .claim-code-card h4 { font-size: 1rem; font-weight: 800; color: var(--cyan-dark); margin-bottom: 4px; }
+    .claim-code-card p { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 14px; }
     .claim-input-row { display: flex; gap: 10px; }
     .claim-code-input {
       flex: 1;
@@ -1024,20 +834,9 @@
       font-size: 0.9rem;
       cursor: pointer;
     }
-
-    /* PROMOTE VIEW FIELDS */
-    .promote-field {
-      margin-bottom: 18px;
-      border-bottom: 1px solid var(--card-border);
-      padding-bottom: 8px;
-    }
-    .promote-field label {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--cyan-dark);
-      margin-bottom: 6px;
-    }
+    /* PROMOTE VIEW */
+    .promote-field { margin-bottom: 18px; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; }
+    .promote-field label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--cyan-dark); margin-bottom: 6px; }
     .promote-field input, .promote-field select {
       width: 100%;
       border: none;
@@ -1059,11 +858,7 @@
       font-size: 0.75rem;
       color: var(--text-dim);
     }
-    .url-example-badge strong {
-      color: var(--cyan-dark);
-      font-family: monospace;
-      font-size: 0.8rem;
-    }
+    .url-example-badge strong { color: var(--cyan-dark); font-family: monospace; font-size: 0.8rem; }
     .btn-apply-template {
       background: var(--cyan-soft);
       color: var(--cyan-dark);
@@ -1074,8 +869,7 @@
       font-weight: 700;
       cursor: pointer;
     }
-
-    /* WALLET DESIGN */
+    /* WALLET */
     .wallet-hero-card {
       background: var(--wallet-card-bg);
       border-radius: 26px;
@@ -1096,32 +890,10 @@
       right: -40px;
       pointer-events: none;
     }
-    .wallet-hero-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 22px;
-    }
-    .wallet-hero-left small {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #8c9cb8;
-      margin-bottom: 4px;
-    }
-    .wallet-balance-num {
-      font-size: 2.3rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: #ffffff;
-      line-height: 1;
-    }
-    .wallet-balance-unit {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--gold);
-      margin-left: 4px;
-    }
+    .wallet-hero-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 22px; }
+    .wallet-hero-left small { display: block; font-size: 0.85rem; font-weight: 600; color: #8c9cb8; margin-bottom: 4px; }
+    .wallet-balance-num { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.5px; color: #ffffff; line-height: 1; }
+    .wallet-balance-unit { font-size: 1.1rem; font-weight: 700; color: var(--gold); margin-left: 4px; }
     .wallet-usd-pill-box {
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -1130,18 +902,8 @@
       text-align: right;
       backdrop-filter: blur(10px);
     }
-    .wallet-usd-pill-box small {
-      display: block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      color: #8c9cb8;
-      margin-bottom: 2px;
-    }
-    .wallet-usd-pill-box strong {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: #ffffff;
-    }
+    .wallet-usd-pill-box small { display: block; font-size: 0.68rem; font-weight: 600; color: #8c9cb8; margin-bottom: 2px; }
+    .wallet-usd-pill-box strong { font-size: 1.25rem; font-weight: 800; color: #ffffff; }
     .wallet-hero-bottom {
       display: flex;
       justify-content: space-between;
@@ -1152,22 +914,9 @@
       font-weight: 600;
       color: #94a3b8;
     }
-    .wallet-hero-bottom-left {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .wallet-hero-bottom-right {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      color: #cbd5e1;
-      transition: color 0.2s ease;
-    }
+    .wallet-hero-bottom-left, .wallet-hero-bottom-right { display: flex; align-items: center; gap: 6px; }
+    .wallet-hero-bottom-right { cursor: pointer; color: #cbd5e1; transition: color 0.2s ease; }
     .wallet-hero-bottom-right:hover { color: #ffffff; }
-
-    /* SECTION BIG TITLES */
     .payout-section-title {
       font-size: 1.45rem;
       font-weight: 800;
@@ -1178,14 +927,7 @@
       align-items: center;
       justify-content: space-between;
     }
-
-    /* 2-COLUMN BIG PAYOUT CARDS GRID */
-    .payout-cards-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 24px;
-    }
+    .payout-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
     .payout-tile-card {
       background: var(--card-white);
       border: 1.5px solid #edf2f7;
@@ -1247,7 +989,6 @@
       border-radius: 50%;
       background: #ffffff;
     }
-
     .payout-logo-center-wrap {
       flex: 1;
       display: flex;
@@ -1257,12 +998,7 @@
       width: 100%;
       margin: 14px 0 12px 0;
     }
-    .payout-logo-center-wrap img {
-      max-width: 125px;
-      max-height: 52px;
-      object-fit: contain;
-    }
-
+    .payout-logo-center-wrap img { max-width: 125px; max-height: 52px; object-fit: contain; }
     .payout-denom-box {
       width: 100%;
       border: 1.5px solid #e2e8f0;
@@ -1272,24 +1008,11 @@
       background: #ffffff;
       transition: all 0.2s ease;
     }
-    .payout-tile-card.selected .payout-denom-box {
-      border-color: var(--cyan-primary);
-      background: #ffffff;
-    }
-    .payout-denom-val {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--cyan-dark);
-      letter-spacing: -0.3px;
-    }
-    .payout-denom-coins {
-      font-size: 0.65rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      margin-top: 1px;
-    }
+    .payout-tile-card.selected .payout-denom-box { border-color: var(--cyan-primary); background: #ffffff; }
+    .payout-denom-val { font-size: 1.15rem; font-weight: 800; color: var(--cyan-dark); letter-spacing: -0.3px; }
+    .payout-denom-coins { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); margin-top: 1px; }
 
-    /* BOTTOM TAB BAR */
+    /* BOTTOM NAV */
     nav.bottom-nav {
       position: fixed;
       bottom: calc(14px + env(safe-area-inset-bottom));
@@ -1322,11 +1045,9 @@
       text-decoration: none;
     }
     .nav-tab i { font-size: 1.25rem; }
-    .nav-tab.active {
-      color: var(--cyan-primary);
-      background: var(--cyan-soft);
-    }
+    .nav-tab.active { color: var(--cyan-primary); background: var(--cyan-soft); }
 
+    /* MODALS */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -1348,7 +1069,6 @@
       overflow-y: auto;
       color: var(--text-dark);
     }
-
     #popupBannerModal {
       position: fixed;
       inset: 0;
@@ -1368,14 +1088,7 @@
       position: relative;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
-    .popup-banner-img {
-      width: 100%;
-      max-height: 180px;
-      object-fit: cover;
-      border-radius: var(--radius-md);
-      margin-bottom: 14px;
-    }
-
+    .popup-banner-img { width: 100%; max-height: 180px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 14px; }
     .wheel-pointer {
       position: absolute;
       top: -10px;
@@ -1390,10 +1103,7 @@
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
       transition: transform 0.05s ease;
     }
-    .wheel-pointer.vibe {
-      transform: translateX(-50%) rotate(-14deg);
-    }
-
+    .wheel-pointer.vibe { transform: translateX(-50%) rotate(-14deg); }
     #offlineLockScreen {
       position: fixed;
       inset: 0;
@@ -1418,7 +1128,6 @@
       font-size: 2.2rem;
       margin-bottom: 20px;
     }
-
     #authScreen {
       position: fixed;
       inset: 0;
@@ -1431,7 +1140,6 @@
       padding: 24px;
       text-align: center;
     }
-
     #toast-host {
       position: fixed;
       top: calc(16px + env(safe-area-inset-top));
@@ -1485,7 +1193,7 @@
     </div>
     <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px;">No Internet Connection</h2>
     <p style="color: var(--text-dim); font-size: 0.9rem; max-width: 320px; line-height: 1.5; margin-bottom: 24px;">
-      Cash Hub requires an active internet connection to synchronize coin rewards and real-time tasks. Please turn on Wi-Fi or Mobile Data to continue.
+      Cash Hub requires an active internet connection to synchronize coin rewards and real-time tasks.
     </p>
     <button class="btn-cyan" style="max-width: 240px;" onclick="checkInternetConnection(true)">
       <i class="fa-solid fa-arrows-rotate"></i> Retry Connection
@@ -1503,7 +1211,7 @@
     </div>
   </div>
 
-  <!-- TOP HEADER (WITH LOGO & BALANCE) -->
+  <!-- TOP HEADER -->
   <header class="ios-nav">
     <div class="header-balance-wrap">
       <div class="header-app-brand" id="brandHeaderWrap">
@@ -1527,6 +1235,9 @@
 
   <!-- MAIN APP PANELS -->
   <main>
+    <!-- TOP AD SCRIPT SLOT (Executed dynamically when admin adds ad script) -->
+    <div id="topBannerAdArea" class="ad-banner-slot"></div>
+
     <!-- VIEW 1: HOME PANEL -->
     <section id="view-home" class="view-panel active-view">
       <!-- 7-DAY LOGIN STREAK REWARDS -->
@@ -1658,6 +1369,9 @@
         </div>
       </div>
 
+      <!-- MID AD SLOT -->
+      <div id="midContentAdArea" class="ad-banner-slot"></div>
+
       <!-- Featured Missions -->
       <div class="section-head" style="display:flex; justify-content:space-between; align-items:center; margin: 20px 0 12px 0;">
         <h3 style="font-size:1.15rem; font-weight:800;">Featured Missions</h3>
@@ -1683,7 +1397,7 @@
         <button class="btn-earn-hero btn-follow-earn" style="padding: 12px;" onclick="playAudio('tap'); filterTaskCategory('follow', document.getElementById('tabFilterFollow'))">
           <div style="display: flex; align-items: center; gap: 8px;">
             <i class="fa-solid fa-user-check"></i>
-            <span style="font-weight: 800; font-size: 0.9rem;">Social App Tasks</span>
+            <span style="font-weight: 800; font-size: 0.9rem;">Social Media Tasks</span>
           </div>
         </button>
       </div>
@@ -1692,14 +1406,14 @@
       <div class="task-cat-tabs">
         <div class="task-tab-pill active" id="tabFilterAll" onclick="filterTaskCategory('all', this)">All Tasks</div>
         <div class="task-tab-pill" id="tabFilterClick" onclick="filterTaskCategory('click', this)">Direct Link Ads</div>
-        <div class="task-tab-pill" id="tabFilterFollow" onclick="filterTaskCategory('follow', this)">Social App Tasks</div>
+        <div class="task-tab-pill" id="tabFilterFollow" onclick="filterTaskCategory('follow', this)">Social Media Tasks</div>
         <div class="task-tab-pill" id="tabFilterInstall" onclick="filterTaskCategory('install', this)">Install & Earn</div>
       </div>
 
       <div id="allTasksListingFeed"></div>
     </section>
 
-    <!-- VIEW 3: ENHANCED REFERRAL & SHARE PANEL (WITH LEADERBOARD) -->
+    <!-- VIEW 3: ENHANCED REFERRAL & SHARE PANEL (NO DUMMY DATA) -->
     <section id="view-referral" class="view-panel">
       <div class="referral-header-row">
         <h2 class="referral-header-title">Refer & Earn</h2>
@@ -1771,7 +1485,7 @@
             <i class="fa-solid fa-globe"></i>
           </div>
           <div style="flex:1; min-width:0;">
-            <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--text-dark);">Official App Link</h4>
+            <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--text-dark);">Official Website Link</h4>
             <span style="font-size: 0.74rem; color: var(--text-dim); display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" id="officialAdminLinkDisplay">https://taskhub-brown.vercel.app</span>
           </div>
         </div>
@@ -1808,7 +1522,7 @@
         </div>
       </div>
 
-      <!-- REFERRAL LEADERBOARD -->
+      <!-- REAL REFERRAL LEADERBOARD (NO DUMMIES) -->
       <div class="leaderboard-card">
         <div class="leaderboard-header">
           <div class="leaderboard-title">
@@ -1817,7 +1531,11 @@
           </div>
           <span style="font-size:0.7rem; font-weight:800; color:var(--cyan-dark); background:var(--cyan-soft); padding:3px 8px; border-radius:var(--pill);">Live Updates</span>
         </div>
-        <div class="leaderboard-list" id="referralLeaderboardList"></div>
+        <div class="leaderboard-list" id="referralLeaderboardList">
+          <div style="text-align:center; padding:18px; color:var(--text-muted); font-size:0.82rem;">
+            Invite friends to climb to Rank #1 on the live leaderboard!
+          </div>
+        </div>
       </div>
 
       <!-- CLAIM REFERRAL CODE CARD -->
@@ -2240,7 +1958,7 @@
     </div>
   </div>
 
-  <!-- LUCKY SPIN MODAL -->
+  <!-- LUCKY SPIN MODAL (WITH BUTTON AD INTEGRATION) -->
   <div class="modal-overlay" id="spinModal">
     <div class="modal-content" style="text-align: center;">
       <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -2249,7 +1967,7 @@
       </div>
       <p style="font-size: 0.8rem; color: var(--text-dim); margin: 6px 0 16px 0;">Spin to earn free prize coins (1-50 Coins)</p>
       
-      <div style="position: relative; width: 250px; height: 250px; margin: 0 auto 20px auto;">
+      <div style="position: relative; width: 250px; height: 250px; margin: 0 auto 16px auto;">
         <div class="wheel-pointer" id="wheelPointerIndicator"></div>
         <canvas id="wheelCanvas" width="250" height="250" style="border-radius: 50%; box-shadow: 0 10px 30px rgba(0, 180, 216, 0.2);"></canvas>
       </div>
@@ -2258,7 +1976,12 @@
         Next Spin in: <span id="spinModalCountdown">03:00:00</span>
       </div>
 
-      <button class="btn-cyan" id="btnTriggerWheel" onclick="spinLuckyWheel()">SPIN NOW</button>
+      <button class="btn-cyan" id="btnTriggerWheel" onclick="spinLuckyWheel()" style="margin-bottom:10px;">SPIN NOW</button>
+      
+      <!-- BUTTON AD: Watch Ad to earn extra coins or open sponsor -->
+      <button class="btn-cyan" id="btnSpinExtraAd" onclick="handleSpinAdClick()" style="background:var(--bg-subtle); color:var(--text-dark); border:1px solid var(--card-border-cyan); font-size:0.85rem; padding:10px;">
+        <i class="fa-solid fa-bolt" style="color:var(--gold);"></i> Watch Sponsor Ad (+10 Coins)
+      </button>
     </div>
   </div>
 
@@ -2377,7 +2100,9 @@
       appLogoUrl: "",
       adminShareLink: OFFICIAL_HOST,
       userCountry: "US",
-      shareDomain: OFFICIAL_HOST
+      shareDomain: OFFICIAL_HOST,
+      adScript: "",
+      bannerAdScript: ""
     };
 
     let activeTaskPayload = null;
@@ -2511,6 +2236,48 @@
       } catch (e) {}
     };
 
+    // --- AD SCRIPT INJECTION ENGINE (Executes Monetag, Adsterra, AdSense scripts) ---
+    function injectAdScript(scriptHtmlOrSrc, targetContainerId) {
+      if (!scriptHtmlOrSrc) return;
+      try {
+        const temp = document.createElement('div');
+        temp.innerHTML = scriptHtmlOrSrc;
+
+        const scripts = temp.querySelectorAll('script');
+        const container = targetContainerId ? document.getElementById(targetContainerId) : document.body;
+
+        if (scripts.length === 0) {
+          // If it's pure HTML or an iframe or raw URL
+          if (targetContainerId && container) {
+            container.innerHTML = scriptHtmlOrSrc;
+          }
+          return;
+        }
+
+        scripts.forEach(oldScript => {
+          const newScript = document.createElement('script');
+          Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+          if (oldScript.src) {
+            newScript.src = oldScript.src;
+          } else {
+            newScript.textContent = oldScript.textContent;
+          }
+          (container || document.head).appendChild(newScript);
+        });
+
+        // Also append any non-script HTML elements (like banner divs)
+        if (targetContainerId && container) {
+          Array.from(temp.childNodes).forEach(node => {
+            if (node.tagName !== 'SCRIPT') {
+              container.appendChild(node.cloneNode(true));
+            }
+          });
+        }
+      } catch (e) {
+        console.warn('Ad script injection warning:', e);
+      }
+    }
+
     // --- CLEAN WEB URL NORMALIZER ---
     function extractAndValidateUrl(taskOrUrl) {
       if (!taskOrUrl) return '';
@@ -2575,6 +2342,20 @@
       }, 5000);
     };
 
+    // Extra sponsor ad inside Lucky Spin modal
+    window.handleSpinAdClick = function() {
+      playAudio('tap');
+      const rawAdUrl = extractAndValidateUrl(appSettings.directLinkAdUrl || OFFICIAL_HOST);
+      displayToast('Opening sponsor ad...');
+      openWebDestination(rawAdUrl);
+
+      setTimeout(async () => {
+        await creditUserCoins(10, 'Lucky Spin Sponsor Bonus');
+        playAudio('win');
+        displayToast('+10 Coins added from sponsor ad!');
+      }, 5000);
+    };
+
     // Synchronous handler for task modal "Start Mission"
     window.handleTaskActionClick = function(event) {
       playAudio('tap');
@@ -2586,7 +2367,6 @@
         return;
       }
 
-      // Open destination in external tab - current tab does NOT refresh
       openWebDestination(targetUrl);
       closeModal('taskDetailModal');
       startMissionVerification(activeTaskPayload.id, activeTaskPayload);
@@ -2677,7 +2457,7 @@
       isProcessingTask = false;
     }
 
-    // Tab return check: When user clicks back or switches tabs, instantly awards points if 5s passed
+    // Tab return check: When user switches back, instantly awards points if 5s passed
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible' && isProcessingTask && activeTaskPayload) {
         const elapsed = (Date.now() - activeTaskStartTime) / 1000;
@@ -2737,7 +2517,6 @@
       startCooldownMonitoring();
     });
 
-    // Capture referral code from URL parameters (?ref=CODE or ?r=CODE)
     function captureReferralCode() {
       const urlParams = new URLSearchParams(window.location.search);
       const refCode = urlParams.get('ref') || urlParams.get('r');
@@ -2750,7 +2529,7 @@
     }
 
     function initAppEngine() {
-      // 1. Settings & Official Link Sync
+      // 1. Settings, Ad Scripts & Official Link Sync
       onValue(ref(db, 'app_settings'), (snap) => {
         if (snap.exists()) {
           appSettings = { ...appSettings, ...snap.val() };
@@ -2779,6 +2558,14 @@
           const country = appSettings.userCountry || "US";
           document.getElementById('walletCountryBadge').innerText = country;
           document.getElementById('profileUserCountry').innerText = `Country: ${country}`;
+
+          // Inject admin ad scripts
+          if (appSettings.bannerAdScript) {
+            injectAdScript(appSettings.bannerAdScript, 'topBannerAdArea');
+          }
+          if (appSettings.adScript) {
+            injectAdScript(appSettings.adScript, 'midContentAdArea');
+          }
 
           updateDisplays();
         }
@@ -3080,39 +2867,58 @@
       await updateTierProgress(currentAuthUser.uid, rCount);
     };
 
-    // --- REFERRAL LEADERBOARD ---
+    // --- REALTIME LEADERBOARD (NO DUMMIES) ---
     function loadReferralLeaderboard() {
       const container = document.getElementById('referralLeaderboardList');
       if (!container) return;
 
-      onValue(ref(db, 'referrals'), (snap) => {
-        let leaderboard = [];
+      onValue(ref(db, 'referrals'), async (snap) => {
+        container.innerHTML = '';
 
-        if (snap.exists()) {
-          const allRefs = snap.val();
-          Object.entries(allRefs).forEach(([userId, userRefs]) => {
-            const count = Object.keys(userRefs || {}).length;
-            leaderboard.push({ uid: userId, count: count });
-          });
-          leaderboard.sort((a, b) => b.count - a.count);
+        if (!snap.exists()) {
+          container.innerHTML = `
+            <div style="text-align:center; padding:18px; color:var(--text-muted); font-size:0.82rem;">
+              <i class="fa-solid fa-trophy" style="font-size:1.5rem; color:var(--cyan-primary); display:block; margin-bottom:6px;"></i>
+              No referrals on the leaderboard yet. Invite friends to take the #1 rank!
+            </div>
+          `;
+          return;
         }
 
-        const defaultRanks = [
-          { name: "cryptoking@gmail.com", count: 86, reward: "+50,000" },
-          { name: "alexander.pro@yahoo.com", count: 64, reward: "+25,000" },
-          { name: "sarah_m99@gmail.com", count: 48, reward: "+15,000" },
-          { name: "david.hustle@outlook.com", count: 35, reward: "+8,000" },
-          { name: "emily_cash@gmail.com", count: 27, reward: "+5,000" }
-        ];
+        const allRefs = snap.val();
+        let leaderboard = [];
 
-        container.innerHTML = '';
-        defaultRanks.forEach((item, index) => {
+        Object.entries(allRefs).forEach(([userId, userRefs]) => {
+          const refsArray = Object.values(userRefs || {});
+          const count = refsArray.length;
+          if (count > 0) {
+            // Find masked display email or ID
+            const firstEmail = refsArray[0].referredEmail || 'user';
+            const cleanMasked = firstEmail.length > 5 ? firstEmail.substring(0, 3) + '***@' + (firstEmail.split('@')[1] || 'mail.com') : 'User_' + userId.substring(0, 5);
+            leaderboard.push({ uid: userId, name: cleanMasked, count: count });
+          }
+        });
+
+        leaderboard.sort((a, b) => b.count - a.count);
+
+        if (leaderboard.length === 0) {
+          container.innerHTML = `
+            <div style="text-align:center; padding:18px; color:var(--text-muted); font-size:0.82rem;">
+              No referrals on the leaderboard yet. Be the first to invite!
+            </div>
+          `;
+          return;
+        }
+
+        leaderboard.slice(0, 10).forEach((item, index) => {
           const rank = index + 1;
           let rankClass = 'rank-default';
           let rankIcon = `${rank}`;
           if (rank === 1) { rankClass = 'rank-1'; rankIcon = '🥇'; }
           else if (rank === 2) { rankClass = 'rank-2'; rankIcon = '🥈'; }
           else if (rank === 3) { rankClass = 'rank-3'; rankIcon = '🥉'; }
+
+          const prizeCoin = rank === 1 ? '+50,000' : rank === 2 ? '+25,000' : rank === 3 ? '+10,000' : '+2,500';
 
           const row = document.createElement('div');
           row.className = 'leaderboard-row';
@@ -3124,7 +2930,7 @@
                 <div class="leaderboard-refs"><i class="fa-solid fa-users"></i> ${item.count} Referrals</div>
               </div>
             </div>
-            <div class="leaderboard-reward-tag">${item.reward} Coins</div>
+            <div class="leaderboard-reward-tag">${prizeCoin} Coins</div>
           `;
           container.appendChild(row);
         });
@@ -3463,8 +3269,8 @@
           if (snap.exists()) {
             let activeCount = 0;
             Object.entries(snap.val()).forEach(([id, t]) => {
-              if (t.status !== 'approved' && t.status !== 'active') return;
-              if (t.uid === currentAuthUser.uid) return;
+              const status = (t.status || 'active').toLowerCase();
+              if (status !== 'approved' && status !== 'active') return;
 
               const clicksTarget = parseInt(t.clicksTarget || 0, 10);
               const clicksReceived = parseInt(t.clicksReceived || 0, 10);
@@ -3473,7 +3279,7 @@
               if (completedMap[id]) return;
 
               activeCount++;
-              const category = t.type || 'click';
+              const category = (t.type || 'click').toLowerCase();
               const pConfig = getPlatformIconConfig(t.platform, category);
 
               const row = document.createElement('div');
@@ -3488,12 +3294,16 @@
               }
 
               const spotsLeft = clicksTarget > 0 ? (clicksTarget - clicksReceived) : 'Unlimited';
+              const isOwner = t.uid === currentAuthUser.uid;
 
               row.innerHTML = `
                 <div class="task-icon-box ${pConfig.brandClass}">${iconElement}</div>
                 <div class="task-info">
-                  <div class="task-title">${t.title || t.channelName}</div>
-                  <div class="task-desc">${t.description || 'Visit link for 5s & earn'}</div>
+                  <div class="task-title">
+                    ${t.title || t.channelName || 'Sponsored Mission'}
+                    ${isOwner ? '<span style="font-size:0.65rem; background:var(--gold-soft); color:var(--gold); padding:2px 6px; border-radius:6px; margin-left:6px;">Your Campaign</span>' : ''}
+                  </div>
+                  <div class="task-desc">${t.description || (category === 'follow' ? 'Follow official channel in app' : 'Open destination for 5s & earn')}</div>
                   <div class="task-progress-mini"><i class="fa-solid fa-users"></i> ${spotsLeft} spots remaining</div>
                 </div>
                 <div class="task-reward-box">
@@ -3674,14 +3484,14 @@
       displayToast(`Redemption placed for ${activeSelectedPayout.label}! Processing shortly.`);
     });
 
-    // --- MISSION DETAIL MODAL (WITH ACCURATE APP BADGE) ---
+    // --- MISSION DETAIL MODAL ---
     window.openTaskDetailsModal = function(taskId, task) {
       playAudio('tap');
       activeTaskPayload = { id: taskId, ...task };
-      const category = task.type || 'click';
+      const category = (task.type || 'click').toLowerCase();
       const pConfig = getPlatformIconConfig(task.platform, category);
 
-      document.getElementById('modalTaskTitle').innerText = task.title || task.channelName;
+      document.getElementById('modalTaskTitle').innerText = task.title || task.channelName || 'Sponsored Mission';
       document.getElementById('modalTaskReward').innerText = `+${task.rewardCoins || 10} Coins`;
       document.getElementById('modalTaskBadgeCategory').innerText = (task.platform || 'MISSION').toUpperCase();
       
@@ -4085,7 +3895,7 @@
       playAudio('tap');
       const officialLink = appSettings.adminShareLink || OFFICIAL_HOST;
       if (mode === 'copy') {
-        navigator.clipboard.writeText(officialLink).then(() => displayToast('Official app link copied!'));
+        navigator.clipboard.writeText(officialLink).then(() => displayToast('Official website link copied!'));
       } else {
         if (navigator.share) {
           navigator.share({
