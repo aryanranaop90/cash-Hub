@@ -4,16 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>CASH HUB | Earn, Complete, Promote & Redeem</title>
+  <meta name="theme-color" content="#00b4d8" />
 
-  <!-- PWA & Web Meta -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="theme-color" content="#121a2d" />
-
-  <!-- Fonts & Icons -->
+  <!-- Fonts & FontAwesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
@@ -31,7 +27,6 @@
       --cyan-glow: rgba(0, 180, 216, 0.25);
       --blue-accent: #2563eb;
       --blue-gradient: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
-      --wallet-card-bg: linear-gradient(145deg, #172036 0%, #0f1523 100%);
       --text-dark: #0f172a;
       --text-dim: #475569;
       --text-muted: #94a3b8;
@@ -41,19 +36,21 @@
       --success: #10b981;
       --radius-sm: 10px;
       --radius-md: 16px;
-      --radius-lg: 24px;
+      --radius-lg: 22px;
       --pill: 999px;
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+      --shadow-sm: 0 2px 8px rgba(0, 180, 216, 0.04);
+      --shadow-md: 0 8px 24px rgba(0, 180, 216, 0.08);
       --transition: cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
+
     body {
       background: var(--bg-base);
       color: var(--text-dark);
@@ -62,6 +59,7 @@
       padding-bottom: calc(90px + env(safe-area-inset-bottom));
       user-select: none;
     }
+
     .app-card {
       background: var(--card-white);
       border: 1px solid var(--card-border);
@@ -75,35 +73,24 @@
       border-color: var(--card-border-cyan);
       box-shadow: var(--shadow-md);
     }
+
     header.ios-nav {
       position: sticky;
       top: 0;
       z-index: 99;
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--card-border);
-      padding: calc(10px + env(safe-area-inset-top)) 16px 10px 16px;
+      padding: calc(12px + env(safe-area-inset-top)) 18px 12px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       box-shadow: 0 2px 12px rgba(0, 180, 216, 0.04);
     }
-    .header-balance-wrap, .header-app-brand, .header-right-actions {
+    .header-balance-wrap {
       display: flex;
       align-items: center;
       gap: 10px;
-    }
-    .app-logo-img {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      object-fit: cover;
-      box-shadow: 0 4px 14px var(--cyan-glow);
-      border: 1px solid var(--card-border-cyan);
-      background: #ffffff;
-      display: grid;
-      place-items: center;
     }
     .coin-badge-icon {
       width: 40px;
@@ -114,45 +101,50 @@
       display: grid;
       place-items: center;
       font-weight: 800;
-      font-size: 0.95rem;
+      font-size: 1.1rem;
       box-shadow: 0 4px 14px var(--cyan-glow);
+      overflow: hidden;
+    }
+    .coin-badge-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .header-coin-val {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       font-weight: 800;
       color: var(--text-dark);
       letter-spacing: -0.5px;
       line-height: 1.1;
       display: inline-block;
     }
-    .header-coin-val.bounce {
-      animation: numPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    .header-fiat-val {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cyan-dark);
     }
-    @keyframes numPop {
-      0% { transform: scale(1); color: var(--cyan-primary); }
-      50% { transform: scale(1.2); color: var(--gold); }
-      100% { transform: scale(1); color: var(--text-dark); }
+    .header-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .header-fiat-val { font-size: 0.76rem; font-weight: 700; color: var(--cyan-dark); }
     .btn-header-payout {
       background: var(--cyan-gradient);
       color: #ffffff;
       border: none;
-      padding: 8px 14px;
+      padding: 9px 16px;
       border-radius: var(--pill);
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       font-weight: 800;
       display: flex;
       align-items: center;
       gap: 6px;
       cursor: pointer;
       box-shadow: 0 4px 14px var(--cyan-glow);
-      transition: all 0.2s ease;
     }
-    .btn-header-payout:active { transform: scale(0.96); }
     .btn-profile-badge {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: var(--cyan-soft);
       border: 1.5px solid var(--card-border-cyan);
@@ -161,41 +153,41 @@
       font-weight: 800;
       color: var(--cyan-dark);
       cursor: pointer;
-      font-size: 0.95rem;
-      overflow: hidden;
+      font-size: 1rem;
     }
-    .btn-profile-badge img { width: 100%; height: 100%; object-fit: cover; }
+
     main {
-      position: relative;
-      z-index: 1;
       padding: 16px 18px 100px 18px;
       max-width: 580px;
       margin: 0 auto;
     }
-    .view-panel { display: none; animation: fadeIn 0.24s var(--transition); }
-    .view-panel.active-view { display: block; }
+    .view-panel {
+      display: none;
+      animation: fadeIn 0.24s var(--transition);
+    }
+    .view-panel.active-view {
+      display: block;
+    }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* AD SLOTS */
-    .ad-banner-slot {
-      margin: 10px 0 16px 0;
-      border-radius: 16px;
-      overflow: hidden;
-      min-height: 50px;
-      background: rgba(0, 180, 216, 0.03);
-      border: 1px dashed var(--card-border-cyan);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+
+    /* 7-DAY LOGIN STREAK HORIZONTAL ROW */
+    .streak-container {
+      padding: 18px 16px;
     }
-    .ad-banner-slot:empty { display: none; }
-    /* STREAK */
-    .streak-container { padding: 18px 16px; }
-    .streak-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .streak-title { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); }
+    .streak-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .streak-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
     .streak-badge-pill {
       font-size: 0.72rem;
       font-weight: 800;
@@ -214,14 +206,19 @@
       scrollbar-width: thin;
       scrollbar-color: var(--card-border-cyan) transparent;
     }
-    .streak-row-scroll::-webkit-scrollbar { height: 5px; }
-    .streak-row-scroll::-webkit-scrollbar-thumb { background: var(--card-border-cyan); border-radius: 10px; }
+    .streak-row-scroll::-webkit-scrollbar {
+      height: 5px;
+    }
+    .streak-row-scroll::-webkit-scrollbar-thumb {
+      background: var(--card-border-cyan);
+      border-radius: 10px;
+    }
     .streak-day-card {
-      flex: 0 0 84px;
+      flex: 0 0 82px;
       background: var(--bg-subtle);
       border: 1.5px solid var(--card-border-cyan);
       border-radius: var(--radius-md);
-      padding: 12px 6px;
+      padding: 12px 4px;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -235,12 +232,20 @@
       box-shadow: 0 4px 14px rgba(16, 185, 129, 0.2);
       transform: translateY(-2px);
     }
-    .streak-day-card.claimed { opacity: 0.5; background: #f1f5f9; border-color: #cbd5e1; }
+    .streak-day-card.claimed {
+      opacity: 0.45;
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
     .streak-day-card.day-7-jackpot {
       border-color: var(--gold);
       background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
     }
-    .streak-day-title { font-size: 0.72rem; font-weight: 800; color: var(--text-dim); }
+    .streak-day-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--text-dim);
+    }
     .streak-coin-badge {
       width: 32px;
       height: 32px;
@@ -253,7 +258,12 @@
       place-items: center;
       border: 1px solid rgba(245, 158, 11, 0.35);
     }
-    .streak-reward-val { font-size: 0.85rem; font-weight: 800; color: var(--text-dark); }
+    .streak-reward-val {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
     .btn-cyan {
       width: 100%;
       background: var(--cyan-gradient);
@@ -270,10 +280,14 @@
       cursor: pointer;
       box-shadow: 0 4px 14px var(--cyan-glow);
       transition: all 0.2s ease;
-      text-decoration: none;
     }
     .btn-cyan:active { transform: scale(0.97); }
-    .btn-cyan:disabled { background: #cbd5e1; box-shadow: none; cursor: not-allowed; transform: none; }
+    .btn-cyan:disabled {
+      background: #cbd5e1;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
     .hero-earn-duo-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -291,9 +305,7 @@
       border: none;
       color: #ffffff;
       box-shadow: var(--shadow-md);
-      transition: all 0.2s var(--transition);
     }
-    .btn-earn-hero:active { transform: scale(0.96); }
     .btn-click-earn { background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%); }
     .btn-follow-earn { background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%); }
     .hero-icon-bubble {
@@ -306,19 +318,8 @@
       font-size: 1.3rem;
       color: #fff;
     }
-    .hero-title-text { font-size: 1rem; font-weight: 800; letter-spacing: -0.3px; }
-    .hero-sub-text { font-size: 0.72rem; opacity: 0.9; line-height: 1.2; }
-    .hero-reward-pill {
-      margin-top: 4px;
-      background: rgba(0, 0, 0, 0.2);
-      padding: 4px 10px;
-      border-radius: var(--pill);
-      font-size: 0.72rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
+
+    /* 4-Item Quick Action Games Grid */
     .game-actions-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -336,9 +337,7 @@
       border: 1px solid var(--card-border);
       border-radius: var(--radius-md);
       cursor: pointer;
-      transition: all 0.2s var(--transition);
       box-shadow: var(--shadow-sm);
-      text-decoration: none;
     }
     .game-action-btn:active { transform: scale(0.96); }
     .game-action-icon {
@@ -361,7 +360,13 @@
       border-radius: var(--pill);
       display: none;
     }
-    .game-action-label { font-size: 0.72rem; font-weight: 800; color: var(--text-dark); }
+    .game-action-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    /* Promo Code Card */
     .promocode-card {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       color: #fff;
@@ -369,7 +374,11 @@
       padding: 18px;
       margin-bottom: 18px;
     }
-    .promocode-input-wrap { display: flex; gap: 8px; margin-top: 10px; }
+    .promocode-input-wrap {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
     .promocode-input {
       flex: 1;
       padding: 12px 16px;
@@ -393,6 +402,8 @@
       cursor: pointer;
       font-size: 0.85rem;
     }
+
+    /* Tasks Section */
     .task-cat-tabs {
       display: flex;
       gap: 8px;
@@ -412,7 +423,6 @@
       font-weight: 700;
       color: var(--text-dim);
       cursor: pointer;
-      transition: all 0.2s ease;
     }
     .task-tab-pill.active {
       background: var(--cyan-primary);
@@ -421,7 +431,7 @@
       box-shadow: 0 4px 12px var(--cyan-glow);
     }
     .task-row {
-      padding: 14px 16px;
+      padding: 16px;
       display: flex;
       align-items: center;
       gap: 14px;
@@ -433,7 +443,6 @@
       transition: all 0.3s var(--transition);
       box-shadow: var(--shadow-sm);
     }
-    .task-row:hover { border-color: var(--card-border-cyan); }
     .task-row.task-completed-anim {
       transform: scale(0.9) translateY(-10px);
       opacity: 0;
@@ -444,26 +453,18 @@
       border: none;
       overflow: hidden;
     }
-    .task-icon-box {
+    .task-icon {
       width: 48px;
       height: 48px;
       border-radius: 14px;
       display: grid;
       place-items: center;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       flex-shrink: 0;
       background: var(--cyan-soft);
+      color: var(--cyan-dark);
       border: 1px solid var(--card-border-cyan);
-      overflow: hidden;
     }
-    .task-icon-box.brand-youtube { background: #fee2e2; color: #ef4444; border-color: #fca5a5; }
-    .task-icon-box.brand-instagram { background: #fdf2f8; color: #db2777; border-color: #fbcfe8; }
-    .task-icon-box.brand-telegram { background: #e0f2fe; color: #0284c7; border-color: #bae6fd; }
-    .task-icon-box.brand-tiktok { background: #0f172a; color: #38bdf8; border-color: #334155; }
-    .task-icon-box.brand-x { background: #0f172a; color: #ffffff; border-color: #334155; }
-    .task-icon-box.brand-facebook { background: #eff6ff; color: #2563eb; border-color: #bfdbfe; }
-    .task-icon-box.brand-discord { background: #eef2ff; color: #6366f1; border-color: #c7d2fe; }
-    .task-icon-box.brand-ad { background: #fef3c7; color: #d97706; border-color: #fde68a; }
     .task-info { flex: 1; min-width: 0; }
     .task-title {
       font-size: 0.94rem;
@@ -481,7 +482,12 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .task-progress-mini { font-size: 0.7rem; font-weight: 700; color: var(--cyan-dark); margin-top: 3px; }
+    .task-progress-mini {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--cyan-dark);
+      margin-top: 3px;
+    }
     .task-reward-box { text-align: right; }
     .task-reward-tag {
       font-weight: 800;
@@ -502,56 +508,38 @@
       font-weight: 800;
       border: none;
     }
-    /* FLOATING VERIFICATION TRACKER */
-    #taskFloatingTracker {
-      position: fixed;
-      bottom: 96px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9999;
-      background: #0f172a;
-      color: #ffffff;
-      border: 1.5px solid var(--cyan-primary);
-      box-shadow: 0 16px 36px rgba(0, 180, 216, 0.35);
-      border-radius: var(--pill);
-      padding: 10px 20px;
-      display: none;
+
+    /* Payout Gateway Logo Fix Styling */
+    .gateway-card {
+      padding: 16px;
+      display: flex;
       align-items: center;
-      gap: 12px;
-      max-width: 90%;
-      animation: slideUpFloat 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    @keyframes slideUpFloat {
-      from { transform: translate(-50%, 40px); opacity: 0; }
-      to { transform: translate(-50%, 0); opacity: 1; }
-    }
-    .tracker-pulse-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--success);
-      box-shadow: 0 0 10px var(--success);
-      animation: pulseAnim 1s infinite alternate;
-    }
-    @keyframes pulseAnim {
-      from { transform: scale(0.8); opacity: 0.6; }
-      to { transform: scale(1.2); opacity: 1; }
-    }
-    /* REFERRAL HUB */
-    .referral-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .referral-header-title { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); }
-    .btn-referral-history {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+      justify-content: space-between;
+      margin-bottom: 12px;
       background: var(--card-white);
-      border: 1px solid var(--card-border);
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+    .gateway-logo-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--card-border-cyan);
       display: grid;
       place-items: center;
-      cursor: pointer;
-      color: var(--cyan-primary);
-      font-size: 1.1rem;
+      overflow: hidden;
+      flex-shrink: 0;
     }
+    .gateway-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 4px;
+    }
+
+    /* Referral Card */
     .refer-hero-card {
       background: var(--blue-gradient);
       border-radius: 28px;
@@ -559,10 +547,14 @@
       color: #ffffff;
       box-shadow: 0 16px 36px rgba(37, 99, 235, 0.25);
       position: relative;
-      overflow: hidden;
       margin-bottom: 16px;
     }
-    .refer-hero-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .refer-hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
     .badge-per-friend {
       background: rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.3);
@@ -570,20 +562,6 @@
       border-radius: var(--pill);
       font-size: 0.85rem;
       font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .btn-hero-info {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(255, 255, 255, 0.6);
-      display: grid;
-      place-items: center;
-      font-size: 0.85rem;
-      color: #fff;
-      cursor: pointer;
     }
     .refer-code-inner-card {
       background: #ffffff;
@@ -596,8 +574,12 @@
       color: var(--text-dark);
       margin-bottom: 14px;
     }
-    .code-inner-label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px; }
-    .code-inner-val { font-size: 1.55rem; font-weight: 800; letter-spacing: 2px; color: var(--cyan-dark); }
+    .code-inner-val {
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--cyan-dark);
+    }
     .btn-copy-code {
       background: var(--cyan-soft);
       border: 1px solid var(--card-border-cyan);
@@ -606,178 +588,33 @@
       font-size: 0.85rem;
       font-weight: 700;
       color: var(--cyan-dark);
-      display: flex;
-      align-items: center;
-      gap: 6px;
       cursor: pointer;
     }
-    .refer-actions-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .refer-actions-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
     .btn-refer-action {
       background: rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 16px;
-      padding: 12px;
-      font-size: 0.88rem;
+      padding: 14px;
+      font-size: 0.95rem;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--text-white);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      cursor: pointer;
-    }
-    .social-share-quick-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
-    .social-quick-btn {
-      padding: 12px 6px;
-      border-radius: 16px;
-      background: var(--card-white);
-      border: 1px solid var(--card-border);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      box-shadow: var(--shadow-sm);
-      text-decoration: none;
-      transition: all 0.2s var(--transition);
-    }
-    .social-quick-btn:active { transform: scale(0.95); }
-    .social-quick-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 1.15rem;
-      color: #fff;
-    }
-    .official-share-card {
-      background: var(--card-white);
-      border: 1.5px dashed var(--card-border-cyan);
-      border-radius: 20px;
-      padding: 16px 18px;
-      margin-bottom: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .official-share-header { display: flex; align-items: center; gap: 12px; }
-    .official-share-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: var(--cyan-soft);
-      color: var(--cyan-dark);
-      display: grid;
-      place-items: center;
-      font-size: 1.25rem;
-      flex-shrink: 0;
-    }
-    .official-share-btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .btn-sub-share {
-      padding: 10px;
-      border-radius: var(--pill);
-      font-size: 0.82rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      cursor: pointer;
-      border: 1px solid var(--card-border);
-      background: var(--bg-subtle);
-      color: var(--text-dark);
-    }
-    /* LEADERBOARD */
-    .leaderboard-card {
-      background: var(--card-white);
-      border: 1px solid var(--card-border);
-      border-radius: 22px;
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: var(--shadow-sm);
-    }
-    .leaderboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-    .leaderboard-title {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--text-dark);
-      display: flex;
-      align-items: center;
       gap: 8px;
+      cursor: pointer;
     }
-    .leaderboard-list { display: flex; flex-direction: column; gap: 10px; }
-    .leaderboard-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 12px;
-      background: var(--bg-subtle);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      transition: all 0.2s ease;
-    }
-    .leaderboard-row:hover { border-color: var(--card-border-cyan); }
-    .leaderboard-left { display: flex; align-items: center; gap: 12px; }
-    .leaderboard-rank {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
+    .refer-metrics-row {
       display: grid;
-      place-items: center;
-      font-weight: 900;
-      font-size: 0.8rem;
-      flex-shrink: 0;
-    }
-    .rank-1 { background: #fef08a; color: #854d0e; }
-    .rank-2 { background: #e2e8f0; color: #334155; }
-    .rank-3 { background: #fed7aa; color: #9a3412; }
-    .rank-default { background: #f1f5f9; color: #64748b; }
-    .leaderboard-user { font-size: 0.85rem; font-weight: 700; color: var(--text-dark); }
-    .leaderboard-refs { font-size: 0.75rem; font-weight: 800; color: var(--cyan-dark); }
-    .leaderboard-reward-tag {
-      font-size: 0.72rem;
-      font-weight: 800;
-      background: var(--cyan-soft);
-      color: var(--cyan-dark);
-      padding: 3px 8px;
-      border-radius: var(--pill);
-    }
-    /* TIERS */
-    .tier-bonus-card {
-      background: var(--card-white);
-      border: 1px solid var(--card-border);
-      border-radius: 22px;
-      padding: 20px;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
       margin-bottom: 16px;
-      box-shadow: var(--shadow-sm);
     }
-    .tier-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .badge-tier-count {
-      background: var(--cyan-soft);
-      color: var(--cyan-dark);
-      padding: 4px 10px;
-      border-radius: var(--pill);
-      font-size: 0.75rem;
-      font-weight: 700;
-    }
-    .tier-progress-track {
-      width: 100%;
-      height: 8px;
-      background: var(--bg-subtle);
-      border-radius: var(--pill);
-      overflow: hidden;
-      margin-bottom: 8px;
-    }
-    .tier-progress-fill {
-      height: 100%;
-      background: var(--cyan-primary);
-      border-radius: var(--pill);
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-    .tier-progress-label { text-align: right; font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 14px; }
-    .refer-metrics-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
     .metric-card-box {
       background: var(--card-white);
       border-radius: 20px;
@@ -798,221 +635,8 @@
       background: var(--cyan-soft);
       color: var(--cyan-dark);
     }
-    .metric-data-wrap small { display: block; font-size: 0.72rem; font-weight: 600; color: var(--text-dim); line-height: 1.2; }
-    .metric-data-wrap strong { font-size: 1.4rem; font-weight: 800; color: var(--text-dark); }
-    .claim-code-card {
-      background: var(--card-white);
-      border-radius: 20px;
-      border: 1px solid var(--card-border);
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: var(--shadow-sm);
-    }
-    .claim-code-card h4 { font-size: 1rem; font-weight: 800; color: var(--cyan-dark); margin-bottom: 4px; }
-    .claim-code-card p { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 14px; }
-    .claim-input-row { display: flex; gap: 10px; }
-    .claim-code-input {
-      flex: 1;
-      padding: 12px 16px;
-      border-radius: var(--pill);
-      border: 1px solid var(--card-border-cyan);
-      background: var(--bg-subtle);
-      color: var(--text-dark);
-      outline: none;
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-    .btn-claim-referral {
-      background: var(--cyan-primary);
-      color: #ffffff;
-      border: none;
-      border-radius: var(--pill);
-      padding: 12px 22px;
-      font-weight: 800;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-    /* PROMOTE VIEW */
-    .promote-field { margin-bottom: 18px; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; }
-    .promote-field label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--cyan-dark); margin-bottom: 6px; }
-    .promote-field input, .promote-field select {
-      width: 100%;
-      border: none;
-      outline: none;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-dark);
-      background: transparent;
-    }
-    .url-example-badge {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 8px;
-      padding: 8px 12px;
-      background: var(--bg-subtle);
-      border: 1px dashed var(--card-border-cyan);
-      border-radius: 10px;
-      font-size: 0.75rem;
-      color: var(--text-dim);
-    }
-    .url-example-badge strong { color: var(--cyan-dark); font-family: monospace; font-size: 0.8rem; }
-    .btn-apply-template {
-      background: var(--cyan-soft);
-      color: var(--cyan-dark);
-      border: 1px solid var(--card-border-cyan);
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    /* WALLET */
-    .wallet-hero-card {
-      background: var(--wallet-card-bg);
-      border-radius: 26px;
-      padding: 24px;
-      color: #ffffff;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 24px;
-      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.35);
-    }
-    .wallet-hero-ambient {
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 180, 216, 0.18) 0%, transparent 70%);
-      top: -40px;
-      right: -40px;
-      pointer-events: none;
-    }
-    .wallet-hero-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 22px; }
-    .wallet-hero-left small { display: block; font-size: 0.85rem; font-weight: 600; color: #8c9cb8; margin-bottom: 4px; }
-    .wallet-balance-num { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.5px; color: #ffffff; line-height: 1; }
-    .wallet-balance-unit { font-size: 1.1rem; font-weight: 700; color: var(--gold); margin-left: 4px; }
-    .wallet-usd-pill-box {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 16px;
-      padding: 10px 18px;
-      text-align: right;
-      backdrop-filter: blur(10px);
-    }
-    .wallet-usd-pill-box small { display: block; font-size: 0.68rem; font-weight: 600; color: #8c9cb8; margin-bottom: 2px; }
-    .wallet-usd-pill-box strong { font-size: 1.25rem; font-weight: 800; color: #ffffff; }
-    .wallet-hero-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 14px;
-      border-top: 1px solid rgba(255, 255, 255, 0.09);
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #94a3b8;
-    }
-    .wallet-hero-bottom-left, .wallet-hero-bottom-right { display: flex; align-items: center; gap: 6px; }
-    .wallet-hero-bottom-right { cursor: pointer; color: #cbd5e1; transition: color 0.2s ease; }
-    .wallet-hero-bottom-right:hover { color: #ffffff; }
-    .payout-section-title {
-      font-size: 1.45rem;
-      font-weight: 800;
-      letter-spacing: -0.4px;
-      color: var(--text-dark);
-      margin: 24px 0 14px 2px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .payout-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
-    .payout-tile-card {
-      background: var(--card-white);
-      border: 1.5px solid #edf2f7;
-      border-radius: 24px;
-      padding: 20px 16px 16px 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 185px;
-      position: relative;
-      cursor: pointer;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
-      transition: all 0.22s var(--transition);
-    }
-    .payout-tile-card:hover {
-      border-color: var(--cyan-primary);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(0, 180, 216, 0.1);
-    }
-    .payout-tile-card.selected {
-      border-color: var(--cyan-primary);
-      background: #f0f9ff;
-      box-shadow: 0 8px 24px rgba(0, 180, 216, 0.15);
-    }
-    .payout-badge-new {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: #f87171;
-      color: #ffffff;
-      font-size: 0.65rem;
-      font-weight: 800;
-      padding: 2px 8px;
-      border-radius: 6px;
-      letter-spacing: 0.5px;
-    }
-    .payout-radio-circle {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      border: 2px solid #bae6fd;
-      display: grid;
-      place-items: center;
-      background: #ffffff;
-      transition: all 0.2s ease;
-    }
-    .payout-tile-card.selected .payout-radio-circle {
-      border-color: var(--cyan-primary);
-      background: var(--cyan-primary);
-    }
-    .payout-tile-card.selected .payout-radio-circle::after {
-      content: '';
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #ffffff;
-    }
-    .payout-logo-center-wrap {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      margin: 14px 0 12px 0;
-    }
-    .payout-logo-center-wrap img { max-width: 125px; max-height: 52px; object-fit: contain; }
-    .payout-denom-box {
-      width: 100%;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 9px 8px;
-      text-align: center;
-      background: #ffffff;
-      transition: all 0.2s ease;
-    }
-    .payout-tile-card.selected .payout-denom-box { border-color: var(--cyan-primary); background: #ffffff; }
-    .payout-denom-val { font-size: 1.15rem; font-weight: 800; color: var(--cyan-dark); letter-spacing: -0.3px; }
-    .payout-denom-coins { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); margin-top: 1px; }
 
-    /* BOTTOM NAV */
+    /* Navigation Bottom */
     nav.bottom-nav {
       position: fixed;
       bottom: calc(14px + env(safe-area-inset-bottom));
@@ -1041,17 +665,17 @@
       cursor: pointer;
       padding: 8px 14px;
       border-radius: 20px;
-      transition: all 0.2s ease;
-      text-decoration: none;
     }
-    .nav-tab i { font-size: 1.25rem; }
-    .nav-tab.active { color: var(--cyan-primary); background: var(--cyan-soft); }
+    .nav-tab.active {
+      color: var(--cyan-primary);
+      background: var(--cyan-soft);
+    }
 
-    /* MODALS */
+    /* Modals & Webview */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.55);
+      background: rgba(15, 23, 42, 0.5);
       z-index: 2000;
       display: none;
       place-items: center;
@@ -1064,31 +688,58 @@
       border: 1px solid var(--card-border);
       border-radius: var(--radius-lg);
       padding: 24px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 20px 40px rgba(0, 180, 216, 0.15);
       max-height: 85vh;
       overflow-y: auto;
-      color: var(--text-dark);
     }
-    #popupBannerModal {
+    #inAppBrowserModal {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.7);
-      z-index: 15000;
-      display: none;
-      place-items: center;
-      padding: 20px;
-    }
-    .popup-banner-box {
-      width: 100%;
-      max-width: 380px;
       background: #ffffff;
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      z-index: 10000;
+      display: none;
+      flex-direction: column;
     }
-    .popup-banner-img { width: 100%; max-height: 180px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 14px; }
+    .inapp-browser-bar {
+      padding: calc(10px + env(safe-area-inset-top)) 16px 10px 16px;
+      background: var(--card-white);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .browser-url-pill {
+      flex: 1;
+      background: var(--bg-subtle);
+      border: 1px solid var(--card-border-cyan);
+      border-radius: var(--pill);
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      color: var(--cyan-dark);
+      font-weight: 700;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .browser-timer-progress {
+      width: 100%;
+      height: 4px;
+      background: #e2e8f0;
+    }
+    .browser-timer-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--cyan-primary);
+      transition: width 1s linear;
+    }
+    #inAppIframe {
+      width: 100%;
+      flex: 1;
+      border: none;
+      background: #f8fafc;
+    }
+
     .wheel-pointer {
       position: absolute;
       top: -10px;
@@ -1100,10 +751,7 @@
       border-right: 10px solid transparent;
       border-top: 18px solid var(--danger);
       z-index: 10;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-      transition: transform 0.05s ease;
     }
-    .wheel-pointer.vibe { transform: translateX(-50%) rotate(-14deg); }
     #offlineLockScreen {
       position: fixed;
       inset: 0;
@@ -1115,18 +763,6 @@
       justify-content: center;
       padding: 24px;
       text-align: center;
-    }
-    .offline-icon-bubble {
-      width: 80px;
-      height: 80px;
-      border-radius: 26px;
-      background: #fee2e2;
-      border: 1px solid var(--danger);
-      color: var(--danger);
-      display: grid;
-      place-items: center;
-      font-size: 2.2rem;
-      margin-bottom: 20px;
     }
     #authScreen {
       position: fixed;
@@ -1140,107 +776,50 @@
       padding: 24px;
       text-align: center;
     }
-    #toast-host {
-      position: fixed;
-      top: calc(16px + env(safe-area-inset-top));
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      pointer-events: none;
-    }
-    .ios-toast {
-      background: #ffffff;
-      border: 1px solid var(--card-border-cyan);
-      color: var(--text-dark);
-      padding: 12px 20px;
-      border-radius: var(--pill);
-      font-size: 0.85rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 10px 25px rgba(0, 180, 216, 0.12);
-      animation: slideDownToast 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    @keyframes slideDownToast {
-      from { transform: translateY(-20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
   </style>
 </head>
 <body>
 
   <div id="toast-host"></div>
 
-  <!-- FLOATING 5-SECOND MISSION TRACKER -->
-  <div id="taskFloatingTracker">
-    <div class="tracker-pulse-dot"></div>
-    <div style="font-size:0.85rem; font-weight:700;">
-      Mission verification: <span id="floatCountdownNum" style="color:var(--cyan-primary); font-weight:900;">5s</span>
-    </div>
-    <button onclick="cancelMissionTracker()" style="background:transparent; border:none; color:#94a3b8; font-size:1.1rem; cursor:pointer;">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-  </div>
-
-  <!-- OFFLINE FULLSCREEN BLOCKER -->
+  <!-- OFFLINE SHIELD -->
   <div id="offlineLockScreen">
-    <div class="offline-icon-bubble">
-      <i class="fa-solid fa-wifi-slash"></i>
-    </div>
-    <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px;">No Internet Connection</h2>
-    <p style="color: var(--text-dim); font-size: 0.9rem; max-width: 320px; line-height: 1.5; margin-bottom: 24px;">
-      Cash Hub requires an active internet connection to synchronize coin rewards and real-time tasks.
-    </p>
-    <button class="btn-cyan" style="max-width: 240px;" onclick="checkInternetConnection(true)">
-      <i class="fa-solid fa-arrows-rotate"></i> Retry Connection
-    </button>
+    <div style="font-size: 3rem; color: var(--danger); margin-bottom: 16px;"><i class="fa-solid fa-wifi-slash"></i></div>
+    <h2 style="font-weight: 800; margin-bottom: 8px;">No Internet Connection</h2>
+    <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 24px;">Please reconnect to proceed on CASH HUB.</p>
+    <button class="btn-cyan" style="max-width: 200px;" onclick="checkInternetConnection(true)">Retry</button>
   </div>
 
-  <!-- POPUP BANNER MODAL -->
-  <div id="popupBannerModal">
-    <div class="popup-banner-box">
-      <span onclick="closePopupBanner()" style="position:absolute; top:12px; right:16px; font-size:1.4rem; cursor:pointer; color:var(--text-muted);">&times;</span>
-      <img id="popupBannerImg" class="popup-banner-img" src="" style="display:none;" />
-      <h3 id="popupBannerTitle" style="font-size:1.15rem; font-weight:800; margin-bottom:6px;">Special Announcement</h3>
-      <p id="popupBannerDesc" style="font-size:0.85rem; color:var(--text-dim); margin-bottom:16px;"></p>
-      <button class="btn-cyan" id="popupBannerBtn" onclick="triggerPopupAction(event)">View Now</button>
+  <!-- IN-APP BROWSER -->
+  <div id="inAppBrowserModal">
+    <div class="inapp-browser-bar">
+      <div class="browser-url-pill"><i class="fa-solid fa-lock" style="color:var(--success);"></i> <span id="inAppBrowserUrlLabel">https://cashhub-sepia.vercel.app</span></div>
+      <div style="background:var(--cyan-gradient); color:#fff; font-size:0.8rem; font-weight:800; padding:8px 14px; border-radius:var(--pill);"><i class="fa-regular fa-clock"></i> <span id="inAppTimerCount">10s</span></div>
+      <button onclick="abortInAppMission()" style="background:#fee2e2; border:none; color:var(--danger); width:36px; height:36px; border-radius:50%; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
     </div>
+    <div class="browser-timer-progress"><div class="browser-timer-fill" id="inAppProgressFill"></div></div>
+    <iframe id="inAppIframe" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" src="about:blank"></iframe>
   </div>
 
-  <!-- TOP HEADER -->
+  <!-- HEADER -->
   <header class="ios-nav">
     <div class="header-balance-wrap">
-      <div class="header-app-brand" id="brandHeaderWrap">
-        <img id="appHeaderLogoImg" class="app-logo-img" src="" style="display: none;" alt="App Logo" />
-        <div class="coin-badge-icon" id="lblCoinShortName">COIN</div>
-      </div>
+      <div class="coin-badge-icon" id="lblAppLogoWrap"><i class="fa-solid fa-coins"></i></div>
       <div>
         <div class="header-coin-val" id="headerCoinCount">0</div>
         <div class="header-fiat-val" id="headerFiatRate">= $0.00</div>
       </div>
     </div>
     <div class="header-right-actions">
-      <button class="btn-header-payout" onclick="playAudio('tap'); switchNav('wallet')">
-        <i class="fa-solid fa-wallet"></i> Payout
-      </button>
-      <div class="btn-profile-badge" id="headerAvatarBtn" onclick="playAudio('tap'); openModal('profileViewModal')">
-        A
-      </div>
+      <button class="btn-header-payout" onclick="playAudio('tap'); switchNav('wallet')"><i class="fa-solid fa-wallet"></i> Payout</button>
+      <div class="btn-profile-badge" id="headerAvatarBtn" onclick="playAudio('tap'); openModal('profileViewModal')">A</div>
     </div>
   </header>
 
-  <!-- MAIN APP PANELS -->
   <main>
-    <!-- TOP AD SCRIPT SLOT (Executed dynamically when admin adds ad script) -->
-    <div id="topBannerAdArea" class="ad-banner-slot"></div>
-
-    <!-- VIEW 1: HOME PANEL -->
+    <!-- VIEW 1: HOME -->
     <section id="view-home" class="view-panel active-view">
-      <!-- 7-DAY LOGIN STREAK REWARDS -->
+      <!-- 7-DAY LOGIN STREAK (FIXED HORIZONTAL ROW) -->
       <div class="app-card streak-container">
         <div class="streak-header">
           <h3 class="streak-title">Daily Login Rewards</h3>
@@ -1283,776 +862,258 @@
             <span class="streak-reward-val" style="color:#92400e;">100</span>
           </div>
         </div>
-        <button class="btn-cyan" id="btnClaimStreak" onclick="claimDailyStreakReward()">
-          <i class="fa-solid fa-fire"></i> CLAIM DAILY LOGIN BONUS
-        </button>
+        <button class="btn-cyan" id="btnClaimStreak" onclick="claimDailyStreakReward()"><i class="fa-solid fa-fire"></i> CLAIM DAILY LOGIN</button>
       </div>
 
-      <!-- DUO HERO BUTTONS FOR CLICK & EARN AND FOLLOW & EARN -->
+      <!-- DUO HERO BUTTONS -->
       <div class="hero-earn-duo-row">
         <button class="btn-earn-hero btn-click-earn" onclick="playAudio('tap'); openClickAndEarnSection()">
-          <div class="hero-icon-bubble">
-            <i class="fa-solid fa-arrow-pointer"></i>
-          </div>
-          <div>
-            <div class="hero-title-text">Click & Earn</div>
-            <div class="hero-sub-text">Visit sponsored links directly</div>
-          </div>
-          <div class="hero-reward-pill">
-            <i class="fa-solid fa-coins"></i> +1 - 25 Coins
-          </div>
+          <div class="hero-icon-bubble"><i class="fa-solid fa-arrow-pointer"></i></div>
+          <div class="hero-title-text">Click & Earn</div>
+          <div class="hero-sub-text">Visit sponsored sites</div>
+          <div class="hero-reward-pill">+1 - 25 Coins</div>
         </button>
-
         <button class="btn-earn-hero btn-follow-earn" onclick="playAudio('tap'); openFollowAndEarnSection()">
-          <div class="hero-icon-bubble">
-            <i class="fa-solid fa-user-check"></i>
-          </div>
-          <div>
-            <div class="hero-title-text">Follow & Earn</div>
-            <div class="hero-sub-text">Subscribe to social accounts</div>
-          </div>
-          <div class="hero-reward-pill">
-            <i class="fa-solid fa-coins"></i> +5 - 50 Coins
-          </div>
+          <div class="hero-icon-bubble"><i class="fa-solid fa-user-check"></i></div>
+          <div class="hero-title-text">Follow & Earn</div>
+          <div class="hero-sub-text">Follow & subscribe</div>
+          <div class="hero-reward-pill">+5 - 50 Coins</div>
         </button>
       </div>
 
-      <!-- GAMES GRID (SPIN WITH TIMER, SCRATCH, MATH, WATCH AD) -->
+      <!-- 4 GAMES WITH COOLDOWN (SPIN WHEEL HAS 3HR COOLDOWN) -->
       <div class="game-actions-grid">
         <div class="game-action-btn" onclick="playAudio('tap'); handleSpinTrigger()">
-          <div class="game-action-icon">
-            <i class="fa-solid fa-dharmachakra"></i>
-          </div>
-          <span class="game-action-label">Lucky Spin</span>
+          <div class="game-action-icon"><i class="fa-solid fa-dharmachakra"></i></div>
+          <span class="game-action-label">Spin Win</span>
           <span class="game-cooldown-badge" id="spinTimerBadge">03:00:00</span>
-          <small id="spinSubLabel" style="font-size:0.65rem; color:var(--cyan-dark); font-weight:700;">1-50 Coins</small>
         </div>
-
         <div class="game-action-btn" onclick="playAudio('tap'); handleScratchTrigger()">
-          <div class="game-action-icon">
-            <i class="fa-solid fa-trophy"></i>
-          </div>
-          <span class="game-action-label">Scratch Win</span>
+          <div class="game-action-icon"><i class="fa-solid fa-trophy"></i></div>
+          <span class="game-action-label">Scratch</span>
           <span class="game-cooldown-badge" id="scratchTimerBadge">03:00:00</span>
-          <small id="scratchSubLabel" style="font-size:0.65rem; color:var(--cyan-dark); font-weight:700;">1-50 Coins</small>
         </div>
-
         <div class="game-action-btn" onclick="playAudio('tap'); handleMathQuizTrigger()">
-          <div class="game-action-icon">
-            <i class="fa-solid fa-calculator"></i>
-          </div>
-          <span class="game-action-label">Math Solve</span>
+          <div class="game-action-icon"><i class="fa-solid fa-calculator"></i></div>
+          <span class="game-action-label">Math Quiz</span>
           <span class="game-cooldown-badge" id="mathTimerBadge">03:00:00</span>
-          <small id="mathSubLabel" style="font-size:0.65rem; color:var(--cyan-dark); font-weight:700;">1-50 Coins</small>
         </div>
-
-        <!-- WATCH AD BUTTON -->
-        <div class="game-action-btn" id="btnWatchAdAction" onclick="handleWatchAdClick(event)">
-          <div class="game-action-icon" style="color:var(--danger); background:#fee2e2;">
-            <i class="fa-solid fa-circle-play"></i>
-          </div>
+        <div class="game-action-btn" onclick="playAudio('tap'); triggerWatchAdAction()">
+          <div class="game-action-icon" style="color:var(--danger); background:#fee2e2;"><i class="fa-solid fa-circle-play"></i></div>
           <span class="game-action-label">Watch Ad</span>
-          <small style="font-size:0.65rem; color:var(--success); font-weight:800;">+10 Coins</small>
+          <small style="font-size:0.62rem; color:var(--success); font-weight:800;">+10 Coins</small>
         </div>
       </div>
 
-      <!-- Promo Code Claim Card -->
+      <!-- PROMO CODE -->
       <div class="promocode-card">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <h4 style="font-size:0.95rem; font-weight:800;"><i class="fa-solid fa-gift" style="color:var(--cyan-primary);"></i> Redeem Promo Code</h4>
-          <span style="font-size:0.75rem; color:var(--cyan-primary); font-weight:700;">Free Coins</span>
-        </div>
-        <p style="font-size:0.75rem; color:#94a3b8; margin-top:4px;">Enter an official coupon code released by the admin.</p>
+        <h4 style="font-size:0.95rem; font-weight:800;"><i class="fa-solid fa-gift" style="color:var(--cyan-primary);"></i> Redeem Promo Code</h4>
         <div class="promocode-input-wrap">
-          <input type="text" id="inputPromoCode" class="promocode-input" placeholder="ENTER PROMO CODE" />
+          <input type="text" id="inputPromoCode" class="promocode-input" placeholder="ENTER CODE" />
           <button class="btn-apply-promo" onclick="redeemPromoCode()">Redeem</button>
         </div>
       </div>
 
-      <!-- MID AD SLOT -->
-      <div id="midContentAdArea" class="ad-banner-slot"></div>
-
-      <!-- Featured Missions -->
-      <div class="section-head" style="display:flex; justify-content:space-between; align-items:center; margin: 20px 0 12px 0;">
-        <h3 style="font-size:1.15rem; font-weight:800;">Featured Missions</h3>
+      <div class="section-head">
+        <h3>Featured Missions</h3>
         <span onclick="playAudio('tap'); switchNav('earn')" style="font-size:0.82rem; font-weight:700; color:var(--cyan-primary); cursor:pointer;">See All</span>
       </div>
       <div id="homeFeaturedFeed"></div>
     </section>
 
-    <!-- VIEW 2: EARN PANEL -->
+    <!-- VIEW 2: EARN -->
     <section id="view-earn" class="view-panel">
-      <div class="section-head" style="margin-top: 0;">
-        <h3>Earning Task Hub</h3>
-      </div>
-
-      <div class="hero-earn-duo-row" style="margin-bottom: 14px;">
-        <button class="btn-earn-hero btn-click-earn" style="padding: 12px;" onclick="playAudio('tap'); filterTaskCategory('click', document.getElementById('tabFilterClick'))">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <i class="fa-solid fa-arrow-pointer"></i>
-            <span style="font-weight: 800; font-size: 0.9rem;">Direct Link Ads</span>
-          </div>
-        </button>
-
-        <button class="btn-earn-hero btn-follow-earn" style="padding: 12px;" onclick="playAudio('tap'); filterTaskCategory('follow', document.getElementById('tabFilterFollow'))">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <i class="fa-solid fa-user-check"></i>
-            <span style="font-weight: 800; font-size: 0.9rem;">Social Media Tasks</span>
-          </div>
-        </button>
-      </div>
-
-      <!-- Category Filter Tabs -->
       <div class="task-cat-tabs">
         <div class="task-tab-pill active" id="tabFilterAll" onclick="filterTaskCategory('all', this)">All Tasks</div>
-        <div class="task-tab-pill" id="tabFilterClick" onclick="filterTaskCategory('click', this)">Direct Link Ads</div>
-        <div class="task-tab-pill" id="tabFilterFollow" onclick="filterTaskCategory('follow', this)">Social Media Tasks</div>
+        <div class="task-tab-pill" id="tabFilterClick" onclick="filterTaskCategory('click', this)">Click & Earn</div>
+        <div class="task-tab-pill" id="tabFilterFollow" onclick="filterTaskCategory('follow', this)">Follow & Earn</div>
         <div class="task-tab-pill" id="tabFilterInstall" onclick="filterTaskCategory('install', this)">Install & Earn</div>
       </div>
-
       <div id="allTasksListingFeed"></div>
     </section>
 
-    <!-- VIEW 3: ENHANCED REFERRAL & SHARE PANEL (NO DUMMY DATA) -->
+    <!-- VIEW 3: REFERRAL -->
     <section id="view-referral" class="view-panel">
       <div class="referral-header-row">
         <h2 class="referral-header-title">Refer & Earn</h2>
-        <div style="display:flex; gap:8px;">
-          <div class="btn-referral-history" onclick="playAudio('tap'); openQrCodeModal()">
-            <i class="fa-solid fa-qrcode"></i>
-          </div>
-          <div class="btn-referral-history" onclick="playAudio('tap'); openModal('referralHistoryModal')">
-            <i class="fa-solid fa-clock-rotate-left"></i>
-          </div>
-        </div>
       </div>
 
-      <!-- Referral Main Hero Card -->
       <div class="refer-hero-card">
         <div class="refer-hero-top">
-          <div class="badge-per-friend">
-            <i class="fa-solid fa-fire"></i> +1800 per friend
-          </div>
-          <div class="btn-hero-info" onclick="playAudio('tap'); openModal('referralPerksModal')">
-            <i class="fa-solid fa-question"></i>
-          </div>
+          <div class="badge-per-friend"><i class="fa-solid fa-fire"></i> +1800 per friend</div>
         </div>
-
         <div class="refer-code-inner-card">
           <div>
-            <span class="code-inner-label">Your Unique Invite Code</span>
+            <span style="font-size:0.72rem; font-weight:600; color:var(--text-muted); display:block;">Your Referral Code</span>
             <div class="code-inner-val" id="refCardCodeText">--------</div>
           </div>
-          <button class="btn-copy-code" onclick="copyReferralCode()">
-            <i class="fa-regular fa-copy"></i> Copy
-          </button>
+          <button class="btn-copy-code" onclick="copyReferralCode()"><i class="fa-regular fa-copy"></i> Copy</button>
         </div>
-
         <div class="refer-actions-row">
-          <button class="btn-refer-action" onclick="playAudio('tap'); openModal('referralPerksModal')">
-            <i class="fa-solid fa-chart-simple"></i> Perks
-          </button>
-          <button class="btn-refer-action" onclick="playAudio('tap'); triggerPersonalShare()">
-            <i class="fa-solid fa-share-nodes"></i> Share Link
-          </button>
+          <button class="btn-refer-action" onclick="openShareSheetModal()"><i class="fa-solid fa-share-nodes"></i> Share Link</button>
         </div>
       </div>
 
-      <!-- QUICK SOCIAL MEDIA SHARE BAR -->
-      <div class="social-share-quick-bar">
-        <a href="#" id="quickShareWhatsApp" target="_blank" rel="noopener noreferrer" class="social-quick-btn" onclick="playAudio('tap')">
-          <div class="social-quick-icon" style="background:#25d366;"><i class="fa-brands fa-whatsapp"></i></div>
-          <span style="font-size:0.7rem; font-weight:700; color:var(--text-dark);">WhatsApp</span>
-        </a>
-        <a href="#" id="quickShareTelegram" target="_blank" rel="noopener noreferrer" class="social-quick-btn" onclick="playAudio('tap')">
-          <div class="social-quick-icon" style="background:#0088cc;"><i class="fa-brands fa-telegram"></i></div>
-          <span style="font-size:0.7rem; font-weight:700; color:var(--text-dark);">Telegram</span>
-        </a>
-        <a href="#" id="quickShareX" target="_blank" rel="noopener noreferrer" class="social-quick-btn" onclick="playAudio('tap')">
-          <div class="social-quick-icon" style="background:#0f172a;"><i class="fa-brands fa-x-twitter"></i></div>
-          <span style="font-size:0.7rem; font-weight:700; color:var(--text-dark);">Twitter/X</span>
-        </a>
-        <a href="#" id="quickShareFacebook" target="_blank" rel="noopener noreferrer" class="social-quick-btn" onclick="playAudio('tap')">
-          <div class="social-quick-icon" style="background:#1877f2;"><i class="fa-brands fa-facebook"></i></div>
-          <span style="font-size:0.7rem; font-weight:700; color:var(--text-dark);">Facebook</span>
-        </a>
-      </div>
-
-      <!-- OFFICIAL APP SHARE CARD -->
-      <div class="official-share-card">
-        <div class="official-share-header">
-          <div class="official-share-icon">
-            <i class="fa-solid fa-globe"></i>
-          </div>
-          <div style="flex:1; min-width:0;">
-            <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--text-dark);">Official Website Link</h4>
-            <span style="font-size: 0.74rem; color: var(--text-dim); display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" id="officialAdminLinkDisplay">https://taskhub-brown.vercel.app</span>
-          </div>
-        </div>
-        <div class="official-share-btn-group">
-          <button class="btn-sub-share" onclick="shareOfficialLink('native')">
-            <i class="fa-solid fa-share-nodes" style="color:var(--cyan-primary);"></i> Quick Share
-          </button>
-          <button class="btn-sub-share" onclick="shareOfficialLink('copy')">
-            <i class="fa-regular fa-copy" style="color:var(--cyan-dark);"></i> Copy Link
-          </button>
-        </div>
-      </div>
-
-      <!-- 2-CARD METRICS ROW -->
       <div class="refer-metrics-row">
         <div class="metric-card-box">
-          <div class="metric-icon-wrap">
-            <i class="fa-solid fa-user-group"></i>
-          </div>
-          <div class="metric-data-wrap">
-            <small>Total<br/>Referrals</small>
-            <strong id="refCountMetric">0</strong>
-          </div>
+          <div class="metric-icon-wrap"><i class="fa-solid fa-user-group"></i></div>
+          <div><small style="display:block; color:var(--text-dim); font-size:0.75rem;">Total Referrals</small><strong id="refCountMetric" style="font-size:1.4rem;">0</strong></div>
         </div>
-
         <div class="metric-card-box">
-          <div class="metric-icon-wrap" style="color: var(--cyan-dark); background: var(--cyan-soft);">
-            <i class="fa-solid fa-piggy-bank"></i>
-          </div>
-          <div class="metric-data-wrap">
-            <small>Total<br/>Earnings</small>
-            <strong id="refEarningsMetric">0</strong>
-          </div>
+          <div class="metric-icon-wrap" style="color:var(--cyan-dark); background:var(--cyan-soft);"><i class="fa-solid fa-piggy-bank"></i></div>
+          <div><small style="display:block; color:var(--text-dim); font-size:0.75rem;">Total Earnings</small><strong id="refEarningsMetric" style="font-size:1.4rem;">0</strong></div>
         </div>
       </div>
 
-      <!-- REAL REFERRAL LEADERBOARD (NO DUMMIES) -->
-      <div class="leaderboard-card">
-        <div class="leaderboard-header">
-          <div class="leaderboard-title">
-            <i class="fa-solid fa-trophy" style="color:var(--gold);"></i>
-            <span>Top Referrers Leaderboard</span>
-          </div>
-          <span style="font-size:0.7rem; font-weight:800; color:var(--cyan-dark); background:var(--cyan-soft); padding:3px 8px; border-radius:var(--pill);">Live Updates</span>
-        </div>
-        <div class="leaderboard-list" id="referralLeaderboardList">
-          <div style="text-align:center; padding:18px; color:var(--text-muted); font-size:0.82rem;">
-            Invite friends to climb to Rank #1 on the live leaderboard!
-          </div>
-        </div>
-      </div>
-
-      <!-- CLAIM REFERRAL CODE CARD -->
-      <div class="claim-code-card" id="claimReferralCard">
-        <h4>Have an Invite Code?</h4>
-        <p>Enter your friend's code below to claim an instant bonus reward!</p>
-        <div class="claim-input-row">
-          <input type="text" class="claim-code-input" id="inputClaimReferralCode" placeholder="ENTER CODE" maxlength="12" />
-          <button class="btn-claim-referral" onclick="submitReferralCodeClaim()">Claim</button>
-        </div>
-      </div>
-
-      <!-- DYNAMIC REFERRAL MILESTONES CARD -->
-      <div class="tier-bonus-card">
-        <div class="tier-header-row">
-          <h4 style="font-size:0.95rem; font-weight:800; color:var(--text-dark);" id="lblCurrentTierTitle">Tier Progress</h4>
-          <span class="badge-tier-count" id="badgeTierReferrals">Referrals: 0</span>
-        </div>
-        <p style="font-size:0.8rem; color:var(--text-dim); margin-bottom:12px; line-height:1.3;" id="tierRemainingDesc">
-          Invite friends to unlock escalating milestone rewards!
-        </p>
-
-        <div class="tier-progress-track">
-          <div class="tier-progress-fill" id="tierProgressFill"></div>
-        </div>
-        <div class="tier-progress-label" id="tierProgressPercentLabel">0% completed</div>
-
-        <div id="tierRewardActionContainer" style="display:flex; justify-content:space-between; align-items:center;">
-          <div style="font-size:0.85rem; font-weight:800; color:var(--text-dark); display:flex; align-items:center; gap:8px;">
-            <i class="fa-solid fa-medal" style="color: var(--gold);"></i>
-            <span id="txtNextTierMilestoneInfo">Next: 5 Friends • +500 Coins</span>
-          </div>
-          <button id="btnClaimTierBonus" class="btn-claim-referral" style="padding:6px 14px; font-size:0.75rem; display:none;" onclick="claimTierMilestoneBonus()">
-            Claim Bonus
-          </button>
+      <div class="app-card" id="claimReferralCard">
+        <h4 style="font-size:1rem; font-weight:800; color:var(--cyan-dark); margin-bottom:4px;">Have an Invite Code?</h4>
+        <p style="font-size:0.78rem; color:var(--text-dim); margin-bottom:12px;">Enter code to claim an instant bonus reward!</p>
+        <div style="display:flex; gap:8px;">
+          <input type="text" class="form-control" id="inputClaimReferralCode" placeholder="ENTER CODE" style="flex:1; text-transform:uppercase; font-weight:700; padding:10px 14px; border-radius:var(--pill); border:1.5px solid var(--card-border-cyan);" />
+          <button class="btn-cyan" style="width:auto; padding:10px 20px;" onclick="submitReferralCodeClaim()">Claim</button>
         </div>
       </div>
     </section>
 
-    <!-- VIEW 4: PROMOTE SOCIALS PANEL -->
+    <!-- VIEW 4: PROMOTE SOCIAL ACCOUNT -->
     <section id="view-promote" class="view-panel">
-      <div class="app-card" style="padding: 22px;">
-        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 6px;">Promote My Social Account</h3>
-        <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 20px;">
-          Boost your official channel or page. Other members discover and follow your account to earn reward coins.
-        </p>
-
+      <div class="app-card" style="padding:22px;">
+        <h3 style="font-size:1.25rem; font-weight:800; margin-bottom:6px;">Promote My Social Account</h3>
+        <p style="font-size:0.8rem; color:var(--text-dim); margin-bottom:20px;">Members discover and follow your account to earn reward coins.</p>
         <form id="createCampaignForm">
-          <div class="promote-field">
-            <label>Select Social Platform</label>
-            <select id="promoteFormPlatform" onchange="handlePlatformSelectionChange()" required>
+          <div style="margin-bottom:16px;">
+            <label style="font-size:0.8rem; font-weight:700; color:var(--cyan-dark); display:block; margin-bottom:6px;">Social Platform</label>
+            <select id="promoteFormPlatform" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--card-border);" required>
               <option value="YouTube">YouTube</option>
               <option value="Telegram">Telegram</option>
               <option value="Instagram">Instagram</option>
               <option value="TikTok">TikTok</option>
               <option value="X">X (Twitter)</option>
               <option value="Discord">Discord</option>
-              <option value="Facebook">Facebook</option>
             </select>
           </div>
-
-          <div class="promote-field">
-            <label id="lblAccountField">Channel / Account Name</label>
-            <input type="text" id="promoteFormChannelName" placeholder="e.g. My Official Channel" required />
+          <div style="margin-bottom:16px;">
+            <label style="font-size:0.8rem; font-weight:700; color:var(--cyan-dark); display:block; margin-bottom:6px;">Account / Channel Name</label>
+            <input type="text" id="promoteFormChannelName" placeholder="My Channel" required style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--card-border);" />
           </div>
-
-          <div class="promote-field">
-            <label id="lblUrlField">Channel / Profile Link (HTTPS)</label>
-            <input type="url" id="promoteFormChannelLink" placeholder="https://youtube.com/@channel" required />
-            <div class="url-example-badge">
-              <span>Format: <strong id="lblExampleUrl">https://youtube.com/@channel</strong></span>
-              <button type="button" class="btn-apply-template" onclick="applyUrlTemplate()">Apply</button>
+          <div style="margin-bottom:16px;">
+            <label style="font-size:0.8rem; font-weight:700; color:var(--cyan-dark); display:block; margin-bottom:6px;">Target URL (HTTPS)</label>
+            <input type="url" id="promoteFormChannelLink" placeholder="https://..." required style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--card-border);" />
+          </div>
+          <div style="margin-bottom:16px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div>
+              <label style="font-size:0.8rem; font-weight:700; color:var(--cyan-dark); display:block; margin-bottom:6px;">Clicks (10-500)</label>
+              <input type="number" id="promoteFormClicks" min="10" max="500" value="10" required style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--card-border);" />
+            </div>
+            <div>
+              <label style="font-size:0.8rem; font-weight:700; color:var(--cyan-dark); display:block; margin-bottom:6px;">Reward (10-50)</label>
+              <input type="number" id="promoteFormReward" min="10" max="50" value="10" required style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--card-border);" />
             </div>
           </div>
-
-          <div class="promote-field">
-            <label>Clicks / Followers Wanted (10–500)</label>
-            <input type="number" id="promoteFormClicks" min="10" max="500" value="10" required />
-          </div>
-
-          <div class="promote-field">
-            <label>Reward per Member (10–50 Coins)</label>
-            <input type="number" id="promoteFormReward" min="10" max="50" value="10" required />
-          </div>
-
-          <button type="button" class="btn-cyan" style="background: var(--bg-subtle); color: var(--text-dark); margin-bottom: 12px; border: 1px solid var(--card-border-cyan);" onclick="playAudio('tap'); calculateCampaignTotalCost()">
-            Calculate Total
-          </button>
-
-          <div id="costCalculationBox" style="display: none; background: var(--cyan-soft); border: 1px solid var(--cyan-primary); border-radius: var(--radius-md); padding: 14px; text-align: center; margin-bottom: 16px;">
-            <small style="font-size: 0.75rem; font-weight: 800; color: var(--text-dim);">TOTAL COINS REQUIRED</small>
-            <div style="font-size: 1.6rem; font-weight: 800; color: var(--cyan-dark);" id="txtTotalCoinsRequired">0 Coins</div>
-          </div>
-
-          <button type="submit" class="btn-cyan">
-            <i class="fa-solid fa-bullhorn"></i> Submit Social Campaign
-          </button>
+          <button type="submit" class="btn-cyan"><i class="fa-solid fa-bullhorn"></i> Submit Campaign</button>
         </form>
       </div>
     </section>
 
-    <!-- VIEW 5: WALLET / UNIFIED PAYOUT PANEL -->
+    <!-- VIEW 5: WALLET & DYNAMIC GATEWAYS WITH LOGOS -->
     <section id="view-wallet" class="view-panel">
-      <!-- TOP DARK HERO CARD (EXACT MATCH TO DESIGN) -->
-      <div class="wallet-hero-card">
-        <div class="wallet-hero-ambient"></div>
-        <div class="wallet-hero-top">
-          <div class="wallet-hero-left">
-            <small>Total Balance</small>
-            <div class="wallet-balance-num">
-              <span id="walletCoinsTotal">0</span><span class="wallet-balance-unit">pts</span>
-            </div>
-          </div>
-          <div class="wallet-usd-pill-box">
-            <small>USD Value</small>
-            <strong id="walletFiatTotal">$0.00</strong>
-          </div>
-        </div>
-
-        <div class="wallet-hero-bottom">
-          <div class="wallet-hero-bottom-left">
-            <i class="fa-solid fa-location-dot" style="color:#60a5fa;"></i>
-            <span id="walletCountryBadge">US</span>
-          </div>
-          <div class="wallet-hero-bottom-right" onclick="playAudio('tap'); openModal('privacyPolicyModal')">
-            <i class="fa-regular fa-circle-question"></i>
-            <span>Policy</span>
-          </div>
-        </div>
+      <div class="app-card" style="text-align:center;">
+        <small style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Available Balance</small>
+        <div style="font-size:2.6rem; font-weight:800; color:var(--text-dark); margin:6px 0;" id="walletCoinsTotal">0</div>
+        <div style="font-size:0.95rem; font-weight:700; color:var(--cyan-dark);" id="walletFiatTotal">≈ $0.00</div>
       </div>
-
-      <!-- DYNAMIC 2-COLUMN BIG LOGO PAYOUT GRID -->
-      <div id="payoutCategoriesContainer"></div>
+      <div class="section-head">
+        <h3>Payout Methods</h3>
+      </div>
+      <div id="walletPayoutMethodsList">
+        <div style="text-align:center; padding:20px; color:var(--text-muted);">Loading payment options...</div>
+      </div>
     </section>
   </main>
 
-  <!-- BOTTOM TAB BAR -->
+  <!-- BOTTOM NAVIGATION -->
   <nav class="bottom-nav">
-    <div class="nav-tab active" onclick="playAudio('tap'); switchNav('home')">
-      <i class="fa-solid fa-house"></i>
-      <span>Home</span>
-    </div>
-    <div class="nav-tab" onclick="playAudio('tap'); switchNav('earn')">
-      <i class="fa-solid fa-play"></i>
-      <span>Earn</span>
-    </div>
-    <div class="nav-tab" onclick="playAudio('tap'); switchNav('referral')">
-      <i class="fa-solid fa-user-plus"></i>
-      <span>Referral</span>
-    </div>
-    <div class="nav-tab" onclick="playAudio('tap'); switchNav('promote')">
-      <i class="fa-solid fa-arrow-up-right-from-square"></i>
-      <span>Promote</span>
-    </div>
-    <div class="nav-tab" onclick="playAudio('tap'); switchNav('wallet')">
-      <i class="fa-solid fa-wallet"></i>
-      <span>Wallet</span>
-    </div>
+    <div class="nav-tab active" onclick="playAudio('tap'); switchNav('home')"><i class="fa-solid fa-house"></i><span>Home</span></div>
+    <div class="nav-tab" onclick="playAudio('tap'); switchNav('earn')"><i class="fa-solid fa-play"></i><span>Earn</span></div>
+    <div class="nav-tab" onclick="playAudio('tap'); switchNav('referral')"><i class="fa-solid fa-user-plus"></i><span>Referral</span></div>
+    <div class="nav-tab" onclick="playAudio('tap'); switchNav('promote')"><i class="fa-solid fa-arrow-up-right-from-square"></i><span>Promote</span></div>
+    <div class="nav-tab" onclick="playAudio('tap'); switchNav('wallet')"><i class="fa-solid fa-wallet"></i><span>Wallet</span></div>
   </nav>
 
-  <!-- QR CODE MODAL FOR INSTANT SCAN -->
-  <div class="modal-overlay" id="qrCodeModal">
-    <div class="modal-content" style="text-align:center;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <h3 style="font-weight:800;">Scan to Join</h3>
-        <span style="font-size:1.5rem; cursor:pointer;" onclick="closeModal('qrCodeModal')">&times;</span>
-      </div>
-      <p style="font-size:0.8rem; color:var(--text-dim); margin-bottom:16px;">
-        Show this QR code to friends. When scanned, it opens the website with your invite code pre-applied!
-      </p>
-      <div style="padding:14px; background:#ffffff; border-radius:18px; border:1px solid var(--card-border-cyan); display:inline-block; margin-bottom:16px;">
-        <img id="qrCodeImg" src="" alt="Referral QR Code" style="width:200px; height:200px; display:block;" />
-      </div>
-      <button class="btn-cyan" onclick="copyReferralLink()">
-        <i class="fa-regular fa-copy"></i> Copy Full Link
-      </button>
-    </div>
-  </div>
-
-  <!-- REDEEM CONFIRMATION MODAL -->
-  <div class="modal-overlay" id="redeemConfirmModal">
-    <div class="modal-content">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <h3 style="font-weight:800;" id="redeemModalTitle">Redeem Payout</h3>
-        <span style="font-size:1.5rem; cursor:pointer;" onclick="closeModal('redeemConfirmModal')">&times;</span>
-      </div>
-
-      <div style="background:var(--cyan-soft); border:1px solid var(--card-border-cyan); border-radius:18px; padding:16px; text-align:center; margin-bottom:16px;">
-        <small style="color:var(--text-dim); font-size:0.75rem; font-weight:700; text-transform:uppercase;">Selected Gateway</small>
-        <div style="font-size:1.8rem; font-weight:800; color:var(--cyan-dark); margin:4px 0;" id="redeemModalValue">$1.0</div>
-        <span style="font-size:0.82rem; font-weight:700; color:var(--text-dark);" id="redeemModalCoinsRequired">Cost: 1000 Coins</span>
-      </div>
-
-      <form id="submitPayoutForm">
-        <div style="margin-bottom:16px;">
-          <label style="display:block; font-size:0.8rem; font-weight:700; color:var(--cyan-dark); margin-bottom:6px;" id="lblPayoutAddress">Enter Payout Account / ID</label>
-          <input type="text" id="inputPayoutAddress" placeholder="e.g. Account Number, ID or Email" required style="width:100%; padding:14px; border-radius:14px; border:1.5px solid var(--card-border); background:var(--bg-subtle); color:var(--text-dark); outline:none; font-weight:700; font-size:0.95rem;" />
-        </div>
-        <button type="submit" class="btn-cyan">
-          <i class="fa-solid fa-check-circle"></i> Confirm Payout Order
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- PROFILE & SETTINGS SUITE -->
-  <div class="modal-overlay" id="profileViewModal">
-    <div class="modal-content">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-        <h3 style="font-weight: 800;">Account & Settings</h3>
-        <span style="font-size: 1.5rem; cursor: pointer;" onclick="closeModal('profileViewModal')">&times;</span>
-      </div>
-
-      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--card-border);">
-        <div style="width: 54px; height: 54px; border-radius: 50%; background: var(--cyan-gradient); color: #fff; font-size: 1.5rem; font-weight: 800; display: grid; place-items: center; box-shadow: 0 4px 14px var(--cyan-glow); overflow:hidden;" id="profileLetter">A</div>
-        <div style="flex:1; min-width:0;">
-          <strong id="profileUserEmail" style="display: block; font-size: 0.95rem; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">user@domain.com</strong>
-          <div style="display:flex; align-items:center; gap:8px; margin-top:2px;">
-            <span style="font-size: 0.75rem; color: var(--cyan-dark); font-weight:800; background:var(--cyan-soft); padding:2px 8px; border-radius:var(--pill);">Verified Member</span>
-            <span id="profileUserCountry" style="font-size: 0.75rem; color: var(--text-dim);">Country: US</span>
-          </div>
-        </div>
-      </div>
-
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; margin-bottom: 20px; background:var(--bg-subtle); padding:12px; border-radius:16px; border:1px solid var(--card-border-cyan);">
-        <div>
-          <small style="color: var(--cyan-dark); font-weight: 800; font-size: 0.72rem; text-transform: uppercase;">Coins</small>
-          <strong style="display: block; font-size: 1.15rem; font-weight: 800;" id="profileStatTokens">0</strong>
-        </div>
-        <div>
-          <small style="color: var(--cyan-dark); font-weight: 800; font-size: 0.72rem; text-transform: uppercase;">Referrals</small>
-          <strong style="display: block; font-size: 1.15rem; font-weight: 800;" id="profileStatReferrals">0</strong>
-        </div>
-        <div>
-          <small style="color: var(--cyan-dark); font-weight: 800; font-size: 0.72rem; text-transform: uppercase;">Tasks Done</small>
-          <strong style="display: block; font-size: 1.15rem; font-weight: 800;" id="profileStatTasksDone">0</strong>
-        </div>
-      </div>
-
-      <div class="profile-nav-list" style="display:flex; flex-direction:column; gap:8px; margin-bottom:16px;">
-        <div class="app-card" style="padding:14px; margin-bottom:0; display:flex; align-items:center; justify-content:space-between; cursor:pointer;" onclick="playAudio('tap'); openModal('privacyPolicyModal')">
-          <div style="display:flex; align-items:center; gap:10px;">
-            <i class="fa-solid fa-shield-halved" style="color:var(--cyan-dark); font-size:1.1rem;"></i>
-            <strong style="font-size:0.9rem;">Privacy Policy</strong>
-          </div>
-          <i class="fa-solid fa-chevron-right" style="color:var(--text-muted); font-size:0.8rem;"></i>
-        </div>
-
-        <div class="app-card" style="padding:14px; margin-bottom:0; display:flex; align-items:center; justify-content:space-between; cursor:pointer;" onclick="playAudio('tap'); openModal('helpSupportModal')">
-          <div style="display:flex; align-items:center; gap:10px;">
-            <i class="fa-solid fa-headset" style="color:var(--success); font-size:1.1rem;"></i>
-            <strong style="font-size:0.9rem;">Help & Support Center</strong>
-          </div>
-          <i class="fa-solid fa-chevron-right" style="color:var(--text-muted); font-size:0.8rem;"></i>
-        </div>
-
-        <div class="app-card" style="padding:14px; margin-bottom:0; display:flex; align-items:center; justify-content:space-between; cursor:pointer;" onclick="toggleAudioFx()">
-          <div style="display:flex; align-items:center; gap:10px;">
-            <i class="fa-solid fa-volume-high" id="audioToggleIcon" style="color:var(--text-dark); font-size:1.1rem;"></i>
-            <strong style="font-size:0.9rem;">Audio Sound FX</strong>
-          </div>
-          <span id="audioToggleStatus" style="font-size:0.78rem; font-weight:800; color:var(--success);">ENABLED</span>
-        </div>
-      </div>
-
-      <button class="btn-cyan" style="background: #fee2e2; color: var(--danger); border: 1px solid var(--danger); box-shadow: none;" onclick="handleSignOut()">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i> Disconnect & Log Out
-      </button>
-    </div>
-  </div>
-
-  <!-- PRIVACY POLICY MODAL -->
-  <div class="modal-overlay" id="privacyPolicyModal">
-    <div class="modal-content">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-        <h3 style="font-weight: 800;">Platform Policy</h3>
-        <span style="font-size: 1.5rem; cursor: pointer;" onclick="closeModal('privacyPolicyModal')">&times;</span>
-      </div>
-      <div style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; display: flex; flex-direction: column; gap: 12px;">
-        <p><strong>1. Redemption Processing:</strong> Payout requests are verified by automated security protocols and processed within standard cycles.</p>
-        <p><strong>2. Fair Engagement:</strong> Using emulators, bots, or proxies results in permanent account suspension.</p>
-        <p><strong>3. Official Web Application:</strong> Hosted officially at https://taskhub-brown.vercel.app.</p>
-      </div>
-      <button class="btn-cyan" style="margin-top:16px;" onclick="closeModal('privacyPolicyModal')">Close Policy</button>
-    </div>
-  </div>
-
-  <!-- HELP & SUPPORT MODAL -->
-  <div class="modal-overlay" id="helpSupportModal">
-    <div class="modal-content">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-        <h3 style="font-weight: 800;">Help & Contact Support</h3>
-        <span style="font-size: 1.5rem; cursor: pointer;" onclick="closeModal('helpSupportModal')">&times;</span>
-      </div>
-      <p style="font-size:0.82rem; color:var(--text-dim); margin-bottom:14px;">Have questions about payouts, tasks, or your account? Reach our dedicated team below:</p>
-
-      <div style="display:flex; gap:10px; margin-bottom:16px;">
-        <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="btn-cyan" style="flex:1; background:#0088cc; color:#fff; text-decoration:none; padding:10px; font-size:0.82rem;">
-          <i class="fa-brands fa-telegram"></i> Telegram Care
-        </a>
-        <a href="mailto:support@cashhub.app" class="btn-cyan" style="flex:1; background:var(--bg-subtle); color:var(--text-dark); border:1px solid var(--card-border); text-decoration:none; padding:10px; font-size:0.82rem;">
-          <i class="fa-regular fa-envelope"></i> Email Support
-        </a>
-      </div>
-
-      <form id="supportTicketForm">
-        <div style="margin-bottom:12px;">
-          <label style="display:block; font-size:0.78rem; font-weight:700; color:var(--cyan-dark); margin-bottom:4px;">Issue Subject</label>
-          <input type="text" id="ticketSubject" placeholder="e.g. Withdrawal Inquiry" required style="width:100%; padding:10px 14px; border-radius:12px; border:1px solid var(--card-border); background:var(--bg-subtle); color:var(--text-dark); outline:none; font-size:0.9rem;" />
-        </div>
-        <div style="margin-bottom:16px;">
-          <label style="display:block; font-size:0.78rem; font-weight:700; color:var(--cyan-dark); margin-bottom:4px;">Describe Your Problem</label>
-          <textarea id="ticketMessage" rows="3" placeholder="Provide details..." required style="width:100%; padding:10px 14px; border-radius:12px; border:1px solid var(--card-border); background:var(--bg-subtle); color:var(--text-dark); outline:none; font-size:0.9rem; resize:none;"></textarea>
-        </div>
-        <button type="submit" class="btn-cyan">Submit Support Ticket</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- MULTI-SHARE SHEET MODAL -->
-  <div class="modal-overlay" id="referralShareModal">
-    <div class="modal-content" style="text-align: center;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-        <h3 style="font-weight: 800;">Share With Friends</h3>
-        <span style="font-size: 1.5rem; cursor: pointer;" onclick="closeModal('referralShareModal')">&times;</span>
-      </div>
-      <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 20px;">
-        Invite your friends to Cash Hub and receive +1800 coins for every friend who joins!
-      </p>
-
-      <div style="display: flex; flex-direction: column; gap: 10px;">
-        <a href="#" id="btnShareModalWhatsApp" target="_blank" rel="noopener noreferrer" class="btn-cyan" style="background: #25d366; text-decoration: none; color: #fff;">
-          <i class="fa-brands fa-whatsapp"></i> Share on WhatsApp
-        </a>
-        <a href="#" id="btnShareModalTelegram" target="_blank" rel="noopener noreferrer" class="btn-cyan" style="background: #0088cc; text-decoration: none; color: #fff;">
-          <i class="fa-brands fa-telegram"></i> Share on Telegram
-        </a>
-        <button class="btn-cyan" style="background: #0f172a; color:#fff;" onclick="shareViaNativeWeb()">
-          <i class="fa-solid fa-share-nodes"></i> More Sharing Options
-        </button>
-        <button class="btn-cyan" style="background: var(--bg-subtle); color: var(--text-dark); border: 1px solid var(--card-border);" onclick="copyReferralLink()">
-          <i class="fa-regular fa-copy"></i> Copy My Referral Link
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- REFERRAL PERKS MODAL -->
-  <div class="modal-overlay" id="referralPerksModal">
-    <div class="modal-content">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-        <h3 style="font-weight: 800;">Referral Perks</h3>
-        <span style="font-size: 1.5rem; cursor: pointer;" onclick="closeModal('referralPerksModal')">&times;</span>
-      </div>
-      <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 16px;">
-        Earn escalating rewards as your community grows:
-      </p>
-      <div style="display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem;">
-        <div style="padding: 12px; background: var(--bg-subtle); border-radius: 12px; border: 1px solid var(--card-border-cyan);">
-          <strong style="color:var(--cyan-dark);">Tier 1: Sign-up Bonus</strong>
-          <p style="color: var(--text-dim); font-size: 0.78rem;">Earn 50 coins immediately when your friend enters your invite code.</p>
-        </div>
-        <div style="padding: 12px; background: var(--bg-subtle); border-radius: 12px; border: 1px solid var(--card-border-cyan);">
-          <strong style="color:var(--cyan-dark);">Tier 2: Referral Commission</strong>
-          <p style="color: var(--text-dim); font-size: 0.78rem;">Receive additional +1750 Coins as your invited friends complete tasks.</p>
-        </div>
-        <div style="padding: 12px; background: var(--bg-subtle); border-radius: 12px; border: 1px solid var(--card-border-cyan);">
-          <strong style="color:var(--cyan-dark);">Tier 3: Milestone Bonuses</strong>
-          <p style="color: var(--text-dim); font-size: 0.78rem;">Earn up to +10,000 Coins in cash bonuses upon completing referral milestones!</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- REFERRAL HISTORY MODAL -->
-  <div class="modal-overlay" id="referralHistoryModal">
-    <div class="modal-content">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-        <h3 style="font-weight: 800;">Referral History</h3>
-        <span style="font-size: 1.5rem; cursor: pointer;" onclick="closeModal('referralHistoryModal')">&times;</span>
-      </div>
-      <div id="referralHistoryList" style="display: flex; flex-direction: column; gap: 8px;">
-        <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 20px;">
-          No referrals yet. Share your code to start earning!
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TASK ACTION DETAIL MODAL -->
-  <div class="modal-overlay" id="taskDetailModal">
-    <div class="modal-content">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-        <h3 style="font-weight: 800;" id="modalTaskTitle">Task Details</h3>
-        <span style="font-size: 1.5rem; cursor: pointer;" onclick="closeModal('taskDetailModal')">&times;</span>
-      </div>
-
-      <div style="background: var(--cyan-soft); border:1px solid var(--card-border-cyan); padding: 14px; border-radius: 14px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
-        <div style="display:flex; align-items:center; gap:10px;">
-          <div id="modalTaskBrandIconBox" class="task-icon-box" style="width:40px; height:40px; font-size:1.3rem;">
-            <i class="fa-solid fa-arrow-pointer"></i>
-          </div>
-          <div>
-            <span style="font-weight: 700; font-size: 0.75rem; color: var(--cyan-dark); display: block;" id="modalTaskBadgeCategory">MISSION</span>
-            <strong style="font-size: 1.15rem; color: var(--cyan-dark);" id="modalTaskReward">+0 Coins</strong>
-          </div>
-        </div>
-        <div style="font-size: 0.8rem; font-weight: 800; background: var(--card-white); padding: 6px 12px; border-radius: var(--pill); color: var(--text-dark); border: 1px solid var(--card-border);">
-          <i class="fa-regular fa-clock"></i> 5s Timer
-        </div>
-      </div>
-
-      <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.4; margin-bottom: 18px;" id="modalTaskInstructions">
-        Click below to visit the destination. Stay on the site for 5 seconds to claim your reward.
-      </p>
-
-      <button class="btn-cyan" id="btnModalTaskAction" onclick="handleTaskActionClick(event)">
-        <i class="fa-solid fa-arrow-up-right-from-square"></i> <span id="btnModalTaskActionText">Start Mission</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- LUCKY SPIN MODAL (WITH BUTTON AD INTEGRATION) -->
+  <!-- MODALS -->
   <div class="modal-overlay" id="spinModal">
     <div class="modal-content" style="text-align: center;">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h3 style="font-weight: 800;">Lucky Wheel Spin</h3>
-        <span style="font-size: 1.5rem; cursor: pointer;" onclick="closeModal('spinModal')">&times;</span>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="font-weight:800;">Lucky Wheel Spin</h3>
+        <span style="font-size:1.5rem; cursor:pointer;" onclick="closeModal('spinModal')">&times;</span>
       </div>
-      <p style="font-size: 0.8rem; color: var(--text-dim); margin: 6px 0 16px 0;">Spin to earn free prize coins (1-50 Coins)</p>
-      
-      <div style="position: relative; width: 250px; height: 250px; margin: 0 auto 16px auto;">
+      <p style="font-size:0.8rem; color:var(--text-dim); margin-bottom:16px;">Win 1 to 50 Coins (Every 3 Hours)</p>
+      <div style="position:relative; width:250px; height:250px; margin:0 auto 20px auto;">
         <div class="wheel-pointer" id="wheelPointerIndicator"></div>
-        <canvas id="wheelCanvas" width="250" height="250" style="border-radius: 50%; box-shadow: 0 10px 30px rgba(0, 180, 216, 0.2);"></canvas>
+        <canvas id="wheelCanvas" width="250" height="250" style="border-radius:50%; box-shadow:0 10px 30px rgba(0,180,216,0.2);"></canvas>
       </div>
-
-      <div id="spinCooldownBox" style="display:none; font-size:0.85rem; font-weight:800; color:var(--danger); margin-bottom:12px;">
-        Next Spin in: <span id="spinModalCountdown">03:00:00</span>
-      </div>
-
-      <button class="btn-cyan" id="btnTriggerWheel" onclick="spinLuckyWheel()" style="margin-bottom:10px;">SPIN NOW</button>
-      
-      <!-- BUTTON AD: Watch Ad to earn extra coins or open sponsor -->
-      <button class="btn-cyan" id="btnSpinExtraAd" onclick="handleSpinAdClick()" style="background:var(--bg-subtle); color:var(--text-dark); border:1px solid var(--card-border-cyan); font-size:0.85rem; padding:10px;">
-        <i class="fa-solid fa-bolt" style="color:var(--gold);"></i> Watch Sponsor Ad (+10 Coins)
-      </button>
+      <button class="btn-cyan" id="btnTriggerWheel" onclick="spinLuckyWheel()">SPIN NOW</button>
     </div>
   </div>
 
-  <!-- SCRATCH CARD MODAL -->
   <div class="modal-overlay" id="scratchModal">
     <div class="modal-content" style="text-align: center;">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h3 style="font-weight: 800;">Scratch Card</h3>
-        <span style="font-size: 1.5rem; cursor: pointer;" onclick="closeModal('scratchModal')">&times;</span>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="font-weight:800;">Scratch Card</h3>
+        <span style="font-size:1.5rem; cursor:pointer;" onclick="closeModal('scratchModal')">&times;</span>
       </div>
-      <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 4px;">Scratch off the silver cover to reveal your reward (1-50 Coins)</p>
-
-      <div style="position: relative; width: 260px; height: 130px; margin: 20px auto; border-radius: 16px; overflow: hidden; border: 2px solid var(--card-border);">
-        <div style="position: absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background: var(--cyan-soft);">
+      <div style="position:relative; width:260px; height:130px; margin:16px auto; border-radius:16px; overflow:hidden; border:2px solid var(--card-border);">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--cyan-soft);">
           <small style="color:var(--cyan-dark); font-weight:800;">YOU WON</small>
-          <strong style="font-size: 1.6rem; color: var(--text-dark);" id="txtScratchPrize">25 COINS</strong>
+          <strong style="font-size:1.6rem; color:var(--text-dark);" id="txtScratchPrize">25 COINS</strong>
         </div>
-        <canvas id="scratchCanvas" width="260" height="130" style="position: absolute; inset:0; z-index:2; cursor:crosshair;"></canvas>
+        <canvas id="scratchCanvas" width="260" height="130" style="position:absolute; inset:0; z-index:2; cursor:crosshair;"></canvas>
       </div>
-
-      <button class="btn-cyan" id="btnClaimScratch" style="display: none;" onclick="claimScratchPrize()">
-        Claim Prize
-      </button>
+      <button class="btn-cyan" id="btnClaimScratch" style="display:none;" onclick="claimScratchPrize()">Claim Prize</button>
     </div>
   </div>
 
-  <!-- MATH QUIZ MODAL -->
   <div class="modal-overlay" id="mathQuizModal">
     <div class="modal-content" style="text-align: center;">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h3 style="font-weight: 800;">Solve & Earn</h3>
-        <span style="font-size: 1.5rem; cursor: pointer;" onclick="closeModal('mathQuizModal')">&times;</span>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="font-weight:800;">Math Quiz</h3>
+        <span style="font-size:1.5rem; cursor:pointer;" onclick="closeModal('mathQuizModal')">&times;</span>
       </div>
-      <p style="font-size: 0.8rem; color: var(--text-dim); margin: 6px 0 16px 0;">Answer correctly to win instant coins (1-50 Coins)!</p>
-      
-      <div style="background: var(--cyan-soft); border:1px solid var(--card-border-cyan); border-radius: 16px; padding: 20px; margin-bottom: 16px;">
-        <span style="font-size: 0.8rem; font-weight: 700; color: var(--cyan-dark); display: block; margin-bottom: 6px;">WHAT IS</span>
-        <h2 style="font-size: 2.2rem; font-weight: 800; color: var(--text-dark);" id="mathEquation">-- + -- = ?</h2>
+      <div style="background:var(--cyan-soft); padding:18px; border-radius:16px; margin-bottom:16px;">
+        <h2 style="font-size:2rem; font-weight:800; color:var(--text-dark);" id="mathEquation">-- + -- = ?</h2>
       </div>
-
-      <input type="number" id="mathAnswerInput" placeholder="Enter your answer" style="width: 100%; padding: 14px; border-radius: 14px; border: 1.5px solid var(--card-border); background:var(--card-white); color:var(--text-dark); outline: none; font-size: 1.1rem; text-align: center; font-weight: 800; margin-bottom: 16px;" />
-
+      <input type="number" id="mathAnswerInput" placeholder="Your Answer" style="width:100%; padding:14px; border-radius:14px; border:1px solid var(--card-border); font-size:1.1rem; text-align:center; font-weight:800; margin-bottom:14px;" />
       <button class="btn-cyan" onclick="submitMathAnswer()">Submit Answer</button>
     </div>
   </div>
 
-  <!-- AUTHENTICATION SCREEN -->
-  <section id="authScreen">
-    <div style="width: 76px; height: 76px; border-radius: 24px; background: var(--cyan-gradient); color: #fff; font-size: 2.2rem; display: grid; place-items: center; margin-bottom: 14px; box-shadow: 0 10px 25px var(--cyan-glow); overflow:hidden;">
-      <img id="authAppLogoImg" src="" style="width:100%; height:100%; object-fit:cover; display:none;" alt="App Logo" />
-      <i class="fa-solid fa-coins" id="authFallbackIcon"></i>
+  <div class="modal-overlay" id="taskDetailModal">
+    <div class="modal-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="font-weight:800;" id="modalTaskTitle">Task Details</h3>
+        <span style="font-size:1.5rem; cursor:pointer;" onclick="closeModal('taskDetailModal')">&times;</span>
+      </div>
+      <p style="font-size:0.85rem; color:var(--text-dim); margin-bottom:18px;" id="modalTaskInstructions"></p>
+      <button class="btn-cyan" onclick="proceedTaskExecution()"><i class="fa-solid fa-play"></i> Start Mission</button>
     </div>
-    <h2 style="font-size: 1.7rem; font-weight: 800; margin-bottom: 6px;" id="authAppTitle">Welcome to CASH HUB</h2>
-    <p style="color: var(--text-dim); font-size: 0.88rem; max-width: 310px; margin-bottom: 24px;">Earn coins, promote channels, and redeem real financial payouts.</p>
+  </div>
 
-    <div class="app-card" style="width: 100%; max-width: 380px; padding: 24px;">
+  <!-- AUTH SCREEN (EMAIL / PASSWORD WITH AUTO REFERRAL FILL) -->
+  <section id="authScreen">
+    <div style="width:64px; height:64px; border-radius:20px; background:var(--cyan-gradient); color:#fff; font-size:1.9rem; display:grid; place-items:center; margin-bottom:14px;"><i class="fa-solid fa-coins"></i></div>
+    <h2 style="font-size:1.7rem; font-weight:800; margin-bottom:6px;">Welcome to CASH HUB</h2>
+    <p style="color:var(--text-dim); font-size:0.88rem; margin-bottom:24px;">Earn, Complete, Promote & Redeem.</p>
+    <div class="app-card" style="width:100%; max-width:380px;">
       <form id="emailLoginForm">
-        <div style="margin-bottom:12px; text-align:left;">
-          <label style="display:block; font-size:0.75rem; font-weight:700; color:var(--cyan-dark); margin-bottom:4px;">EMAIL ADDRESS</label>
-          <input type="email" id="authEmailInput" placeholder="user@domain.com" required style="width:100%; padding: 14px; border-radius: 12px; border: 1.5px solid var(--card-border); background:var(--bg-subtle); color:var(--text-dark); outline: none; font-weight: 600; font-size: 0.95rem;" />
-        </div>
-        <div style="margin-bottom:18px; text-align:left;">
-          <label style="display:block; font-size:0.75rem; font-weight:700; color:var(--cyan-dark); margin-bottom:4px;">PASSWORD</label>
-          <input type="password" id="authPasswordInput" placeholder="••••••••" required style="width:100%; padding: 14px; border-radius: 12px; border: 1.5px solid var(--card-border); background:var(--bg-subtle); color:var(--text-dark); outline: none; font-weight: 600; font-size: 0.95rem;" />
-        </div>
-        <button type="submit" class="btn-cyan" id="btnSubmitEmailAuth">Sign In / Register</button>
+        <input type="email" id="authEmailInput" placeholder="Email Address" required style="width:100%; padding:14px; border-radius:12px; border:1px solid var(--card-border); margin-bottom:10px; font-weight:600;" />
+        <input type="password" id="authPasswordInput" placeholder="Password" required style="width:100%; padding:14px; border-radius:12px; border:1px solid var(--card-border); margin-bottom:10px; font-weight:600;" />
+        <input type="text" id="authReferralInput" placeholder="Referral Code (Auto-Applied)" style="width:100%; padding:14px; border-radius:12px; border:1px solid var(--card-border-cyan); margin-bottom:14px; font-weight:700; text-transform:uppercase; background:var(--bg-subtle);" />
+        <button type="submit" class="btn-cyan">Sign In / Register</button>
       </form>
     </div>
   </section>
 
-  <!-- FIREBASE SDK ENGINE -->
+  <!-- FIREBASE MODULAR ENGINE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -2083,8 +1144,6 @@
       appId: "1:417516062911:web:1c16e5ea6d6ac830315e0a"
     };
 
-    const OFFICIAL_HOST = "https://taskhub-brown.vercel.app";
-
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getDatabase(app);
@@ -2092,66 +1151,22 @@
     let currentAuthUser = null;
     let currentUserWallet = { coins: 0, tasksDone: 0 };
     let appSettings = {
-      appName: "Cash Hub",
       coinSymbol: "COIN",
       conversionRate: 1000,
       fiatCurrencySymbol: "$",
       directLinkAdUrl: "",
-      appLogoUrl: "",
-      adminShareLink: OFFICIAL_HOST,
-      userCountry: "US",
-      shareDomain: OFFICIAL_HOST,
-      adScript: "",
-      bannerAdScript: ""
+      shareDomain: "https://cashhub-sepia.vercel.app"
     };
-
     let activeTaskPayload = null;
-    let activeReferralsList = [];
-    let isAudioFxEnabled = true;
-    let isProcessingTask = false;
-    let activeTaskStartTime = 0;
-    let activeTaskInterval = null;
 
-    // Cooldown timers
+    // 3-Hour Cooldown Timers
     let lastSpinTime = 0;
     let lastScratchTime = 0;
     let lastMathQuizTime = 0;
-    const COOLDOWN_DURATION = 3 * 60 * 60 * 1000; // 3 Hours
-
-    // 7 Days Reward Ladder (Coins)
+    const COOLDOWN_DURATION = 3 * 60 * 60 * 1000;
     const streakRewards7Days = [10, 15, 20, 25, 30, 40, 100];
 
-    // Referral Tier Configuration
-    const referralTiers = [
-      { target: 5, reward: 500, title: "Bronze Ambassador" },
-      { target: 10, reward: 1200, title: "Silver Leader" },
-      { target: 25, reward: 3500, title: "Gold Partner" },
-      { target: 50, reward: 10000, title: "Diamond Icon" }
-    ];
-
-    // Default Fallback Payout Gateway
-    const defaultPayoutCategories = [
-      {
-        sectionTitle: "PayPal Payout",
-        cards: [
-          { id: "pp_05", label: "$0.5", coins: 500, isNew: false, methodName: "PayPal" },
-          { id: "pp_10", label: "$1.0", coins: 1000, isNew: true, methodName: "PayPal" },
-          { id: "pp_50", label: "$5.0", coins: 5000, isNew: false, methodName: "PayPal" },
-          { id: "pp_100", label: "$10.0", coins: 10000, isNew: false, methodName: "PayPal" }
-        ]
-      },
-      {
-        sectionTitle: "Crypto Wallet",
-        cards: [
-          { id: "cr_50", label: "$5.0", coins: 5000, isNew: true, methodName: "Crypto USDT" },
-          { id: "cr_100", label: "$10.0", coins: 10000, isNew: false, methodName: "Crypto USDT" },
-          { id: "cr_250", label: "$25.0", coins: 25000, isNew: false, methodName: "Crypto USDT" },
-          { id: "cr_500", label: "$50.0", coins: 50000, isNew: false, methodName: "Crypto USDT" }
-        ]
-      }
-    ];
-
-    // --- AUDIO FX ENGINE ---
+    // Web Audio Synthesizer
     let audioCtx = null;
     function getAudioContext() {
       if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -2159,16 +1174,7 @@
       return audioCtx;
     }
 
-    window.toggleAudioFx = function() {
-      isAudioFxEnabled = !isAudioFxEnabled;
-      document.getElementById('audioToggleStatus').innerText = isAudioFxEnabled ? 'ENABLED' : 'MUTED';
-      document.getElementById('audioToggleStatus').style.color = isAudioFxEnabled ? 'var(--success)' : 'var(--danger)';
-      document.getElementById('audioToggleIcon').className = isAudioFxEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
-      displayToast(`Audio FX ${isAudioFxEnabled ? 'Enabled' : 'Muted'}`);
-    };
-
     window.playAudio = function(type) {
-      if (!isAudioFxEnabled) return;
       try {
         const ctx = getAudioContext();
         const now = ctx.currentTime;
@@ -2197,413 +1203,55 @@
             osc.start(now + i * 0.08);
             osc.stop(now + i * 0.08 + 0.35);
           });
-        } else if (type === 'tick') {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(800, now);
-          gain.gain.setValueAtTime(0.15, now);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.03);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.03);
-        } else if (type === 'win') {
-          [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(freq, now + idx * 0.09);
-            gain.gain.setValueAtTime(0.3, now + idx * 0.09);
-            gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.09 + 0.35);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(now + idx * 0.09);
-            osc.stop(now + idx * 0.09 + 0.35);
-          });
-        } else if (type === 'scratch') {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(200 + Math.random() * 300, now);
-          gain.gain.setValueAtTime(0.05, now);
-          gain.gain.exponentialRampToValueAtTime(0.005, now + 0.04);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.04);
         }
       } catch (e) {}
     };
 
-    // --- AD SCRIPT INJECTION ENGINE (Executes Monetag, Adsterra, AdSense scripts) ---
-    function injectAdScript(scriptHtmlOrSrc, targetContainerId) {
-      if (!scriptHtmlOrSrc) return;
-      try {
-        const temp = document.createElement('div');
-        temp.innerHTML = scriptHtmlOrSrc;
-
-        const scripts = temp.querySelectorAll('script');
-        const container = targetContainerId ? document.getElementById(targetContainerId) : document.body;
-
-        if (scripts.length === 0) {
-          // If it's pure HTML or an iframe or raw URL
-          if (targetContainerId && container) {
-            container.innerHTML = scriptHtmlOrSrc;
-          }
-          return;
-        }
-
-        scripts.forEach(oldScript => {
-          const newScript = document.createElement('script');
-          Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-          if (oldScript.src) {
-            newScript.src = oldScript.src;
-          } else {
-            newScript.textContent = oldScript.textContent;
-          }
-          (container || document.head).appendChild(newScript);
-        });
-
-        // Also append any non-script HTML elements (like banner divs)
-        if (targetContainerId && container) {
-          Array.from(temp.childNodes).forEach(node => {
-            if (node.tagName !== 'SCRIPT') {
-              container.appendChild(node.cloneNode(true));
-            }
-          });
-        }
-      } catch (e) {
-        console.warn('Ad script injection warning:', e);
+    // Auto-Capture Referral from URL
+    function parseReferral() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const refCode = urlParams.get('ref');
+      if (refCode) {
+        localStorage.setItem('cashhub_ref', refCode.trim().toUpperCase());
+        const input = document.getElementById('authReferralInput');
+        if (input) input.value = refCode.trim().toUpperCase();
       }
     }
-
-    // --- CLEAN WEB URL NORMALIZER ---
-    function extractAndValidateUrl(taskOrUrl) {
-      if (!taskOrUrl) return '';
-      let raw = '';
-      if (typeof taskOrUrl === 'string') {
-        raw = taskOrUrl;
-      } else if (typeof taskOrUrl === 'object') {
-        raw = taskOrUrl.promotionalLink || 
-              taskOrUrl.destinationUrl || 
-              taskOrUrl.link || 
-              taskOrUrl.url || 
-              taskOrUrl.channelLink || 
-              taskOrUrl.targetUrl || 
-              taskOrUrl.adUrl || 
-              taskOrUrl.directUrl || '';
-      }
-      let clean = (raw || '').trim();
-      if (!clean || clean === 'undefined' || clean === 'null') return '';
-      if (!/^[a-zA-Z0-9+.-]+:\/\//i.test(clean)) {
-        clean = 'https://' + clean;
-      }
-      return clean;
-    }
-
-    // Opens link in external new tab, keeping current site unrefreshed and intact
-    window.openWebDestination = function(rawUrl) {
-      const cleanUrl = extractAndValidateUrl(rawUrl);
-      if (!cleanUrl) {
-        displayToast('Link is invalid or unavailable.');
-        return false;
-      }
-      window.open(cleanUrl, '_blank', 'noopener,noreferrer');
-      return true;
-    };
-
-    // Synchronous handler for "Watch Ad"
-    window.handleWatchAdClick = function(event) {
-      playAudio('tap');
-      if (isProcessingTask) return;
-      if (!currentAuthUser) {
-        displayToast('Please sign in first.');
-        return;
-      }
-
-      const rawAdUrl = extractAndValidateUrl(appSettings.directLinkAdUrl || appSettings.adminShareLink || OFFICIAL_HOST);
-      if (!rawAdUrl) {
-        displayToast('Ad link is currently being updated. Try again shortly.');
-        return;
-      }
-
-      isProcessingTask = true;
-      displayToast('Opening sponsored ad in new tab...');
-      openWebDestination(rawAdUrl);
-
-      // 5-second reward verification countdown
-      setTimeout(async () => {
-        const reward = 10;
-        await creditUserCoins(reward, 'Rewarded Video Ad');
-        playAudio('win');
-        displayToast(`Ad completed! +${reward} Coins awarded.`);
-        isProcessingTask = false;
-      }, 5000);
-    };
-
-    // Extra sponsor ad inside Lucky Spin modal
-    window.handleSpinAdClick = function() {
-      playAudio('tap');
-      const rawAdUrl = extractAndValidateUrl(appSettings.directLinkAdUrl || OFFICIAL_HOST);
-      displayToast('Opening sponsor ad...');
-      openWebDestination(rawAdUrl);
-
-      setTimeout(async () => {
-        await creditUserCoins(10, 'Lucky Spin Sponsor Bonus');
-        playAudio('win');
-        displayToast('+10 Coins added from sponsor ad!');
-      }, 5000);
-    };
-
-    // Synchronous handler for task modal "Start Mission"
-    window.handleTaskActionClick = function(event) {
-      playAudio('tap');
-      if (isProcessingTask || !currentAuthUser || !activeTaskPayload) return;
-
-      const targetUrl = extractAndValidateUrl(activeTaskPayload);
-      if (!targetUrl) {
-        displayToast('Task link is invalid or expired.');
-        return;
-      }
-
-      openWebDestination(targetUrl);
-      closeModal('taskDetailModal');
-      startMissionVerification(activeTaskPayload.id, activeTaskPayload);
-    };
-
-    // Background verification handler with visibility/focus support
-    async function startMissionVerification(taskId, task) {
-      isProcessingTask = true;
-      activeTaskStartTime = Date.now();
-
-      const tracker = document.getElementById('taskFloatingTracker');
-      const counter = document.getElementById('floatCountdownNum');
-      let countdown = 5;
-      counter.innerText = '5s';
-      tracker.style.display = 'flex';
-
-      if (activeTaskInterval) clearInterval(activeTaskInterval);
-
-      activeTaskInterval = setInterval(async () => {
-        countdown--;
-        counter.innerText = `${countdown}s`;
-
-        if (countdown <= 0) {
-          clearInterval(activeTaskInterval);
-          activeTaskInterval = null;
-          await completeMissionAward(taskId, task);
-        }
-      }, 1000);
-    }
-
-    async function completeMissionAward(taskId, task) {
-      const tracker = document.getElementById('taskFloatingTracker');
-      if (tracker) tracker.style.display = 'none';
-
-      const historyRef = ref(db, `user_completed_tasks/${currentAuthUser.uid}/${taskId}`);
-      const snap = await get(historyRef);
-      if (snap.exists()) {
-        isProcessingTask = false;
-        return;
-      }
-
-      const campaignRef = ref(db, `platform_campaigns/${taskId}`);
-      await runTransaction(campaignRef, (current) => {
-        if (!current) return current;
-        const updatedClicks = (current.clicksReceived || 0) + 1;
-        const maxClicks = parseInt(current.clicksTarget || 0, 10);
-        if (maxClicks > 0 && updatedClicks >= maxClicks) {
-          current.status = 'completed';
-        }
-        current.clicksReceived = updatedClicks;
-        return current;
-      });
-
-      const reward = parseInt(task.rewardCoins || 10, 10);
-      await set(historyRef, {
-        completedAt: Date.now(),
-        reward: reward
-      });
-
-      const walletRef = ref(db, `wallets/${currentAuthUser.uid}`);
-      await runTransaction(walletRef, (curr) => {
-        if (!curr) return { coins: reward, tasksDone: 1, updatedAt: Date.now() };
-        return {
-          ...curr,
-          coins: parseInt(curr.coins || 0, 10) + reward,
-          tasksDone: parseInt(curr.tasksDone || 0, 10) + 1,
-          updatedAt: Date.now()
-        };
-      });
-
-      await push(ref(db, 'coin_transactions'), {
-        uid: currentAuthUser.uid,
-        amount: reward,
-        type: 'credit',
-        source: task.title || 'Mission Reward',
-        timestamp: Date.now()
-      });
-
-      // Animate and remove card smoothly without reloading the page
-      const completedCard = document.getElementById(`task_card_${taskId}`);
-      if (completedCard) {
-        completedCard.classList.add('task-completed-anim');
-        setTimeout(() => completedCard.remove(), 350);
-      }
-
-      playAudio('coin');
-      displayToast(`Verified! +${reward} Coins credited and mission cleared.`);
-      isProcessingTask = false;
-    }
-
-    // Tab return check: When user switches back, instantly awards points if 5s passed
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible' && isProcessingTask && activeTaskPayload) {
-        const elapsed = (Date.now() - activeTaskStartTime) / 1000;
-        if (elapsed >= 5 && activeTaskInterval) {
-          clearInterval(activeTaskInterval);
-          activeTaskInterval = null;
-          completeMissionAward(activeTaskPayload.id, activeTaskPayload);
-        }
-      }
-    });
-
-    window.cancelMissionTracker = function() {
-      if (activeTaskInterval) {
-        clearInterval(activeTaskInterval);
-        activeTaskInterval = null;
-      }
-      isProcessingTask = false;
-      document.getElementById('taskFloatingTracker').style.display = 'none';
-      displayToast('Mission tracking cancelled.');
-    };
-
-    // Popup announcement click handler
-    window.triggerPopupAction = function(event) {
-      closePopupBanner();
-      if (currentPopupTarget) {
-        openWebDestination(currentPopupTarget);
-      }
-    };
-
-    // --- OFFLINE DETECTION ---
-    window.checkInternetConnection = function(isManualRetry = false) {
-      const lockScreen = document.getElementById('offlineLockScreen');
-      if (!navigator.onLine) {
-        lockScreen.style.display = 'flex';
-        if (isManualRetry) {
-          playAudio('tap');
-          displayToast('Still offline. Please check connection.');
-        }
-      } else {
-        lockScreen.style.display = 'none';
-        if (isManualRetry) {
-          playAudio('coin');
-          displayToast('Connection restored!');
-        }
-      }
-    };
-
-    window.addEventListener('online', () => window.checkInternetConnection(false));
-    window.addEventListener('offline', () => window.checkInternetConnection(false));
-    setInterval(() => window.checkInternetConnection(false), 5000);
 
     window.addEventListener("DOMContentLoaded", () => {
-      window.checkInternetConnection(false);
-      captureReferralCode();
-      initAppEngine();
-      handlePlatformSelectionChange();
+      parseReferral();
+      initRealtimeStreams();
       startCooldownMonitoring();
     });
 
-    function captureReferralCode() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const refCode = urlParams.get('ref') || urlParams.get('r');
-      if (refCode) {
-        const cleaned = refCode.trim().toUpperCase();
-        localStorage.setItem('cashhub_ref', cleaned);
-        const inputField = document.getElementById('inputClaimReferralCode');
-        if (inputField) inputField.value = cleaned;
-      }
-    }
-
-    function initAppEngine() {
-      // 1. Settings, Ad Scripts & Official Link Sync
+    function initRealtimeStreams() {
       onValue(ref(db, 'app_settings'), (snap) => {
         if (snap.exists()) {
           appSettings = { ...appSettings, ...snap.val() };
           document.getElementById('lblCoinShortName').innerText = appSettings.coinSymbol || "COIN";
-
-          const logo = appSettings.appLogoUrl || appSettings.logoUrl || appSettings.appLogo || "";
-          if (logo) {
-            const hImg = document.getElementById('appHeaderLogoImg');
-            hImg.src = logo;
-            hImg.style.display = 'block';
-            document.getElementById('lblCoinShortName').style.display = 'none';
-
-            const authLogo = document.getElementById('authAppLogoImg');
-            authLogo.src = logo;
-            authLogo.style.display = 'block';
-            document.getElementById('authFallbackIcon').style.display = 'none';
+          if (appSettings.appLogoUrl) {
+            document.getElementById('lblAppLogoWrap').innerHTML = `<img src="${appSettings.appLogoUrl}" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/893/893081.png'" />`;
           }
-
-          if (appSettings.appName) {
-            document.getElementById('authAppTitle').innerText = `Welcome to ${appSettings.appName}`;
-          }
-
-          const officialUrl = appSettings.adminShareLink || OFFICIAL_HOST;
-          document.getElementById('officialAdminLinkDisplay').innerText = officialUrl;
-
-          const country = appSettings.userCountry || "US";
-          document.getElementById('walletCountryBadge').innerText = country;
-          document.getElementById('profileUserCountry').innerText = `Country: ${country}`;
-
-          // Inject admin ad scripts
-          if (appSettings.bannerAdScript) {
-            injectAdScript(appSettings.bannerAdScript, 'topBannerAdArea');
-          }
-          if (appSettings.adScript) {
-            injectAdScript(appSettings.adScript, 'midContentAdArea');
-          }
-
           updateDisplays();
         }
       });
 
-      // 2. Active announcement popups
-      onValue(ref(db, 'popup_banners/active_announcement'), (snap) => {
-        if (snap.exists() && !sessionStorage.getItem('cashhub_popup_shown')) {
-          const b = snap.val();
-          if (b.status === 'active') {
-            sessionStorage.setItem('cashhub_popup_shown', 'true');
-            showPopupBanner(b);
-          }
-        }
-      });
-
-      // 3. User Authentication state
       onAuthStateChanged(auth, async (user) => {
         if (user) {
           currentAuthUser = user;
           document.getElementById('authScreen').style.display = 'none';
 
-          onValue(ref(db, `user_status/${user.uid}`), (snap) => {
-            if (snap.exists() && snap.val().status === 'banned') {
-              alert('Account suspended for terms violations.');
-              signOut(auth);
-            }
-          });
-
           await ensureUserAccount(user);
           listenWallet(user.uid);
           listenUserActivity(user.uid);
           loadRealtimeTasks();
+          loadPayoutGateways();
           render7DaysStreakStatus();
-          loadReferralLeaderboard();
         } else {
           currentAuthUser = null;
           document.getElementById('authScreen').style.display = 'flex';
+          const savedRef = localStorage.getItem('cashhub_ref');
+          if (savedRef) document.getElementById('authReferralInput').value = savedRef;
         }
       });
     }
@@ -2625,60 +1273,32 @@
 
         // Spin Cooldown
         const spinBadge = document.getElementById('spinTimerBadge');
-        const spinSubLabel = document.getElementById('spinSubLabel');
         const spinDiff = COOLDOWN_DURATION - (now - lastSpinTime);
-        const spinBtn = document.getElementById('btnTriggerWheel');
-        const spinCdBox = document.getElementById('spinCooldownBox');
-        const spinModalCount = document.getElementById('spinModalCountdown');
-
         if (spinDiff > 0) {
-          const formatted = formatTimeMs(spinDiff);
           spinBadge.style.display = 'inline-block';
-          spinBadge.innerText = formatted;
-          if (spinSubLabel) spinSubLabel.style.display = 'none';
-
-          if (spinCdBox) {
-            spinCdBox.style.display = 'block';
-            spinModalCount.innerText = formatted;
-          }
-          if (spinBtn) {
-            spinBtn.innerText = `COOLDOWN (${formatted})`;
-            spinBtn.disabled = true;
-          }
+          spinBadge.innerText = formatTimeMs(spinDiff);
         } else {
           spinBadge.style.display = 'none';
-          if (spinSubLabel) spinSubLabel.style.display = 'inline-block';
-          if (spinCdBox) spinCdBox.style.display = 'none';
-          if (spinBtn && !isSpinning) {
-            spinBtn.innerText = `SPIN NOW`;
-            spinBtn.disabled = false;
-          }
         }
 
         // Scratch Cooldown
         const scratchBadge = document.getElementById('scratchTimerBadge');
-        const scratchSub = document.getElementById('scratchSubLabel');
         const scratchDiff = COOLDOWN_DURATION - (now - lastScratchTime);
         if (scratchDiff > 0) {
           scratchBadge.style.display = 'inline-block';
           scratchBadge.innerText = formatTimeMs(scratchDiff);
-          if (scratchSub) scratchSub.style.display = 'none';
         } else {
           scratchBadge.style.display = 'none';
-          if (scratchSub) scratchSub.style.display = 'inline-block';
         }
 
         // Math Cooldown
         const mathBadge = document.getElementById('mathTimerBadge');
-        const mathSub = document.getElementById('mathSubLabel');
         const mathDiff = COOLDOWN_DURATION - (now - lastMathQuizTime);
         if (mathDiff > 0) {
           mathBadge.style.display = 'inline-block';
           mathBadge.innerText = formatTimeMs(mathDiff);
-          if (mathSub) mathSub.style.display = 'none';
         } else {
           mathBadge.style.display = 'none';
-          if (mathSub) mathSub.style.display = 'inline-block';
         }
       }, 1000);
     }
@@ -2691,7 +1311,6 @@
       return `${h}:${m}:${s}`;
     }
 
-    // --- ENHANCED REFERRAL SYSTEM ENGINE ---
     async function ensureUserAccount(user) {
       const userRef = ref(db, `users/${user.uid}`);
       const snap = await get(userRef);
@@ -2699,477 +1318,33 @@
 
       if (!snap.exists()) {
         const storedReferrer = localStorage.getItem('cashhub_ref') || null;
-
         await set(userRef, {
           uid: user.uid,
           email: user.email,
-          displayName: user.displayName || 'Member',
-          photoURL: user.photoURL || '',
           referralCode: generatedRef,
           referredBy: storedReferrer,
           createdAt: Date.now()
         });
-
-        // Indexed lookup table: referral_codes/${code} -> uid
-        await set(ref(db, `referral_codes/${generatedRef}`), user.uid);
-
-        await set(ref(db, `wallets/${user.uid}`), {
-          coins: 0,
-          tasksDone: 0,
-          updatedAt: Date.now()
-        });
-
-        if (storedReferrer && storedReferrer !== generatedRef) {
-          await processReferralClaim(user.uid, user.email, storedReferrer, false);
-        }
-      } else {
-        const existingData = snap.val();
-        const code = existingData.referralCode || generatedRef;
-        await set(ref(db, `referral_codes/${code}`), user.uid);
+        await set(ref(db, `wallets/${user.uid}`), { coins: 0, tasksDone: 0 });
       }
 
       const userData = snap.exists() ? snap.val() : { email: user.email, referralCode: generatedRef };
       const myCode = userData.referralCode || generatedRef;
 
-      if (userData.referredBy) {
-        const claimCard = document.getElementById('claimReferralCard');
-        if (claimCard) claimCard.style.display = 'none';
-      }
-
-      document.getElementById('profileUserEmail').innerText = userData.email || user.email;
-      if (user.photoURL) {
-        document.getElementById('headerAvatarBtn').innerHTML = `<img src="${user.photoURL}" alt="avatar" />`;
-        document.getElementById('profileLetter').innerHTML = `<img src="${user.photoURL}" alt="avatar" style="width:100%;height:100%;object-fit:cover;" />`;
-      } else {
-        const letter = (userData.email || 'A').charAt(0).toUpperCase();
-        document.getElementById('profileLetter').innerText = letter;
-        document.getElementById('headerAvatarBtn').innerText = letter;
-      }
       document.getElementById('refCardCodeText').innerText = myCode;
+      document.getElementById('headerAvatarBtn').innerText = (userData.email || 'A').charAt(0).toUpperCase();
 
-      // Official Referral URL formulation
-      const shareUrl = `${OFFICIAL_HOST}?ref=${myCode}`;
-      const shareMsg = encodeURIComponent(`Join ${appSettings.appName || 'CASH HUB'}! Earn coins, complete missions, and redeem real financial payouts. Register now: ${shareUrl}`);
-
-      // Sync Social Links
-      document.getElementById('btnShareModalWhatsApp').href = `https://api.whatsapp.com/send?text=${shareMsg}`;
-      document.getElementById('btnShareModalTelegram').href = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent("Join Cash Hub & Earn Coins!")}`;
-      document.getElementById('quickShareWhatsApp').href = `https://api.whatsapp.com/send?text=${shareMsg}`;
-      document.getElementById('quickShareTelegram').href = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent("Join Cash Hub & Earn Coins!")}`;
-      document.getElementById('quickShareX').href = `https://twitter.com/intent/tweet?text=${shareMsg}`;
-      document.getElementById('quickShareFacebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
-
-      // QR Code Setup
-      const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(shareUrl)}`;
-      document.getElementById('qrCodeImg').src = qrApi;
-
-      // Realtime Referral Tracking & Tier Rewards
-      onValue(ref(db, `referrals/${user.uid}`), async (rSnap) => {
-        activeReferralsList = rSnap.exists() ? Object.values(rSnap.val()) : [];
-        const count = activeReferralsList.length;
-
-        document.getElementById('profileStatReferrals').innerText = count;
+      // Referrals count listener
+      onValue(ref(db, `referrals/${user.uid}`), (rSnap) => {
+        const count = rSnap.exists() ? Object.keys(rSnap.val()).length : 0;
         document.getElementById('refCountMetric').innerText = count;
-
-        const totalRefEarned = count * 1800;
-        document.getElementById('refEarningsMetric').innerText = totalRefEarned > 999 ? (totalRefEarned / 1000).toFixed(1) + 'K' : totalRefEarned;
-        document.getElementById('badgeTierReferrals').innerText = `Referrals: ${count}`;
-
-        // Tier Progression calculation
-        await updateTierProgress(user.uid, count);
-
-        // Render Referral History List
-        const histContainer = document.getElementById('referralHistoryList');
-        if (histContainer) {
-          histContainer.innerHTML = '';
-          if (activeReferralsList.length === 0) {
-            histContainer.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:0.85rem; padding:20px;">No referrals yet. Share your code to start earning!</div>`;
-          } else {
-            activeReferralsList.forEach(r => {
-              const row = document.createElement('div');
-              row.style.cssText = 'padding:12px; background:var(--bg-subtle); border-radius:12px; border:1px solid var(--card-border); display:flex; justify-content:space-between; align-items:center;';
-              row.innerHTML = `
-                <div>
-                  <strong style="font-size:0.85rem; color:var(--text-dark);">${r.referredEmail || 'Friend'}</strong>
-                  <small style="display:block; color:var(--text-muted); font-size:0.72rem;">${new Date(r.timestamp).toLocaleDateString()}</small>
-                </div>
-                <span style="font-size:0.8rem; font-weight:800; color:var(--cyan-dark);">+1800 Coins</span>
-              `;
-              histContainer.appendChild(row);
-            });
-          }
-        }
+        document.getElementById('refEarningsMetric').innerText = count * 1800;
       });
     }
-
-    // --- ENHANCED REFERRAL TIERS & MILESTONE REWARDS ---
-    let currentEligibleMilestone = null;
-
-    async function updateTierProgress(uid, count) {
-      const claimsSnap = await get(ref(db, `user_tier_claims/${uid}`));
-      const claimedTiers = claimsSnap.exists() ? claimsSnap.val() : {};
-
-      let currentTierIndex = 0;
-      for (let i = 0; i < referralTiers.length; i++) {
-        if (!claimedTiers[`tier_${referralTiers[i].target}`]) {
-          currentTierIndex = i;
-          break;
-        }
-        if (i === referralTiers.length - 1) currentTierIndex = i;
-      }
-
-      const activeTier = referralTiers[currentTierIndex];
-      const target = activeTier.target;
-      const percent = Math.min(100, Math.floor((count / target) * 100));
-
-      document.getElementById('tierProgressFill').style.width = `${percent}%`;
-      document.getElementById('tierProgressPercentLabel').innerText = `${percent}% completed`;
-      document.getElementById('lblCurrentTierTitle').innerText = activeTier.title;
-      document.getElementById('txtNextTierMilestoneInfo').innerText = `Target: ${target} Referrals • +${activeTier.reward} Coins`;
-
-      const btnClaim = document.getElementById('btnClaimTierBonus');
-      const desc = document.getElementById('tierRemainingDesc');
-
-      if (count >= target && !claimedTiers[`tier_${target}`]) {
-        desc.innerText = `Congratulations! You unlocked the ${activeTier.title} milestone!`;
-        btnClaim.style.display = 'block';
-        btnClaim.innerText = `Claim +${activeTier.reward} Coins`;
-        currentEligibleMilestone = activeTier;
-      } else if (claimedTiers[`tier_${target}`]) {
-        desc.innerText = `All available milestone bonuses have been claimed. Outstanding work!`;
-        btnClaim.style.display = 'none';
-        currentEligibleMilestone = null;
-      } else {
-        const remaining = target - count;
-        desc.innerText = `${remaining} more referral${remaining > 1 ? 's' : ''} to unlock ${activeTier.title} (+${activeTier.reward} Coins)`;
-        btnClaim.style.display = 'none';
-        currentEligibleMilestone = null;
-      }
-    }
-
-    window.claimTierMilestoneBonus = async function() {
-      playAudio('tap');
-      if (!currentAuthUser || !currentEligibleMilestone) return;
-
-      const target = currentEligibleMilestone.target;
-      const reward = currentEligibleMilestone.reward;
-
-      await set(ref(db, `user_tier_claims/${currentAuthUser.uid}/tier_${target}`), {
-        claimedAt: Date.now(),
-        reward: reward
-      });
-
-      await creditUserCoins(reward, `${currentEligibleMilestone.title} Milestone Bonus`);
-      playAudio('win');
-      displayToast(`Awesome! +${reward} Coins awarded for reaching ${target} referrals!`);
-
-      const rCount = activeReferralsList.length;
-      await updateTierProgress(currentAuthUser.uid, rCount);
-    };
-
-    // --- REALTIME LEADERBOARD (NO DUMMIES) ---
-    function loadReferralLeaderboard() {
-      const container = document.getElementById('referralLeaderboardList');
-      if (!container) return;
-
-      onValue(ref(db, 'referrals'), async (snap) => {
-        container.innerHTML = '';
-
-        if (!snap.exists()) {
-          container.innerHTML = `
-            <div style="text-align:center; padding:18px; color:var(--text-muted); font-size:0.82rem;">
-              <i class="fa-solid fa-trophy" style="font-size:1.5rem; color:var(--cyan-primary); display:block; margin-bottom:6px;"></i>
-              No referrals on the leaderboard yet. Invite friends to take the #1 rank!
-            </div>
-          `;
-          return;
-        }
-
-        const allRefs = snap.val();
-        let leaderboard = [];
-
-        Object.entries(allRefs).forEach(([userId, userRefs]) => {
-          const refsArray = Object.values(userRefs || {});
-          const count = refsArray.length;
-          if (count > 0) {
-            // Find masked display email or ID
-            const firstEmail = refsArray[0].referredEmail || 'user';
-            const cleanMasked = firstEmail.length > 5 ? firstEmail.substring(0, 3) + '***@' + (firstEmail.split('@')[1] || 'mail.com') : 'User_' + userId.substring(0, 5);
-            leaderboard.push({ uid: userId, name: cleanMasked, count: count });
-          }
-        });
-
-        leaderboard.sort((a, b) => b.count - a.count);
-
-        if (leaderboard.length === 0) {
-          container.innerHTML = `
-            <div style="text-align:center; padding:18px; color:var(--text-muted); font-size:0.82rem;">
-              No referrals on the leaderboard yet. Be the first to invite!
-            </div>
-          `;
-          return;
-        }
-
-        leaderboard.slice(0, 10).forEach((item, index) => {
-          const rank = index + 1;
-          let rankClass = 'rank-default';
-          let rankIcon = `${rank}`;
-          if (rank === 1) { rankClass = 'rank-1'; rankIcon = '🥇'; }
-          else if (rank === 2) { rankClass = 'rank-2'; rankIcon = '🥈'; }
-          else if (rank === 3) { rankClass = 'rank-3'; rankIcon = '🥉'; }
-
-          const prizeCoin = rank === 1 ? '+50,000' : rank === 2 ? '+25,000' : rank === 3 ? '+10,000' : '+2,500';
-
-          const row = document.createElement('div');
-          row.className = 'leaderboard-row';
-          row.innerHTML = `
-            <div class="leaderboard-left">
-              <div class="leaderboard-rank ${rankClass}">${rankIcon}</div>
-              <div>
-                <div class="leaderboard-user">${item.name}</div>
-                <div class="leaderboard-refs"><i class="fa-solid fa-users"></i> ${item.count} Referrals</div>
-              </div>
-            </div>
-            <div class="leaderboard-reward-tag">${prizeCoin} Coins</div>
-          `;
-          container.appendChild(row);
-        });
-      });
-    }
-
-    window.openQrCodeModal = function() {
-      playAudio('tap');
-      openModal('qrCodeModal');
-    };
-
-    // --- 7-DAY LOGIN STREAK REWARDS HANDLER ---
-    async function render7DaysStreakStatus() {
-      if (!currentAuthUser) return;
-      const todayStr = new Date().toISOString().slice(0, 10);
-      const userStreakRef = ref(db, `daily_checkins/${currentAuthUser.uid}`);
-      const snap = await get(userStreakRef);
-
-      let currentStreakDay = 1;
-      let alreadyClaimedToday = false;
-
-      if (snap.exists()) {
-        const data = snap.val();
-        if (data.lastDate === todayStr) {
-          alreadyClaimedToday = true;
-          currentStreakDay = data.streakCount || 1;
-        } else {
-          const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-          if (data.lastDate === yesterday) {
-            currentStreakDay = ((data.streakCount || 0) % 7) + 1;
-          } else {
-            currentStreakDay = 1;
-          }
-        }
-      }
-
-      document.getElementById('streakCurrentCountLabel').innerText = `Day ${currentStreakDay} of 7`;
-
-      for (let i = 1; i <= 7; i++) {
-        const card = document.getElementById(`dayBox${i}`);
-        if (!card) continue;
-        card.classList.remove('active-day', 'claimed');
-
-        if (i < currentStreakDay || (i === currentStreakDay && alreadyClaimedToday)) {
-          card.classList.add('claimed');
-        } else if (i === currentStreakDay && !alreadyClaimedToday) {
-          card.classList.add('active-day');
-        }
-      }
-
-      const btn = document.getElementById('btnClaimStreak');
-      if (alreadyClaimedToday) {
-        btn.innerText = 'CLAIMED TODAY (COME BACK TOMORROW)';
-        btn.disabled = true;
-      } else {
-        const todayReward = streakRewards7Days[currentStreakDay - 1];
-        btn.innerHTML = `<i class="fa-solid fa-fire"></i> CLAIM DAY ${currentStreakDay} (+${todayReward} COINS)`;
-        btn.disabled = false;
-      }
-    }
-
-    window.claimDailyStreakReward = async function() {
-      playAudio('tap');
-      if (!currentAuthUser) return;
-
-      const todayStr = new Date().toISOString().slice(0, 10);
-      const userStreakRef = ref(db, `daily_checkins/${currentAuthUser.uid}`);
-      const snap = await get(userStreakRef);
-
-      let currentStreakDay = 1;
-      if (snap.exists()) {
-        const data = snap.val();
-        if (data.lastDate === todayStr) {
-          displayToast('You have already claimed today!');
-          return;
-        }
-        const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-        if (data.lastDate === yesterday) {
-          currentStreakDay = ((data.streakCount || 0) % 7) + 1;
-        } else {
-          currentStreakDay = 1;
-        }
-      }
-
-      const reward = streakRewards7Days[currentStreakDay - 1];
-
-      await set(userStreakRef, {
-        lastDate: todayStr,
-        streakCount: currentStreakDay,
-        timestamp: Date.now()
-      });
-
-      await creditUserCoins(reward, `Day ${currentStreakDay} Streak Reward`);
-      await render7DaysStreakStatus();
-    };
-
-    window.submitReferralCodeClaim = async function() {
-      playAudio('tap');
-      if (!currentAuthUser) return;
-      const codeInput = document.getElementById('inputClaimReferralCode').value.trim().toUpperCase();
-      if (!codeInput) {
-        displayToast('Please enter a valid referral code');
-        return;
-      }
-
-      const userSnap = await get(ref(db, `users/${currentAuthUser.uid}`));
-      if (!userSnap.exists()) return;
-      const myData = userSnap.val();
-
-      if (myData.referralCode === codeInput) {
-        displayToast('You cannot use your own referral code!');
-        return;
-      }
-      if (myData.referredBy) {
-        displayToast('You have already claimed an invite code!');
-        document.getElementById('claimReferralCard').style.display = 'none';
-        return;
-      }
-
-      const success = await processReferralClaim(currentAuthUser.uid, currentAuthUser.email, codeInput, true);
-      if (success) {
-        document.getElementById('claimReferralCard').style.display = 'none';
-      }
-    };
-
-    // Instant O(1) indexed referral validation
-    async function processReferralClaim(targetUid, targetEmail, refCode, showToast = true) {
-      try {
-        const cleanCode = refCode.trim().toUpperCase();
-        
-        let referrerUid = null;
-        const codeSnap = await get(ref(db, `referral_codes/${cleanCode}`));
-        if (codeSnap.exists()) {
-          referrerUid = codeSnap.val();
-        }
-
-        if (!referrerUid) {
-          const legacySnap = await get(ref(db, `users`));
-          if (legacySnap.exists()) {
-            Object.values(legacySnap.val()).forEach(u => {
-              if (u.referralCode === cleanCode) referrerUid = u.uid;
-            });
-          }
-        }
-
-        if (!referrerUid) {
-          if (showToast) displayToast('Invalid referral code! Please verify.');
-          return false;
-        }
-
-        if (referrerUid === targetUid) {
-          if (showToast) displayToast('You cannot refer yourself!');
-          return false;
-        }
-
-        await update(ref(db, `users/${targetUid}`), { referredBy: cleanCode });
-        await set(ref(db, `referrals/${referrerUid}/${targetUid}`), {
-          referredUid: targetUid,
-          referredEmail: targetEmail,
-          status: 'registered',
-          bonusEarned: 1800,
-          timestamp: Date.now()
-        });
-
-        // Instant bonuses: +100 Coins to referrer, +50 Coins welcome bonus to new user
-        await creditUserCoinsDirect(referrerUid, 100, 'Referral Bonus (Friend Joined)');
-        await creditUserCoinsDirect(targetUid, 50, 'Welcome Invite Bonus');
-
-        if (showToast) {
-          playAudio('coin');
-          displayToast('Success! +50 Coins claimed as your welcome bonus!');
-        }
-        return true;
-      } catch (err) {
-        if (showToast) displayToast('Claim error: ' + err.message);
-        return false;
-      }
-    }
-
-    // --- PROMO CODE ---
-    window.redeemPromoCode = async function() {
-      playAudio('tap');
-      if (!currentAuthUser) return;
-      const code = document.getElementById('inputPromoCode').value.trim().toUpperCase();
-      if (!code) {
-        displayToast('Please enter a promo code.');
-        return;
-      }
-
-      const redSnap = await get(ref(db, `promo_code_redemptions/${code}_${currentAuthUser.uid}`));
-      if (redSnap.exists()) {
-        displayToast('You already redeemed this promo code!');
-        return;
-      }
-
-      const promoSnap = await get(ref(db, `promo_codes/${code}`));
-      if (!promoSnap.exists() || promoSnap.val().status !== 'active') {
-        displayToast('Invalid or expired promo code.');
-        return;
-      }
-
-      const reward = parseInt(promoSnap.val().rewardCoins || 25, 10);
-      await set(ref(db, `promo_code_redemptions/${code}_${currentAuthUser.uid}`), {
-        uid: currentAuthUser.uid,
-        code: code,
-        reward: reward,
-        timestamp: Date.now()
-      });
-
-      await creditUserCoins(reward, `Promo Code: ${code}`);
-      document.getElementById('inputPromoCode').value = '';
-      playAudio('win');
-      displayToast(`+${reward} Coins unlocked via promo code.`);
-    };
-
-    function showPopupBanner(b) {
-      document.getElementById('popupBannerTitle').innerText = b.title || 'Announcement';
-      document.getElementById('popupBannerDesc').innerText = b.description || '';
-      currentPopupTarget = b.destinationUrl || null;
-      if (b.imageUrl) {
-        const img = document.getElementById('popupBannerImg');
-        img.src = b.imageUrl;
-        img.style.display = 'block';
-      }
-      document.getElementById('popupBannerModal').style.display = 'grid';
-    }
-    window.closePopupBanner = () => document.getElementById('popupBannerModal').style.display = 'none';
 
     function listenWallet(uid) {
       onValue(ref(db, `wallets/${uid}`), (snap) => {
-        if (snap.exists()) {
-          const data = snap.val();
-          currentUserWallet = {
-            coins: parseInt(data.coins || 0, 10),
-            tasksDone: parseInt(data.tasksDone || 0, 10)
-          };
-        } else {
-          currentUserWallet = { coins: 0, tasksDone: 0 };
-        }
+        currentUserWallet = snap.exists() ? snap.val() : { coins: 0, tasksDone: 0 };
         updateDisplays();
       });
     }
@@ -3187,432 +1362,173 @@
 
       document.getElementById('headerFiatRate').innerText = `= ${appSettings.fiatCurrencySymbol || '$'}${fiat}`;
       document.getElementById('walletCoinsTotal').innerText = coins.toLocaleString();
-      document.getElementById('walletFiatTotal').innerText = `${appSettings.fiatCurrencySymbol || '$'}${fiat}`;
-      document.getElementById('profileStatTokens').innerText = coins.toLocaleString();
-      document.getElementById('profileStatTasksDone').innerText = currentUserWallet.tasksDone || 0;
+      document.getElementById('walletFiatTotal').innerText = `≈ ${appSettings.fiatCurrencySymbol || '$'}${fiat}`;
     }
 
     async function creditUserCoins(amount, sourceTitle) {
       if (!currentAuthUser) return;
-      await creditUserCoinsDirect(currentAuthUser.uid, amount, sourceTitle);
-      playAudio('coin');
-      displayToast(`+${amount} Coins added to your balance!`);
-    }
-
-    async function creditUserCoinsDirect(targetUid, amount, sourceTitle) {
       const numAmount = parseInt(amount, 10);
-      if (isNaN(numAmount) || numAmount <= 0) return;
-
-      const walletRef = ref(db, `wallets/${targetUid}`);
-      try {
-        await runTransaction(walletRef, (currentData) => {
-          if (!currentData) {
-            return { coins: numAmount, tasksDone: 0, updatedAt: Date.now() };
-          }
-          return {
-            ...currentData,
-            coins: parseInt(currentData.coins || 0, 10) + numAmount,
-            updatedAt: Date.now()
-          };
-        });
-
-        await push(ref(db, 'coin_transactions'), {
-          uid: targetUid,
-          amount: numAmount,
-          type: 'credit',
-          source: sourceTitle || 'reward',
-          timestamp: Date.now()
-        });
-      } catch (err) {
-        console.error("Coin credit failure:", err);
-      }
-    }
-
-    window.openClickAndEarnSection = function() {
-      switchNav('earn');
-      filterTaskCategory('click', document.getElementById('tabFilterClick'));
-    };
-
-    window.openFollowAndEarnSection = function() {
-      switchNav('earn');
-      filterTaskCategory('follow', document.getElementById('tabFilterFollow'));
-    };
-
-    // --- REALTIME TASKS & PLATFORM APP LOGOS RENDERING ---
-    function getPlatformIconConfig(platform, type) {
-      const p = (platform || '').toLowerCase();
-      const t = (type || '').toLowerCase();
-
-      if (p === 'youtube') return { brandClass: 'brand-youtube', icon: '<i class="fa-brands fa-youtube"></i>', name: 'YouTube' };
-      if (p === 'instagram') return { brandClass: 'brand-instagram', icon: '<i class="fa-brands fa-instagram"></i>', name: 'Instagram' };
-      if (p === 'telegram') return { brandClass: 'brand-telegram', icon: '<i class="fa-brands fa-telegram"></i>', name: 'Telegram' };
-      if (p === 'tiktok') return { brandClass: 'brand-tiktok', icon: '<i class="fa-brands fa-tiktok"></i>', name: 'TikTok' };
-      if (p === 'x' || p === 'twitter') return { brandClass: 'brand-x', icon: '<i class="fa-brands fa-x-twitter"></i>', name: 'X / Twitter' };
-      if (p === 'facebook') return { brandClass: 'brand-facebook', icon: '<i class="fa-brands fa-facebook"></i>', name: 'Facebook' };
-      if (p === 'discord') return { brandClass: 'brand-discord', icon: '<i class="fa-brands fa-discord"></i>', name: 'Discord' };
-      if (t === 'click' || t === 'direct_ad') return { brandClass: 'brand-ad', icon: '<i class="fa-solid fa-bolt"></i>', name: 'Direct Ad' };
-      return { brandClass: '', icon: '<i class="fa-solid fa-arrow-pointer"></i>', name: 'Mission' };
-    }
-
-    function loadRealtimeTasks() {
-      if (!currentAuthUser) return;
-
-      onValue(ref(db, `user_completed_tasks/${currentAuthUser.uid}`), (completedSnap) => {
-        const completedMap = completedSnap.exists() ? completedSnap.val() : {};
-
-        onValue(ref(db, 'platform_campaigns'), (snap) => {
-          const homeFeed = document.getElementById('homeFeaturedFeed');
-          const earnFeed = document.getElementById('allTasksListingFeed');
-          homeFeed.innerHTML = '';
-          earnFeed.innerHTML = '';
-
-          if (snap.exists()) {
-            let activeCount = 0;
-            Object.entries(snap.val()).forEach(([id, t]) => {
-              const status = (t.status || 'active').toLowerCase();
-              if (status !== 'approved' && status !== 'active') return;
-
-              const clicksTarget = parseInt(t.clicksTarget || 0, 10);
-              const clicksReceived = parseInt(t.clicksReceived || 0, 10);
-              if (clicksTarget > 0 && clicksReceived >= clicksTarget) return;
-
-              if (completedMap[id]) return;
-
-              activeCount++;
-              const category = (t.type || 'click').toLowerCase();
-              const pConfig = getPlatformIconConfig(t.platform, category);
-
-              const row = document.createElement('div');
-              row.className = `task-row task-cat-${category}`;
-              row.id = `task_card_${id}`;
-              row.onclick = () => openTaskDetailsModal(id, t);
-
-              let iconElement = pConfig.icon;
-              const taskImg = t.imageUrl || t.logoUrl || t.iconUrl || t.channelIcon || "";
-              if (taskImg) {
-                iconElement = `<img src="${taskImg}" onerror="this.onerror=null;this.parentElement.innerHTML='${pConfig.icon}';" alt="icon" />`;
-              }
-
-              const spotsLeft = clicksTarget > 0 ? (clicksTarget - clicksReceived) : 'Unlimited';
-              const isOwner = t.uid === currentAuthUser.uid;
-
-              row.innerHTML = `
-                <div class="task-icon-box ${pConfig.brandClass}">${iconElement}</div>
-                <div class="task-info">
-                  <div class="task-title">
-                    ${t.title || t.channelName || 'Sponsored Mission'}
-                    ${isOwner ? '<span style="font-size:0.65rem; background:var(--gold-soft); color:var(--gold); padding:2px 6px; border-radius:6px; margin-left:6px;">Your Campaign</span>' : ''}
-                  </div>
-                  <div class="task-desc">${t.description || (category === 'follow' ? 'Follow official channel in app' : 'Open destination for 5s & earn')}</div>
-                  <div class="task-progress-mini"><i class="fa-solid fa-users"></i> ${spotsLeft} spots remaining</div>
-                </div>
-                <div class="task-reward-box">
-                  <div class="task-reward-tag">+${t.rewardCoins || 10} Coins</div>
-                  <button class="task-btn-action">${category === 'follow' ? 'OPEN' : 'VISIT'}</button>
-                </div>
-              `;
-
-              earnFeed.appendChild(row);
-              if (homeFeed.children.length < 3) {
-                homeFeed.appendChild(row.cloneNode(true));
-              }
-            });
-
-            if (activeCount === 0) {
-              earnFeed.innerHTML = `<div style="text-align:center; padding:30px; color:var(--text-muted); font-size:0.85rem;"><i class="fa-solid fa-check-circle" style="font-size:1.8rem; color:var(--cyan-primary); display:block; margin-bottom:8px;"></i>All available missions completed! Check back soon.</div>`;
-              homeFeed.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-muted); font-size:0.85rem;">No featured tasks right now.</div>`;
-            }
-          } else {
-            homeFeed.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-muted); font-size:0.85rem;">No featured tasks right now.</div>`;
-            earnFeed.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-muted); font-size:0.85rem;">No tasks found in this section.</div>`;
-          }
-        });
+      await runTransaction(ref(db, `wallets/${currentAuthUser.uid}`), (curr) => {
+        if (!curr) return { coins: numAmount, tasksDone: 0 };
+        return { ...curr, coins: parseInt(curr.coins || 0, 10) + numAmount };
       });
+      await push(ref(db, 'coin_transactions'), {
+        uid: currentAuthUser.uid,
+        amount: numAmount,
+        type: 'credit',
+        source: sourceTitle,
+        timestamp: Date.now()
+      });
+      playAudio('coin');
+      displayToast(`+${numAmount} Coins credited!`);
+    }
 
-      // Render Payout Gateways
+    // --- PAYOUT GATEWAYS RENDERING (FIXED IMAGE / LOGO HANDLING) ---
+    function loadPayoutGateways() {
       onValue(ref(db, 'withdrawal_methods'), (snap) => {
-        const container = document.getElementById('payoutCategoriesContainer');
-        container.innerHTML = '';
-
-        let categoriesToRender = defaultPayoutCategories;
-
+        const wrap = document.getElementById('walletPayoutMethodsList');
+        wrap.innerHTML = '';
         if (snap.exists()) {
-          const remoteMethods = snap.val();
-          const grouped = {};
-
-          Object.entries(remoteMethods).forEach(([mId, m]) => {
-            const secName = m.category || (m.methodName ? `${m.methodName} Payout` : "Withdrawal Options");
-            if (!grouped[secName]) {
-              grouped[secName] = {
-                sectionTitle: secName,
-                cards: []
-              };
-            }
-            grouped[secName].cards.push({
-              id: mId,
-              label: m.label || `$${(m.requiredCoins / (appSettings.conversionRate || 1000) * 0.02).toFixed(1)}`,
-              coins: m.requiredCoins || 1000,
-              isNew: !!m.isNew,
-              logoUrl: m.logoUrl || m.iconUrl || m.imageUrl || "",
-              methodName: m.methodName || "Payout"
-            });
-          });
-
-          categoriesToRender = Object.values(grouped);
-        }
-
-        categoriesToRender.forEach(cat => {
-          const sectionEl = document.createElement('div');
-          sectionEl.className = 'payout-category-section';
-
-          const titleEl = document.createElement('h3');
-          titleEl.className = 'payout-section-title';
-          titleEl.innerText = cat.sectionTitle;
-          sectionEl.appendChild(titleEl);
-
-          const gridEl = document.createElement('div');
-          gridEl.className = 'payout-cards-grid';
-
-          cat.cards.forEach(card => {
-            const cardEl = document.createElement('div');
-            cardEl.className = 'payout-tile-card';
-            cardEl.id = `card_${card.id}`;
-
-            const newBadgeHtml = card.isNew ? `<span class="payout-badge-new">NEW</span>` : '';
-
-            let logoHtml = '';
-            if (card.logoUrl) {
-              logoHtml = `<img src="${card.logoUrl}" alt="${card.methodName}" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\\'fa-solid fa-money-bill-transfer\\' style=\\'font-size:2rem; color:var(--cyan-dark);\\'></i>';" />`;
-            } else {
-              logoHtml = `<i class="fa-solid fa-money-bill-transfer" style="font-size:2.2rem; color:var(--cyan-dark);"></i>`;
-            }
-
-            cardEl.innerHTML = `
-              ${newBadgeHtml}
-              <div class="payout-radio-circle"></div>
-              <div class="payout-logo-center-wrap">
-                ${logoHtml}
+          Object.entries(snap.val()).forEach(([id, m]) => {
+            const card = document.createElement('div');
+            card.className = 'gateway-card';
+            const logoSrc = m.logoUrl || 'https://cdn-icons-png.flaticon.com/512/893/893081.png';
+            card.innerHTML = `
+              <div style="display:flex; align-items:center; gap:12px;">
+                <div class="gateway-logo-wrap">
+                  <img src="${logoSrc}" alt="${m.methodName}" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/893/893081.png';" />
+                </div>
+                <div>
+                  <strong style="font-size:0.95rem; color:var(--text-dark);">${m.methodName}</strong>
+                  <div style="font-size:0.75rem; color:var(--cyan-dark); font-weight:700;">Rate: ${Number(m.requiredCoins).toLocaleString()} Coins = ${m.rewardValue || m.exchangeRateDesc || 'Reward'}</div>
+                </div>
               </div>
-              <div class="payout-denom-box">
-                <div class="payout-denom-val">${card.label}</div>
-                <div class="payout-denom-coins">${card.coins.toLocaleString()} Coins</div>
-              </div>
+              <button class="btn-cyan" style="width:auto; padding:8px 18px; font-size:0.8rem;" onclick="requestPayout('${id}', '${m.methodName}', ${m.requiredCoins}, '${m.inputPrompt || 'Enter account details:'}')">
+                Redeem
+              </button>
             `;
-
-            cardEl.onclick = () => selectPayoutCard(cardEl, cat.sectionTitle, card);
-            gridEl.appendChild(cardEl);
+            wrap.appendChild(card);
           });
-
-          sectionEl.appendChild(gridEl);
-          container.appendChild(sectionEl);
-        });
+        } else {
+          wrap.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-muted);">No payout options available right now.</div>`;
+        }
       });
     }
 
-    let activeSelectedPayout = null;
-
-    window.selectPayoutCard = function(cardEl, categoryTitle, cardData) {
+    window.requestPayout = async function(id, name, minCoins, promptMsg) {
       playAudio('tap');
-      document.querySelectorAll('.payout-tile-card').forEach(c => c.classList.remove('selected'));
-      cardEl.classList.add('selected');
-
-      activeSelectedPayout = { ...cardData, categoryTitle: categoryTitle };
-
-      document.getElementById('redeemModalTitle').innerText = categoryTitle;
-      document.getElementById('redeemModalValue').innerText = cardData.label;
-      document.getElementById('redeemModalCoinsRequired').innerText = `Requires: ${cardData.coins.toLocaleString()} Coins`;
-      
-      const lbl = document.getElementById('lblPayoutAddress');
-      const input = document.getElementById('inputPayoutAddress');
-      lbl.innerText = `Enter receiving account for ${cardData.methodName}`;
-      input.placeholder = 'Account ID, Email or Phone Number';
-      input.value = '';
-
-      openModal('redeemConfirmModal');
-    };
-
-    document.getElementById('submitPayoutForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      playAudio('tap');
-      if (!currentAuthUser || !activeSelectedPayout) return;
-
-      const minCoins = activeSelectedPayout.coins;
-      const userCoins = currentUserWallet.coins || 0;
-
-      if (userCoins < minCoins) {
-        displayToast(`Insufficient balance! You need ${minCoins} Coins.`);
+      if (!currentAuthUser) return;
+      if ((currentUserWallet.coins || 0) < minCoins) {
+        displayToast(`Insufficient balance! Requires ${minCoins} Coins`);
         return;
       }
+      const details = prompt(promptMsg);
+      if (!details || !details.trim()) return;
 
-      const address = document.getElementById('inputPayoutAddress').value.trim();
-      if (!address) {
-        displayToast('Please enter your payout details.');
-        return;
-      }
-
-      const walletRef = ref(db, `wallets/${currentAuthUser.uid}`);
-      const tx = await runTransaction(walletRef, (current) => {
-        if (!current || parseInt(current.coins || 0, 10) < minCoins) {
-          return;
-        }
-        return {
-          ...current,
-          coins: parseInt(current.coins || 0, 10) - minCoins,
-          updatedAt: Date.now()
-        };
-      });
-
-      if (!tx.committed) {
-        displayToast('Insufficient balance for redemption.');
-        return;
-      }
-
+      await runTransaction(ref(db, `wallets/${currentAuthUser.uid}/coins`), c => (c >= minCoins ? c - minCoins : undefined));
       await push(ref(db, 'withdrawals'), {
         uid: currentAuthUser.uid,
         email: currentAuthUser.email,
-        methodName: activeSelectedPayout.methodName,
-        category: activeSelectedPayout.categoryTitle,
-        payoutAmount: activeSelectedPayout.label,
-        payoutDetails: address,
+        methodName: name,
+        payoutDetails: details.trim(),
         coinsDeducted: minCoins,
         status: 'pending',
         timestamp: Date.now()
       });
+      displayToast("Payout request placed successfully!");
+    };
 
-      closeModal('redeemConfirmModal');
-      playAudio('win');
-      displayToast(`Redemption placed for ${activeSelectedPayout.label}! Processing shortly.`);
-    });
-
-    // --- MISSION DETAIL MODAL ---
-    window.openTaskDetailsModal = function(taskId, task) {
+    // --- COPY REFERRAL CODE (FIXED CLIPBOARD) ---
+    window.copyReferralCode = function() {
       playAudio('tap');
-      activeTaskPayload = { id: taskId, ...task };
-      const category = (task.type || 'click').toLowerCase();
-      const pConfig = getPlatformIconConfig(task.platform, category);
-
-      document.getElementById('modalTaskTitle').innerText = task.title || task.channelName || 'Sponsored Mission';
-      document.getElementById('modalTaskReward').innerText = `+${task.rewardCoins || 10} Coins`;
-      document.getElementById('modalTaskBadgeCategory').innerText = (task.platform || 'MISSION').toUpperCase();
-      
-      const iconBox = document.getElementById('modalTaskBrandIconBox');
-      iconBox.className = `task-icon-box ${pConfig.brandClass}`;
-      iconBox.innerHTML = pConfig.icon;
-
-      document.getElementById('btnModalTaskActionText').innerText = 'Start Mission';
-      document.getElementById('modalTaskInstructions').innerText = task.instructions || 'Click below to visit the destination link. Stay on the site for 5 seconds to claim your coins.';
-
-      openModal('taskDetailModal');
-    };
-
-    window.filterTaskCategory = function(cat, pillEl) {
-      playAudio('tap');
-      document.querySelectorAll('.task-tab-pill').forEach(p => p.classList.remove('active'));
-      if (pillEl) pillEl.classList.add('active');
-
-      const rows = document.querySelectorAll('#allTasksListingFeed .task-row');
-      rows.forEach(r => {
-        if (cat === 'all' || r.classList.contains(`task-cat-${cat}`)) {
-          r.style.display = 'flex';
-        } else {
-          r.style.display = 'none';
-        }
-      });
-    };
-
-    const platformTemplates = {
-      'YouTube': { label: 'YouTube Channel Link', example: 'https://youtube.com/@channel' },
-      'Telegram': { label: 'Telegram Channel / Group Link', example: 'https://t.me/yourchannel' },
-      'Instagram': { label: 'Instagram Profile URL', example: 'https://instagram.com/yourprofile' },
-      'TikTok': { label: 'TikTok Account Link', example: 'https://tiktok.com/@youraccount' },
-      'X': { label: 'X (Twitter) Profile Link', example: 'https://x.com/yourusername' },
-      'Discord': { label: 'Discord Server Invite URL', example: 'https://discord.gg/yourinvite' },
-      'Facebook': { label: 'Facebook Page / Group URL', example: 'https://facebook.com/yourpage' }
-    };
-
-    window.handlePlatformSelectionChange = function() {
-      const selected = document.getElementById('promoteFormPlatform').value;
-      const template = platformTemplates[selected] || { label: 'Profile / Target Link', example: 'https://example.com/profile' };
-
-      document.getElementById('lblUrlField').innerText = `${template.label} (HTTPS)`;
-      document.getElementById('lblExampleUrl').innerText = template.example;
-      document.getElementById('promoteFormChannelLink').placeholder = template.example;
-    };
-
-    window.applyUrlTemplate = function() {
-      playAudio('tap');
-      const selected = document.getElementById('promoteFormPlatform').value;
-      const template = platformTemplates[selected];
-      if (template) {
-        document.getElementById('promoteFormChannelLink').value = template.example;
+      const code = document.getElementById('refCardCodeText').innerText;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(() => displayToast("Referral code copied!"));
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = code;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        displayToast("Referral code copied!");
       }
     };
 
-    window.calculateCampaignTotalCost = function() {
-      const clicks = parseInt(document.getElementById('promoteFormClicks').value, 10) || 0;
-      const reward = parseInt(document.getElementById('promoteFormReward').value, 10) || 0;
-      const total = clicks * reward;
-
-      document.getElementById('txtTotalCoinsRequired').innerText = `${total} Coins`;
-      document.getElementById('costCalculationBox').style.display = 'block';
+    window.openShareSheetModal = function() {
+      const code = document.getElementById('refCardCodeText').innerText;
+      const shareUrl = `https://cashhub-sepia.vercel.app?ref=${code}`;
+      const msg = encodeURIComponent(`Join CASH HUB! Earn rewards: ${shareUrl}`);
+      window.open(`https://api.whatsapp.com/send?text=${msg}`, '_blank');
     };
 
-    document.getElementById('createCampaignForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
+    // --- 7-DAY STREAK CLAIM ---
+    async function render7DaysStreakStatus() {
+      if (!currentAuthUser) return;
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const snap = await get(ref(db, `daily_checkins/${currentAuthUser.uid}`));
+      let currentStreakDay = 1;
+      let alreadyClaimed = false;
+
+      if (snap.exists()) {
+        const d = snap.val();
+        if (d.lastDate === todayStr) {
+          alreadyClaimed = true;
+          currentStreakDay = d.streakCount || 1;
+        } else {
+          const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+          if (d.lastDate === yesterday) {
+            currentStreakDay = ((d.streakCount || 0) % 7) + 1;
+          } else {
+            currentStreakDay = 1;
+          }
+        }
+      }
+
+      document.getElementById('streakCurrentCountLabel').innerText = `Day ${currentStreakDay} of 7`;
+
+      for (let i = 1; i <= 7; i++) {
+        const card = document.getElementById(`dayBox${i}`);
+        if (!card) continue;
+        card.classList.remove('active-day', 'claimed');
+        if (i < currentStreakDay || (i === currentStreakDay && alreadyClaimed)) card.classList.add('claimed');
+        else if (i === currentStreakDay && !alreadyClaimed) card.classList.add('active-day');
+      }
+
+      const btn = document.getElementById('btnClaimStreak');
+      if (alreadyClaimed) {
+        btn.innerText = 'CLAIMED TODAY';
+        btn.disabled = true;
+      } else {
+        btn.innerHTML = `<i class="fa-solid fa-fire"></i> CLAIM DAY ${currentStreakDay} (+${streakRewards7Days[currentStreakDay - 1]} COINS)`;
+        btn.disabled = false;
+      }
+    }
+
+    window.claimDailyStreakReward = async function() {
       playAudio('tap');
       if (!currentAuthUser) return;
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const streakRef = ref(db, `daily_checkins/${currentAuthUser.uid}`);
+      const snap = await get(streakRef);
 
-      const platform = document.getElementById('promoteFormPlatform').value;
-      const channelName = document.getElementById('promoteFormChannelName').value.trim();
-      const channelLink = document.getElementById('promoteFormChannelLink').value.trim();
-      const clicks = parseInt(document.getElementById('promoteFormClicks').value, 10);
-      const reward = parseInt(document.getElementById('promoteFormReward').value, 10);
-      const totalCost = clicks * reward;
-
-      if ((currentUserWallet.coins || 0) < totalCost) {
-        displayToast('Insufficient coin balance!');
-        return;
+      let currentStreakDay = 1;
+      if (snap.exists()) {
+        const d = snap.val();
+        if (d.lastDate === todayStr) return;
+        const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+        if (d.lastDate === yesterday) currentStreakDay = ((d.streakCount || 0) % 7) + 1;
       }
 
-      const walletRef = ref(db, `wallets/${currentAuthUser.uid}`);
-      const tx = await runTransaction(walletRef, (current) => {
-        if (!current || parseInt(current.coins || 0, 10) < totalCost) {
-          return;
-        }
-        return {
-          ...current,
-          coins: parseInt(current.coins || 0, 10) - totalCost,
-          updatedAt: Date.now()
-        };
-      });
+      const reward = streakRewards7Days[currentStreakDay - 1];
+      await set(streakRef, { lastDate: todayStr, streakCount: currentStreakDay });
+      await creditUserCoins(reward, `Day ${currentStreakDay} Streak`);
+      await render7DaysStreakStatus();
 
-      if (!tx.committed) {
-        displayToast('Insufficient balance for campaign creation.');
-        return;
-      }
+      if (appSettings.directLinkAdUrl) window.open(appSettings.directLinkAdUrl, '_blank');
+    };
 
-      await push(ref(db, 'platform_campaigns'), {
-        uid: currentAuthUser.uid,
-        platform: platform,
-        title: `Follow ${channelName}`,
-        channelName: channelName,
-        promotionalLink: channelLink,
-        clicksTarget: clicks,
-        clicksReceived: 0,
-        rewardCoins: reward,
-        type: 'follow',
-        status: 'approved',
-        createdAt: Date.now()
-      });
-
-      playAudio('win');
-      displayToast('Campaign published successfully!');
-      document.getElementById('createCampaignForm').reset();
-      document.getElementById('costCalculationBox').style.display = 'none';
-      switchNav('earn');
-    });
-
-    // --- LUCKY WHEEL ENGINE WITH 3-HR COOLDOWN ---
+    // --- LUCKY WHEEL (3-HOUR COOLDOWN ADDED) ---
     const wheelSegments = [
       { text: "1 COIN", val: 1, color: "#00b4d8" },
       { text: "15 COINS", val: 15, color: "#f59e0b" },
@@ -3631,10 +1547,6 @@
         displayToast(`Lucky Spin available in ${formatTimeMs(diff)}`);
         return;
       }
-      openSpinModal();
-    };
-
-    window.openSpinModal = function() {
       openModal('spinModal');
       renderWheel();
     };
@@ -3645,26 +1557,16 @@
       const ctx = canvas.getContext('2d');
       const total = wheelSegments.length;
       const arc = (2 * Math.PI) / total;
-      const centerX = 125;
-      const centerY = 125;
-      const radius = 120;
-
       ctx.clearRect(0, 0, 250, 250);
-
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-      ctx.fillStyle = '#0f172a';
-      ctx.fill();
 
       for (let i = 0; i < total; i++) {
         const angle = wheelAngle + i * arc;
         ctx.beginPath();
         ctx.fillStyle = wheelSegments[i].color;
-        ctx.moveTo(centerX, centerY);
-        ctx.arc(centerX, centerY, radius - 4, angle, angle + arc);
-        ctx.lineTo(centerX, centerY);
+        ctx.moveTo(125, 125);
+        ctx.arc(125, 125, 116, angle, angle + arc);
+        ctx.lineTo(125, 125);
         ctx.fill();
-
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 1.5;
         ctx.stroke();
@@ -3672,88 +1574,50 @@
         ctx.save();
         ctx.fillStyle = "#ffffff";
         ctx.font = "bold 11px Plus Jakarta Sans, sans-serif";
-        ctx.translate(centerX, centerY);
+        ctx.translate(125, 125);
         ctx.rotate(angle + arc / 2);
         ctx.textAlign = "right";
-        ctx.fillText(wheelSegments[i].text, radius - 18, 4);
+        ctx.fillText(wheelSegments[i].text, 102, 4);
         ctx.restore();
       }
-
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, 24, 0, 2 * Math.PI);
-      ctx.fillStyle = '#ffffff';
-      ctx.fill();
-      ctx.strokeStyle = '#00b4d8';
-      ctx.lineWidth = 3;
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, 8, 0, 2 * Math.PI);
-      ctx.fillStyle = '#00b4d8';
-      ctx.fill();
     }
 
     window.spinLuckyWheel = function() {
       if (isSpinning || !currentAuthUser) return;
-
-      const now = Date.now();
-      const diff = COOLDOWN_DURATION - (now - lastSpinTime);
-      if (diff > 0) {
-        displayToast(`Please wait ${formatTimeMs(diff)} before next spin.`);
-        return;
-      }
-
       isSpinning = true;
       playAudio('tap');
 
-      const pointer = document.getElementById('wheelPointerIndicator');
-      const randomSegmentIndex = Math.floor(Math.random() * wheelSegments.length);
+      const randIdx = Math.floor(Math.random() * wheelSegments.length);
       const arc = (2 * Math.PI) / wheelSegments.length;
-      const targetRotation = (360 * 5 * Math.PI / 180) + (randomSegmentIndex * arc);
-
+      const targetRotation = (360 * 5 * Math.PI / 180) + (randIdx * arc);
       let start = null;
-      let lastTickAngle = 0;
 
-      function animateWheel(timestamp) {
-        if (!start) start = timestamp;
-        let progress = (timestamp - start) / 3200;
+      function anim(ts) {
+        if (!start) start = ts;
+        let progress = (ts - start) / 3200;
         if (progress > 1) progress = 1;
-
         const ease = 1 - Math.pow(1 - progress, 3);
         wheelAngle = ease * targetRotation;
         renderWheel();
 
-        if (Math.abs(wheelAngle - lastTickAngle) > 0.4) {
-          playAudio('tick');
-          lastTickAngle = wheelAngle;
-          if (pointer) {
-            pointer.classList.add('vibe');
-            setTimeout(() => pointer.classList.remove('vibe'), 50);
-          }
-        }
-
-        if (progress < 1) {
-          requestAnimationFrame(animateWheel);
-        } else {
+        if (progress < 1) requestAnimationFrame(anim);
+        else {
           isSpinning = false;
-          const prize = wheelSegments[wheelSegments.length - 1 - (randomSegmentIndex % wheelSegments.length)];
+          const prize = wheelSegments[wheelSegments.length - 1 - (randIdx % wheelSegments.length)];
           closeModal('spinModal');
-          playAudio('win');
 
           lastSpinTime = Date.now();
-          update(ref(db, `user_activity/${currentAuthUser.uid}`), {
-            lastSpin: lastSpinTime
-          });
+          update(ref(db, `user_activity/${currentAuthUser.uid}`), { lastSpin: lastSpinTime });
 
-          creditUserCoins(prize.val, 'Lucky Wheel Prize');
+          creditUserCoins(prize.val, 'Lucky Wheel');
+          if (appSettings.directLinkAdUrl) window.open(appSettings.directLinkAdUrl, '_blank');
         }
       }
-      requestAnimationFrame(animateWheel);
+      requestAnimationFrame(anim);
     };
 
-    // --- SCRATCH CARD (1-50 COINS & 3-HOUR COOLDOWN) ---
+    // --- SCRATCH CARD (3-HR COOLDOWN) ---
     let currentScratchPrize = 25;
-
     window.handleScratchTrigger = function() {
       const now = Date.now();
       const diff = COOLDOWN_DURATION - (now - lastScratchTime);
@@ -3761,13 +1625,8 @@
         displayToast(`Scratch Card available in ${formatTimeMs(diff)}`);
         return;
       }
-      openScratchCardModal();
-    };
-
-    function openScratchCardModal() {
       openModal('scratchModal');
       document.getElementById('btnClaimScratch').style.display = 'none';
-
       currentScratchPrize = Math.floor(Math.random() * 50) + 1;
       document.getElementById('txtScratchPrize').innerText = `${currentScratchPrize} COINS`;
 
@@ -3786,42 +1645,30 @@
         const rect = canvas.getBoundingClientRect();
         const clientX = e.clientX || (e.touches && e.touches[0].clientX);
         const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-        const x = clientX - rect.left;
-        const y = clientY - rect.top;
-
         ctx.globalCompositeOperation = 'destination-out';
         ctx.beginPath();
-        ctx.arc(x, y, 16, 0, 2 * Math.PI);
+        ctx.arc(clientX - rect.left, clientY - rect.top, 16, 0, 2 * Math.PI);
         ctx.fill();
-
-        playAudio('scratch');
         document.getElementById('btnClaimScratch').style.display = 'block';
       }
-
       canvas.onmousedown = () => isScratching = true;
       canvas.onmouseup = () => isScratching = false;
       canvas.onmousemove = scratch;
       canvas.ontouchstart = () => isScratching = true;
       canvas.ontouchend = () => isScratching = false;
       canvas.ontouchmove = scratch;
-    }
+    };
 
     window.claimScratchPrize = async function() {
       closeModal('scratchModal');
-      playAudio('win');
-
       lastScratchTime = Date.now();
-      await update(ref(db, `user_activity/${currentAuthUser.uid}`), {
-        lastScratch: lastScratchTime
-      });
-
-      await creditUserCoins(currentScratchPrize, 'Scratch Card Win');
+      await update(ref(db, `user_activity/${currentAuthUser.uid}`), { lastScratch: lastScratchTime });
+      await creditUserCoins(currentScratchPrize, 'Scratch Card');
+      if (appSettings.directLinkAdUrl) window.open(appSettings.directLinkAdUrl, '_blank');
     };
 
-    // --- MATH QUIZ (1-50 COINS & 3-HOUR COOLDOWN) ---
+    // --- MATH QUIZ (3-HR COOLDOWN) ---
     let currentMathAnswer = 0;
-    let currentMathReward = 15;
-
     window.handleMathQuizTrigger = function() {
       const now = Date.now();
       const diff = COOLDOWN_DURATION - (now - lastMathQuizTime);
@@ -3829,151 +1676,189 @@
         displayToast(`Math Quiz available in ${formatTimeMs(diff)}`);
         return;
       }
-      openMathQuizModal();
-    };
-
-    function openMathQuizModal() {
       const num1 = Math.floor(Math.random() * 20) + 5;
       const num2 = Math.floor(Math.random() * 20) + 5;
       currentMathAnswer = num1 + num2;
-      currentMathReward = Math.floor(Math.random() * 50) + 1;
-
       document.getElementById('mathEquation').innerText = `${num1} + ${num2} = ?`;
       document.getElementById('mathAnswerInput').value = '';
       openModal('mathQuizModal');
-    }
+    };
 
     window.submitMathAnswer = async function() {
       playAudio('tap');
       const userAns = parseInt(document.getElementById('mathAnswerInput').value, 10);
       if (userAns === currentMathAnswer) {
         closeModal('mathQuizModal');
-        playAudio('win');
-
         lastMathQuizTime = Date.now();
-        await update(ref(db, `user_activity/${currentAuthUser.uid}`), {
-          lastMathQuiz: lastMathQuizTime
-        });
-
-        await creditUserCoins(currentMathReward, 'Math Quiz Reward');
+        await update(ref(db, `user_activity/${currentAuthUser.uid}`), { lastMathQuiz: lastMathQuizTime });
+        await creditUserCoins(15, 'Math Quiz');
+        if (appSettings.directLinkAdUrl) window.open(appSettings.directLinkAdUrl, '_blank');
       } else {
         displayToast('Incorrect answer! Try again.');
       }
     };
 
-    // --- SHARING SYSTEM ---
-    window.triggerPersonalShare = function() {
-      const code = document.getElementById('refCardCodeText').innerText;
-      const shareUrl = `${OFFICIAL_HOST}?ref=${code}`;
+    // --- IN-APP TASK BROWSER MISSION FLOW ---
+    function loadRealtimeTasks() {
+      if (!currentAuthUser) return;
+      onValue(ref(db, `user_completed_tasks/${currentAuthUser.uid}`), (compSnap) => {
+        const completed = compSnap.exists() ? compSnap.val() : {};
+        onValue(ref(db, 'platform_campaigns'), (snap) => {
+          const homeFeed = document.getElementById('homeFeaturedFeed');
+          const earnFeed = document.getElementById('allTasksListingFeed');
+          homeFeed.innerHTML = '';
+          earnFeed.innerHTML = '';
 
-      if (navigator.share) {
-        navigator.share({
-          title: appSettings.appName || 'Cash Hub',
-          text: `Join ${appSettings.appName || 'Cash Hub'}! Complete tasks and earn real cash. Use my referral link:`,
-          url: shareUrl
-        }).catch(() => openModal('referralShareModal'));
-      } else {
-        openModal('referralShareModal');
-      }
-    };
+          if (snap.exists()) {
+            Object.entries(snap.val()).forEach(([id, t]) => {
+              if (t.status !== 'approved' && t.status !== 'active') return;
+              if (t.uid === currentAuthUser.uid) return;
+              if (completed[id]) return; // HIDE IF ALREADY COMPLETED
 
-    window.shareViaNativeWeb = function() {
-      const code = document.getElementById('refCardCodeText').innerText;
-      const shareUrl = `${OFFICIAL_HOST}?ref=${code}`;
-      if (navigator.share) {
-        navigator.share({
-          title: appSettings.appName || 'Cash Hub',
-          text: `Join me on Cash Hub to earn coins:`,
-          url: shareUrl
+              const target = parseInt(t.clicksTarget || 0, 10);
+              const rec = parseInt(t.clicksReceived || 0, 10);
+              if (target > 0 && rec >= target) return;
+
+              const row = document.createElement('div');
+              row.className = `task-row task-cat-${t.type || 'click'}`;
+              row.id = `task_card_${id}`;
+              row.onclick = () => {
+                activeTaskPayload = { id, ...t };
+                document.getElementById('modalTaskTitle').innerText = t.title || t.channelName;
+                document.getElementById('modalTaskInstructions').innerText = t.instructions || 'Stay on page for 10 seconds to receive your coins.';
+                openModal('taskDetailModal');
+              };
+              row.innerHTML = `
+                <div class="task-icon"><i class="fa-solid fa-bolt"></i></div>
+                <div class="task-info">
+                  <div class="task-title">${t.title || t.channelName}</div>
+                  <div class="task-desc">${t.description || 'Stay engaged for 10 seconds'}</div>
+                </div>
+                <div class="task-reward-box"><div class="task-reward-tag">+${t.rewardCoins || 10} Coins</div></div>
+              `;
+              earnFeed.appendChild(row);
+              if (homeFeed.children.length < 3) homeFeed.appendChild(row.cloneNode(true));
+            });
+          }
         });
-      } else {
-        copyReferralLink();
-      }
-    };
-
-    window.shareOfficialLink = function(mode) {
-      playAudio('tap');
-      const officialLink = appSettings.adminShareLink || OFFICIAL_HOST;
-      if (mode === 'copy') {
-        navigator.clipboard.writeText(officialLink).then(() => displayToast('Official website link copied!'));
-      } else {
-        if (navigator.share) {
-          navigator.share({
-            title: appSettings.appName || 'Cash Hub Official',
-            text: `Explore ${appSettings.appName || 'Cash Hub'}:`,
-            url: officialLink
-          }).catch(() => {});
-        } else {
-          navigator.clipboard.writeText(officialLink).then(() => displayToast('Official link copied!'));
-        }
-      }
-    };
-
-    window.copyReferralCode = function() {
-      playAudio('tap');
-      const code = document.getElementById('refCardCodeText').innerText;
-      navigator.clipboard.writeText(code).then(() => displayToast('Referral code copied!'));
-    };
-
-    window.copyReferralLink = function() {
-      playAudio('tap');
-      const code = document.getElementById('refCardCodeText').innerText;
-      const link = `${OFFICIAL_HOST}?ref=${code}`;
-      navigator.clipboard.writeText(link).then(() => {
-        closeModal('referralShareModal');
-        closeModal('qrCodeModal');
-        displayToast('Referral link copied to clipboard!');
       });
+    }
+
+    let activeInAppTimer = null;
+    window.proceedTaskExecution = function() {
+      closeModal('taskDetailModal');
+      const targetUrl = activeTaskPayload.promotionalLink || 'https://google.com';
+      document.getElementById('inAppBrowserUrlLabel').innerText = targetUrl;
+      document.getElementById('inAppIframe').src = targetUrl;
+      document.getElementById('inAppBrowserModal').style.display = 'flex';
+
+      let count = 10;
+      const progressFill = document.getElementById('inAppProgressFill');
+      const timerCount = document.getElementById('inAppTimerCount');
+
+      if (activeInAppTimer) clearInterval(activeInAppTimer);
+      activeInAppTimer = setInterval(async () => {
+        count--;
+        progressFill.style.width = `${((10 - count) / 10) * 100}%`;
+        timerCount.innerText = `${count}s`;
+
+        if (count <= 0) {
+          clearInterval(activeInAppTimer);
+          const taskId = activeTaskPayload.id;
+          const reward = parseInt(activeTaskPayload.rewardCoins || 10, 10);
+
+          await runTransaction(ref(db, `platform_campaigns/${taskId}`), (curr) => {
+            if (!curr) return curr;
+            curr.clicksReceived = (curr.clicksReceived || 0) + 1;
+            if (curr.clicksTarget > 0 && curr.clicksReceived >= curr.clicksTarget) curr.status = 'completed';
+            return curr;
+          });
+
+          await set(ref(db, `user_completed_tasks/${currentAuthUser.uid}/${taskId}`), { completedAt: Date.now() });
+          await creditUserCoins(reward, 'Task Mission');
+
+          const el = document.getElementById(`task_card_${taskId}`);
+          if (el) el.remove();
+
+          document.getElementById('inAppBrowserModal').style.display = 'none';
+          document.getElementById('inAppIframe').src = 'about:blank';
+        }
+      }, 1000);
     };
 
-    // --- AUTHENTICATION HANDLERS ---
+    window.abortInAppMission = function() {
+      if (activeInAppTimer) clearInterval(activeInAppTimer);
+      document.getElementById('inAppBrowserModal').style.display = 'none';
+      document.getElementById('inAppIframe').src = 'about:blank';
+    };
+
+    // --- PROMOTE CAMPAIGN SUBMIT ---
+    document.getElementById('createCampaignForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const platform = document.getElementById('promoteFormPlatform').value;
+      const channel = document.getElementById('promoteFormChannelName').value.trim();
+      const url = document.getElementById('promoteFormChannelLink').value.trim();
+      const clicks = parseInt(document.getElementById('promoteFormClicks').value, 10);
+      const reward = parseInt(document.getElementById('promoteFormReward').value, 10);
+      const total = clicks * reward;
+
+      if ((currentUserWallet.coins || 0) < total) {
+        displayToast('Insufficient coin balance!');
+        return;
+      }
+
+      await runTransaction(ref(db, `wallets/${currentAuthUser.uid}/coins`), c => c - total);
+      await push(ref(db, 'platform_campaigns'), {
+        uid: currentAuthUser.uid,
+        platform: platform,
+        title: `Follow ${channel}`,
+        channelName: channel,
+        promotionalLink: url,
+        clicksTarget: clicks,
+        clicksReceived: 0,
+        rewardCoins: reward,
+        type: 'follow',
+        status: 'approved',
+        createdAt: Date.now()
+      });
+      displayToast('Campaign launched successfully!');
+      switchNav('earn');
+    });
+
+    // --- AUTHENTICATION ---
     document.getElementById('emailLoginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      playAudio('tap');
       const email = document.getElementById('authEmailInput').value.trim();
       const pass = document.getElementById('authPasswordInput').value.trim();
+      const refCode = document.getElementById('authReferralInput').value.trim();
+      if (refCode) localStorage.setItem('cashhub_ref', refCode.toUpperCase());
 
       try {
         await signInWithEmailAndPassword(auth, email, pass);
-        displayToast('Welcome back to Cash Hub!');
       } catch (err) {
         if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
-          try {
-            await createUserWithEmailAndPassword(auth, email, pass);
-            displayToast('Account created successfully!');
-          } catch (createErr) {
-            displayToast('Registration error: ' + createErr.message);
-          }
+          await createUserWithEmailAndPassword(auth, email, pass);
         } else {
-          displayToast('Auth error: ' + err.message);
+          displayToast(err.message);
         }
       }
     });
 
-    window.handleSignOut = async function() {
-      playAudio('tap');
-      await signOut(auth);
-      closeModal('profileViewModal');
-      displayToast('Signed out safely.');
-    };
+    window.handleSignOut = () => signOut(auth);
 
+    // Navigation & UI Helpers
     window.switchNav = function(view) {
       document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active-view'));
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-
-      const activeView = document.getElementById(`view-${view}`);
-      if (activeView) activeView.classList.add('active-view');
-
+      const active = document.getElementById(`view-${view}`);
+      if (active) active.classList.add('active-view');
       const tabs = { 'home':0, 'earn':1, 'referral':2, 'promote':3, 'wallet':4 };
-      const tabElements = document.querySelectorAll('.nav-tab');
-      if (tabElements[tabs[view]]) tabElements[tabs[view]].classList.add('active');
-
-      if (view === 'home') renderWheel();
+      document.querySelectorAll('.nav-tab')[tabs[view]].classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    window.openModal = function(id) { document.getElementById(id).style.display = 'grid'; };
-    window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
+    window.openModal = (id) => document.getElementById(id).style.display = 'grid';
+    window.closeModal = (id) => document.getElementById(id).style.display = 'none';
 
     window.displayToast = function(msg) {
       const host = document.getElementById('toast-host');
@@ -3981,10 +1866,7 @@
       toast.className = 'ios-toast';
       toast.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--cyan-primary);"></i> ${msg}`;
       host.appendChild(toast);
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => toast.remove(), 300);
-      }, 3500);
+      setTimeout(() => toast.remove(), 3000);
     };
   </script>
 </body>
